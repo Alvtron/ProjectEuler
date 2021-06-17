@@ -1,23 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 
-namespace ProjectEuler
+namespace ProjectEuler.Problems
 {
-    class Problem_0067 : IProblem<long>
+    public class Problem_0067 : Problem
     {
-        private int[][] Triangle { get; set; }
+        private static readonly string NumbersFilePath = Path.Combine(Environment.CurrentDirectory, @"resources\problem_0067_triangle.txt");
+        private static readonly string QuestionFilePath = Path.Combine(Environment.CurrentDirectory, @"resources\problem_0067_question.txt");
 
         public Problem_0067()
+            : base(67)
         {
-            Triangle = CreateTriangle();
         }
 
-        private int[][] CreateTriangle()
+        public override string Question => File.ReadAllText(QuestionFilePath);
+
+        public override Answer Answer => 7273;
+
+        public override bool IsSolved => true;
+
+        public override Answer Solve()
         {
-            var lines = System.IO.File.ReadAllLines(
-                @"C:\Users\thoma\source\repos\CodeChallenges\ProjectEuler\resources\problem_0067_triangle.txt");
+            var triangle = CreateTriangle();
+            return GetMaximumPathSum(triangle);
+        }
+
+        private static int[][] CreateTriangle()
+        {
+            var lines = File.ReadAllLines(NumbersFilePath);
 
             var triangle = new int[lines.Length][];
 
@@ -35,7 +45,7 @@ namespace ProjectEuler
             return triangle;
         }
 
-        private int GetMaximumPathSum(int[][] triangle)
+        private static int GetMaximumPathSum(int[][] triangle)
         {
             for (var i = triangle.GetUpperBound(0) - 1; i >= 0; i--)
             {
@@ -48,13 +58,6 @@ namespace ProjectEuler
             }
 
             return triangle[0][0];
-        }
-
-        public string Question { get; }
-
-        public long Answer()
-        {
-            return GetMaximumPathSum(Triangle);
         }
     }
 }

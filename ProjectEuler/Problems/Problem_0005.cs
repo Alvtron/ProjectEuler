@@ -1,26 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ProjectEuler
+namespace ProjectEuler.Problems
 {
-    class Problem_0005 : IProblem<long>
+    public class Problem_0005 : Problem
     {
-        private readonly int[] Numbers = Enumerable.Range(1, 20).ToArray();
-
-        public string Question
+        public Problem_0005()
+            : base(5)
         {
-            get => "2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.\n" +
-                "What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20 ? ";
         }
 
-        public long Answer()
+        public override string Question =>
+            "2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.\n" +
+            "What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20 ? ";
+
+        public override Answer Answer => 232792560L;
+
+        public override bool IsSolved => true;
+
+        public override Answer Solve()
         {
-            return SmallestNumberDivisbleBy(Numbers);
+            var numbers = Enumerable.Range(1, 20).ToArray();
+            return SmallestNumberDivisibleBy(numbers);
         }
 
-        private static long SmallestNumberDivisbleBy(params int[] numbers)
+        private static long SmallestNumberDivisibleBy(params int[] numbers)
         {
             // in-place sort by descending
             Array.Sort(numbers, (a, b) => b - a); 

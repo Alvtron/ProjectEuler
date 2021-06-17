@@ -1,31 +1,39 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Data;
-using ProjectEuler;
 using System.Diagnostics;
+using ProjectEuler.Problems;
 
-namespace CodeChallenges
+namespace ProjectEuler
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            RunProblem(new Problem_0702());
+            RunProblem(new Problem_0067());
         }
 
-        static void RunProblem(IProblem<long> problem)
+        public static void RunProblem(IProblem problem)
         {
-            Console.WriteLine();
-            Console.WriteLine($"Question: {problem.Question}{Environment.NewLine}");
+            Console.WriteLine($"Question {problem.Number}:");
+            Console.WriteLine($"{problem.Question}");
+
             var stopwatch = Stopwatch.StartNew();
-            var answer = problem.Answer();
+            var solvedAnswer = problem.Solve();
             stopwatch.Stop();
-            Console.WriteLine($"The answer is: {answer}");
-            Console.WriteLine($"Elapsed time: {stopwatch.Elapsed.TotalMilliseconds} ms");
-            Console.WriteLine();
+
+            Console.WriteLine("-----------------------------");
+            Console.Write($"The solved answer is {solvedAnswer}");
+
+            if (problem.IsSolved && solvedAnswer.Equals(problem.Answer))
+            {
+                Console.WriteLine(", which is correct.");
+            }
+            else
+            {
+                Console.WriteLine($", which is incorrect. The correct answer should be '{problem.Answer}'.");
+            }
+
+            Console.WriteLine($"Elapsed time was {stopwatch.Elapsed.TotalMilliseconds} ms.");
+            Console.WriteLine("-----------------------------");
         }
     }
 }

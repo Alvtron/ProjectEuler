@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectEuler
+namespace ProjectEuler.Library
 {
     internal struct Point
     {

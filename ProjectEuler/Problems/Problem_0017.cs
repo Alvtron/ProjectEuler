@@ -1,37 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Text;
 
-namespace ProjectEuler
+namespace ProjectEuler.Problems
 {
-    internal static class IntegerExtensions
+    internal class Problem_0017 : Problem
     {
-        public static int Length(this int number)
-        {
-            return (int)Math.Floor(Math.Log10(number) + 1);
-        }
-
-        public static int[] Digits(this int number, int numberBase = 10)
-        {
-            var digits = new int[number.Length()];
-            
-            for (var i = digits.GetUpperBound(0); i >= 0; i--)
-            {
-                digits[i] = number % numberBase;
-                number /= numberBase;
-            }
-
-            return digits;
-        }
-    }
-
-    internal class Problem_0017 : IProblem<long>
-    {
-        private const int LIMIT = 1000;
-
         private static readonly Dictionary<string, string> NumberDictionary = new Dictionary<string, string>()
         {
             ["0"] = "zero",
@@ -136,6 +110,25 @@ namespace ProjectEuler
             ["99"] = "ninety-nine"
         };
 
+        public Problem_0017()
+            : base(17)
+        {
+        }
+
+        public override string Question =>
+            "If the numbers 1 to 5 are written out in words: one, two, three, four, five, then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total."
+            + Environment.NewLine
+            + "If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words, how many letters would be used?";
+
+        public override Answer Answer => 21124;
+
+        public override bool IsSolved => true;
+
+        public override Answer Solve()
+        {
+            return CountNumberOfWordsForAllNumbers(1, 1000);
+        }
+
         private static string DigitsToString(string digits)
         {
             digits = digits.TrimStart('0');
@@ -189,18 +182,6 @@ namespace ProjectEuler
             }
 
             return count;
-        }
-
-        public string Question
-        {
-            get => "If the numbers 1 to 5 are written out in words: one, two, three, four, five, then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total."
-                + Environment.NewLine
-                + "If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words, how many letters would be used?";
-        }
-
-        public long Answer()
-        {
-            return CountNumberOfWordsForAllNumbers(1, 1000);
         }
     }
 }
