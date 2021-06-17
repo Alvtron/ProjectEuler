@@ -30,6 +30,9 @@
     <None Update="resources\problem_0011_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="resources\problem_0021_question.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="resources\problem_0019_question.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
