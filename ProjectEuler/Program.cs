@@ -8,7 +8,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            RunProblem(new Problem_0067());
+            RunProblem(new Problem_0022());
         }
 
         public static void RunProblem(IProblem problem)
@@ -23,7 +23,11 @@ namespace ProjectEuler
             Console.WriteLine("-----------------------------");
             Console.Write($"The solved answer is {solvedAnswer}");
 
-            if (problem.IsSolved && solvedAnswer.Equals(problem.Answer))
+            if (!problem.IsSolved)
+            {
+                Console.WriteLine(", which must be assessed.");
+            }
+            else if (solvedAnswer.Equals(problem.Answer))
             {
                 Console.WriteLine(", which is correct.");
             }
