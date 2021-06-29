@@ -22,20 +22,20 @@ namespace ProjectEuler.Problems
         {
             const int ROW_LENGTH = 50;
             const int MINIMUM_BLOCK_LENGTH = 3;
-            const int PADDING = 1;
+            const int MINIMUM_PADDING_LENGTH = 1;
 
-            return CountBlockCombinations(ROW_LENGTH, MINIMUM_BLOCK_LENGTH, PADDING);
+            return CountBlockCombinations(ROW_LENGTH, MINIMUM_BLOCK_LENGTH, MINIMUM_PADDING_LENGTH);
         }
 
-        private long CountBlockCombinations(int rowLength, int minimumFillLength, int minimumPaddingLength)
+        private long CountBlockCombinations(int rowLength, int minimumBlockLength, int minimumPaddingLength)
         {
-            var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(minimumFillLength, minimumPaddingLength, minimumPaddingLength - 1, rowLength - 1);
-            var countStartingWithFilled = this.CountBlockCombinationsFromBlock(minimumFillLength, minimumPaddingLength, minimumFillLength - 1, rowLength - 1);
+            var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, minimumPaddingLength - 1, rowLength - 1);
+            var countStartingWithFilled = this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, minimumBlockLength - 1, rowLength - 1);
             
             return countStartingWithEmpty + countStartingWithFilled;
         }
 
-        private long CountBlockCombinationsFromBlock(int minimumFillLength, int minimumPaddingLength, int index, int end)
+        private long CountBlockCombinationsFromBlock(int minimumBlockLength, int minimumPaddingLength, int index, int end)
         {
             if (index == end)
             {
@@ -43,18 +43,18 @@ namespace ProjectEuler.Problems
             }
 
             // extend current
-            var count = this.CountBlockCombinationsFromBlock(minimumFillLength, minimumPaddingLength, index + 1, end);
+            var count = this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, index + 1, end);
 
             if (index + minimumPaddingLength <= end)
             {
                 // add padding
-                count += this.CountBlockCombinationsFromPadding(minimumFillLength, minimumPaddingLength, index + minimumPaddingLength, end);
+                count += this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, index + minimumPaddingLength, end);
             }
 
             return count;
         }
 
-        private long CountBlockCombinationsFromPadding(int minimumFillLength, int minimumPaddingLength, int index, int end)
+        private long CountBlockCombinationsFromPadding(int minimumBlockLength, int minimumPaddingLength, int index, int end)
         {
             if (index == end)
             {
@@ -62,12 +62,12 @@ namespace ProjectEuler.Problems
             }
 
             // extend current
-            var count = this.CountBlockCombinationsFromPadding(minimumFillLength, minimumPaddingLength, index + 1, end);
+            var count = this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, index + 1, end);
 
-            if (index + minimumFillLength <= end)
+            if (index + minimumBlockLength <= end)
             {
                 // add block
-                count += this.CountBlockCombinationsFromBlock(minimumFillLength, minimumPaddingLength, index + minimumFillLength, end);
+                count += this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, index + minimumBlockLength, end);
             }
 
             return count;
