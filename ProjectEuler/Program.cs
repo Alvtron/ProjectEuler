@@ -8,7 +8,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            RunProblem(new Problem_0028());
+            RunProblem(new Problem_0114());
         }
 
         public static void RunProblem(IProblem problem)

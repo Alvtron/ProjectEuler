@@ -14,7 +14,6 @@ namespace ProjectEuler.Problems
         private static readonly string QuestionFilePath = Path.Combine(Environment.CurrentDirectory, @"resources\problem_0022_question.txt");
         private static readonly string NamesFilePath = Path.Combine(Environment.CurrentDirectory, @"resources\problem_0022_names.txt");
 
-
         public Problem_0022()
             : base(22)
         {
