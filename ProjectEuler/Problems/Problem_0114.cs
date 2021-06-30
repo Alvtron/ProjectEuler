@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ProjectEuler.Library;
 
 namespace ProjectEuler.Problems
 {
@@ -24,53 +25,88 @@ namespace ProjectEuler.Problems
             const int MINIMUM_BLOCK_LENGTH = 3;
             const int MINIMUM_PADDING_LENGTH = 1;
 
-            return CountBlockCombinations(ROW_LENGTH, MINIMUM_BLOCK_LENGTH, MINIMUM_PADDING_LENGTH);
+            return new Problem_114_Solver(ROW_LENGTH, MINIMUM_BLOCK_LENGTH, MINIMUM_PADDING_LENGTH).Solve();
         }
 
-        private long CountBlockCombinations(int rowLength, int minimumBlockLength, int minimumPaddingLength)
+        private class Problem_114_Solver : ISolver
         {
-            var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, minimumPaddingLength - 1, rowLength - 1);
-            var countStartingWithFilled = this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, minimumBlockLength - 1, rowLength - 1);
-            
-            return countStartingWithEmpty + countStartingWithFilled;
-        }
+            private readonly int rowLength;
+            private readonly int minimumBlockLength;
+            private readonly int minimumPaddingLength;
+            private readonly Cache<long> countFromBlockCache;
+            private readonly Cache<long> countFromEmptyCache;
 
-        private long CountBlockCombinationsFromBlock(int minimumBlockLength, int minimumPaddingLength, int index, int end)
-        {
-            if (index == end)
+            public Problem_114_Solver(int rowLength, int minimumBlockLength, int minimumPaddingLength)
             {
-                return 1L;
+                this.rowLength = rowLength;
+                this.minimumBlockLength = minimumBlockLength;
+                this.minimumPaddingLength = minimumPaddingLength;
+
+                this.countFromEmptyCache = new Cache<long>(rowLength, -1L);
+                this.countFromBlockCache = new Cache<long>(rowLength, -1L);
             }
 
-            // extend current
-            var count = this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, index + 1, end);
-
-            if (index + minimumPaddingLength <= end)
+            public Answer Solve()
             {
-                // add padding
-                count += this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, index + minimumPaddingLength, end);
+                var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(this.minimumPaddingLength - 1, rowLength - 1);
+                var countStartingWithFilled = this.CountBlockCombinationsFromBlock(this.minimumBlockLength - 1, rowLength - 1);
+
+                return countStartingWithEmpty + countStartingWithFilled;
             }
 
-            return count;
-        }
-
-        private long CountBlockCombinationsFromPadding(int minimumBlockLength, int minimumPaddingLength, int index, int end)
-        {
-            if (index == end)
+            private long CountBlockCombinationsFromBlock(int index, int end)
             {
-                return 1L;
+                if (index == end)
+                {
+                    this.countFromBlockCache[index] = 1L;
+                    return 1L;
+                }
+
+                if (this.countFromBlockCache.TryGetValue(index, out var cachedCount))
+                {
+                    return cachedCount;
+                }
+
+                // extend current
+                var count = this.CountBlockCombinationsFromBlock(index + 1, end);
+
+                if (index + this.minimumPaddingLength <= end)
+                {
+                    // add padding
+                    count += this.CountBlockCombinationsFromPadding(index + this.minimumPaddingLength, end);
+                }
+
+                this.countFromBlockCache[index] = count;
+
+                return count;
             }
 
-            // extend current
-            var count = this.CountBlockCombinationsFromPadding(minimumBlockLength, minimumPaddingLength, index + 1, end);
-
-            if (index + minimumBlockLength <= end)
+            private long CountBlockCombinationsFromPadding(int index, int end)
             {
-                // add block
-                count += this.CountBlockCombinationsFromBlock(minimumBlockLength, minimumPaddingLength, index + minimumBlockLength, end);
-            }
+                if (index == end)
+                {
+                    this.countFromEmptyCache[index] = 1L;
+                    return 1L;
+                }
 
-            return count;
+                if (this.countFromEmptyCache.TryGetValue(index, out var cachedCount))
+                {
+                    return cachedCount;
+                }
+
+                // extend current
+                var count = this.CountBlockCombinationsFromPadding(index + 1, end);
+
+                if (index + this.minimumBlockLength <= end)
+                {
+                    // add block
+                    count += this.CountBlockCombinationsFromBlock(index + this.minimumBlockLength, end);
+                }
+
+                this.countFromEmptyCache[index] = count;
+
+                return count;
+            }
         }
     }
 }
