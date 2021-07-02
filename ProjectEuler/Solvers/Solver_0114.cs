@@ -8,8 +8,8 @@ namespace ProjectEuler.Solvers
         private const int MINIMUM_BLOCK_LENGTH = 3;
         private const int MINIMUM_PADDING_LENGTH = 1;
 
-        private readonly Cache<long> countFromBlockCache = new(ROW_LENGTH, -1L);
-        private readonly Cache<long> countFromEmptyCache = new(ROW_LENGTH, -1L);
+        private readonly long?[] countFromBlockCache = new long?[ROW_LENGTH];
+        private readonly long?[] countFromEmptyCache = new long?[ROW_LENGTH];
 
         public Answer Solve()
         {
@@ -27,9 +27,9 @@ namespace ProjectEuler.Solvers
                 return 1L;
             }
 
-            if (this.countFromBlockCache.TryGetValue(index, out var cachedCount))
+            if (this.countFromBlockCache[index].HasValue)
             {
-                return cachedCount;
+                return this.countFromBlockCache[index].Value;
             }
 
             // extend current
@@ -54,9 +54,9 @@ namespace ProjectEuler.Solvers
                 return 1L;
             }
 
-            if (this.countFromEmptyCache.TryGetValue(index, out var cachedCount))
+            if (this.countFromEmptyCache[index].HasValue)
             {
-                return cachedCount;
+                return this.countFromEmptyCache[index].Value;
             }
 
             // extend current
