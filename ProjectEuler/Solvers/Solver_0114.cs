@@ -23,7 +23,6 @@ namespace ProjectEuler.Solvers
         {
             if (index == end)
             {
-                this.countFromBlockCache[index] = 1L;
                 return 1L;
             }
 
@@ -32,17 +31,14 @@ namespace ProjectEuler.Solvers
                 return this.countFromBlockCache[index].Value;
             }
 
-            // extend current
             var count = this.CountBlockCombinationsFromBlock(index + 1, end);
 
             if (index + MINIMUM_PADDING_LENGTH <= end)
             {
-                // add padding
                 count += this.CountBlockCombinationsFromPadding(index + MINIMUM_PADDING_LENGTH, end);
             }
 
             this.countFromBlockCache[index] = count;
-
             return count;
         }
 
@@ -50,7 +46,6 @@ namespace ProjectEuler.Solvers
         {
             if (index == end)
             {
-                this.countFromEmptyCache[index] = 1L;
                 return 1L;
             }
 
@@ -59,17 +54,14 @@ namespace ProjectEuler.Solvers
                 return this.countFromEmptyCache[index].Value;
             }
 
-            // extend current
             var count = this.CountBlockCombinationsFromPadding(index + 1, end);
 
             if (index + MINIMUM_BLOCK_LENGTH <= end)
             {
-                // add block
                 count += this.CountBlockCombinationsFromBlock(index + MINIMUM_BLOCK_LENGTH, end);
             }
 
             this.countFromEmptyCache[index] = count;
-
             return count;
         }
     }

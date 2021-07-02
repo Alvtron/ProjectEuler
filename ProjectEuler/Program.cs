@@ -9,25 +9,29 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            Solve(0115);
+            Solve(0114, 0115, 0116);
         }
 
-        private static void Solve(int number)
+        private static void Solve(params int[] numbers)
         {
             var answerSource = new AnswerSource();
             var problemSource = new ProblemSource();
             var solverService = new SolverService();
 
-            if (!solverService.ContainsSolver(number))
+            foreach (var number in numbers)
             {
-                return;
+                if (!solverService.ContainsSolver(number))
+                {
+                    Console.WriteLine($"Warning: No solver exists for problem {number}.");
+                    continue;
+                }
+
+                var answer = answerSource.GetAnswer(number);
+                var problem = problemSource.GetProblem(number);
+                var solver = solverService.GetSolver(number);
+
+                RunProblem(problem, solver, answer);
             }
-
-            var answer = answerSource.GetAnswer(number);
-            var problem = problemSource.GetProblem(number);
-            var solver = solverService.GetSolver(number);
-
-            RunProblem(problem, solver, answer);
         }
 
         private static void SolveAll()
@@ -42,6 +46,7 @@ namespace ProjectEuler
             {
                 if (!solverService.ContainsSolver(number))
                 {
+                    Console.WriteLine($"Warning: No solver exists for problem {number}.");
                     continue;
                 }
 
