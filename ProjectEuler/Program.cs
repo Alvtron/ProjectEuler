@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using ProjectEuler.Problems;
+using ProjectEuler.Library;
+using ProjectEuler.Services;
 
 namespace ProjectEuler
 {
@@ -8,32 +9,69 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            RunProblem(new Problem_0115());
+            Solve(0115);
         }
 
-        public static void RunProblem(IProblem problem)
+        private static void Solve(int number)
         {
-            Console.WriteLine($"Question {problem.Number}:");
-            Console.WriteLine($"{problem.Question}");
+            var answerSource = new AnswerSource();
+            var problemSource = new ProblemSource();
+            var solverService = new SolverService();
+
+            if (!solverService.ContainsSolver(number))
+            {
+                return;
+            }
+
+            var answer = answerSource.GetAnswer(number);
+            var problem = problemSource.GetProblem(number);
+            var solver = solverService.GetSolver(number);
+
+            RunProblem(problem, solver, answer);
+        }
+
+        private static void SolveAll()
+        {
+            const int NUMBER_OF_PROBLEMS = 760;
+
+            var answerSource = new AnswerSource();
+            var problemSource = new ProblemSource();
+            var solverService = new SolverService();
+
+            for (var number = 1; number <= NUMBER_OF_PROBLEMS; number++)
+            {
+                if (!solverService.ContainsSolver(number))
+                {
+                    continue;
+                }
+
+                var answer = answerSource.GetAnswer(number);
+                var problem = problemSource.GetProblem(number);
+                var solver = solverService.GetSolver(number);
+
+                RunProblem(problem, solver, answer);
+            }
+        }
+
+        public static void RunProblem(IProblem problem, ISolver solver, Answer answer)
+        {
+            Console.WriteLine($"Question {problem.Number}: {problem.Title}");
+            Console.WriteLine($"{problem.Description}");
 
             var stopwatch = Stopwatch.StartNew();
-            var solvedAnswer = problem.Solve();
+            var solvedAnswer = solver.Solve();
             stopwatch.Stop();
 
             Console.WriteLine("-----------------------------");
             Console.Write($"The solved answer is {solvedAnswer}");
 
-            if (!problem.IsSolved)
-            {
-                Console.WriteLine(", which must be assessed.");
-            }
-            else if (solvedAnswer.Equals(problem.Answer))
+            if (solvedAnswer.Equals(answer))
             {
                 Console.WriteLine(", which is correct.");
             }
             else
             {
-                Console.WriteLine($", which is incorrect. The correct answer should be '{problem.Answer}'.");
+                Console.WriteLine($", which is incorrect. The correct answer should be '{answer}'.");
             }
 
             Console.WriteLine($"Elapsed time was {stopwatch.Elapsed.TotalMilliseconds} ms.");

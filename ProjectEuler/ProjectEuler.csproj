@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <None Remove="Problem_0011_input.txt" />
-    <None Remove="resources\problem_0011_input.txt" />
+    <None Remove="Resources\problem_0011_input.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,61 +15,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="resources\problem_0013_numbers.txt">
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.34" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\problem_0013_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="resources\problem_0011_input.txt">
+    <Resource Include="Resources\problem_0011_input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="resources\problem_0011_question.txt">
+    <None Update="Resources\answers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0011_numbers.txt">
+    <None Update="Resources\problem_0008_number.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0022_names.txt">
+    <None Update="Resources\problem_0011_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0028_question.txt">
+    <None Update="Resources\problem_0022_names.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0022_question.txt">
+    <None Update="Resources\problem_0018_triangle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0021_question.txt">
+    <None Update="Resources\problem_0067_triangle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="resources\problem_0019_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0115_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0114_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0067_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0024_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0018_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0018_triangle.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0067_triangle.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0702_question.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\problem_0013_numbers.txt">
+    <None Update="Resources\problem_0013_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
