@@ -9,7 +9,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            Solve(0009);
+            Solve(0010);
         }
 
         private static void Solve(params int[] numbers)
