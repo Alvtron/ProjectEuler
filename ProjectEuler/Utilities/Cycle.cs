@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace ProjectEuler.Library
+namespace ProjectEuler.Utilities
 {
     public class Cycle<TElement> : IEnumerable<TElement>
     {

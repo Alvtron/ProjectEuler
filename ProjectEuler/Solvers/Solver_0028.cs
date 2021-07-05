@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using ProjectEuler.Library;
+using ProjectEuler.Utilities;
 
 namespace ProjectEuler.Solvers
 {

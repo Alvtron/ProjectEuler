@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ProjectEuler.Extensions;
 using ProjectEuler.Library;
 
 namespace ProjectEuler.Solvers
