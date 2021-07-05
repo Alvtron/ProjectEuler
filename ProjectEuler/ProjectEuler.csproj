@@ -6,25 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Problem_0011_input.txt" />
-    <None Remove="Resources\problem_0011_input.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.34" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\problem_0013_numbers.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\problem_0011_input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,16 +23,16 @@
     <None Update="Resources\problem_0011_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\problem_0022_names.txt">
+    <None Update="Resources\problem_0013_numbers.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\problem_0018_triangle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\problem_0067_triangle.txt">
+    <None Update="Resources\problem_0022_names.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\problem_0013_numbers.txt">
+    <None Update="Resources\problem_0067_triangle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
