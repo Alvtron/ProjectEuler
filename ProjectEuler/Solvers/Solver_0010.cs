@@ -12,10 +12,9 @@ namespace ProjectEuler.Solvers
 
         private static long SumOfPrimesBelow(long limit)
         {
-            var primeGenerator = new PrimeGenerator();
             var sum = 0L;
 
-            foreach (var prime in primeGenerator.GetPrimes())
+            foreach (var prime in PrimeNumbers.Generate())
             {
                 if (prime >= limit)
                 {

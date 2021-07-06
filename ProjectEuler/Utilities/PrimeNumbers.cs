@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace ProjectEuler.Utilities
 {
-    public class PrimeGenerator
+    public static class PrimeNumbers
     {
-        public IEnumerable<int> GetPrimes()
+        public static IEnumerable<int> Generate()
         {
             for (var number = 1; true; number++)
             {
-                if (!this.IsPrime(number))
+                if (!IsPrime(number))
                 {
                     continue;
                 }
@@ -18,7 +18,7 @@ namespace ProjectEuler.Utilities
             }
         }
 
-        private bool IsPrime(int number)
+        private static bool IsPrime(int number)
         {
             switch (number)
             {

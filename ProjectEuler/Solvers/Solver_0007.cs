@@ -8,8 +8,7 @@ namespace ProjectEuler.Solvers
     {
         public Answer Solve()
         {
-            var primeGenerator = new PrimeGenerator();
-            return primeGenerator.GetPrimes().ElementAt(10_001 - 1);
+            return PrimeNumbers.Generate().ElementAt(10_001 - 1);
         }
     }
 }

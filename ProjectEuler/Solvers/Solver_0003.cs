@@ -16,9 +16,8 @@ namespace ProjectEuler.Solvers
         {
             var remainder = number;
             var primeFactors = new List<int>();
-            var primeGenerator = new PrimeGenerator();
 
-            using var primeEnumerator = primeGenerator.GetPrimes().GetEnumerator();
+            using var primeEnumerator = PrimeNumbers.Generate().GetEnumerator();
             primeEnumerator.MoveNext();
 
             while (remainder != 1)
