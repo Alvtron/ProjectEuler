@@ -9,7 +9,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            Solve(0023);
+            Solve(0024);
         }
 
         private static void Solve(params int[] numbers)
@@ -58,7 +58,7 @@ namespace ProjectEuler
             }
         }
 
-        public static void RunProblem(IProblem problem, ISolver solver, Answer answer)
+        private static void RunProblem(IProblem problem, ISolver solver, Answer answer)
         {
             Console.WriteLine($"Question {problem.Number}: {problem.Title}");
             Console.WriteLine($"{problem.Description}");
@@ -70,14 +70,9 @@ namespace ProjectEuler
             Console.WriteLine("-----------------------------");
             Console.Write($"The solved answer is {solvedAnswer}");
 
-            if (solvedAnswer.Equals(answer))
-            {
-                Console.WriteLine(", which is correct.");
-            }
-            else
-            {
-                Console.WriteLine($", which is incorrect. The correct answer should be '{answer}'.");
-            }
+            Console.WriteLine(solvedAnswer.Equals(answer)
+                ? ", which is correct."
+                : $", which is incorrect. The correct answer should be '{answer}'.");
 
             Console.WriteLine($"Elapsed time was {stopwatch.Elapsed.TotalMilliseconds} ms.");
             Console.WriteLine("-----------------------------");
