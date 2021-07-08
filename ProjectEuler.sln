@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Tests", "ProjectEuler.Tests\ProjectEuler.Tests.csproj", "{AC726182-51AE-4028-94E7-3117DECDDFE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{C19ADF4F-A484-4F93-9DA3-43E1F48552E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C19ADF4F-A484-4F93-9DA3-43E1F48552E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C19ADF4F-A484-4F93-9DA3-43E1F48552E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

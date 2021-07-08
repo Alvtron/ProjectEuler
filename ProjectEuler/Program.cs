@@ -9,7 +9,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            Solve(0025);
+            Solve(0001, 0002, 0003);
         }
 
         private static void Solve(params int[] numbers)
@@ -36,13 +36,11 @@ namespace ProjectEuler
 
         private static void SolveAll()
         {
-            const int NUMBER_OF_PROBLEMS = 760;
-
             var answerSource = new AnswerSource();
             var problemSource = new ProblemSource();
             var solverService = new SolverService();
 
-            for (var number = 1; number <= NUMBER_OF_PROBLEMS; number++)
+            for (var number = 1; number <= ProjectEulerConstants.NUMBER_OF_PROBLEMS; number++)
             {
                 if (!solverService.ContainsSolver(number))
                 {
