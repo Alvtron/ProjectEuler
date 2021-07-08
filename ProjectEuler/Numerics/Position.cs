@@ -1,4 +1,4 @@
-﻿namespace ProjectEuler.Library
+﻿namespace ProjectEuler.Numerics
 {
     internal readonly struct Position
     {

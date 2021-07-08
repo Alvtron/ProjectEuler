@@ -1,5 +1,5 @@
 ﻿using ProjectEuler.Library;
-using ProjectEuler.Utilities;
+using ProjectEuler.Numerics;
 
 namespace ProjectEuler.Solvers
 {

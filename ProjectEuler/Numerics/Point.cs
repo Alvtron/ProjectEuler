@@ -1,20 +1,20 @@
 ﻿using System;
 
-namespace ProjectEuler.Library
+namespace ProjectEuler.Numerics
 {
     internal readonly struct Point
     {
         public Point(double x, double y)
         {
-            X = x;
-            Y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         public double X { get; }
 
         public double Y { get; }
 
-        public double Magnitude => Math.Sqrt(X * X + Y * Y);
+        public double Magnitude => Math.Sqrt(this.X * this.X + this.Y * this.Y);
 
         public static double DotProduct(Point a, Point b)
             => a.X * b.X + a.Y * b.Y;

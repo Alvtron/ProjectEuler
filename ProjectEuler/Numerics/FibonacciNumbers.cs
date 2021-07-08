@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace ProjectEuler.Utilities
+namespace ProjectEuler.Numerics
 {
     /// <summary>
     /// The Fibonacci sequence is a series of numbers where a number is the addition of the last two numbers, starting with 0 and 1.
