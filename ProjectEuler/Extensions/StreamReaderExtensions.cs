@@ -1,76 +1,75 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace ProjectEuler.Extensions
+namespace ProjectEuler.Extensions;
+
+public static class StreamReaderExtensions
 {
-    public static class StreamReaderExtensions
+    public static IEnumerable<string> ReadWords(this StreamReader reader)
     {
-        public static IEnumerable<string> ReadWords(this StreamReader reader)
+        var wordBuffer = new Buffer<char>();
+
+        foreach (var character in reader.ReadCharacters())
         {
-            var wordBuffer = new Buffer<char>();
-
-            foreach (var character in reader.ReadCharacters())
+            if (char.IsLetter(character))
             {
-                if (char.IsLetter(character))
-                {
-                    wordBuffer.Enqueue(character);
-                }
-                else if (wordBuffer.Count > 0)
-                {
-                    yield return string.Join(string.Empty, wordBuffer.Flush());
-                }
+                wordBuffer.Enqueue(character);
             }
-
-            if (wordBuffer.Count > 0)
+            else if (wordBuffer.Count > 0)
             {
                 yield return string.Join(string.Empty, wordBuffer.Flush());
             }
         }
 
-        public static IEnumerable<string> ReadChunks(this StreamReader reader, char delimiter)
+        if (wordBuffer.Count > 0)
         {
-            var wordBuffer = new Buffer<char>();
+            yield return string.Join(string.Empty, wordBuffer.Flush());
+        }
+    }
 
-            foreach (var character in reader.ReadCharacters())
-            {
-                if (character == delimiter)
-                {
-                    yield return string.Join(string.Empty, wordBuffer.Flush());
-                }
-                else
-                {
-                    wordBuffer.Enqueue(character);
-                }
-            }
+    public static IEnumerable<string> ReadChunks(this StreamReader reader, char delimiter)
+    {
+        var wordBuffer = new Buffer<char>();
 
-            if (wordBuffer.Count > 0)
+        foreach (var character in reader.ReadCharacters())
+        {
+            if (character == delimiter)
             {
                 yield return string.Join(string.Empty, wordBuffer.Flush());
             }
-        }
-
-        public static IEnumerable<char> ReadCharacters(this StreamReader reader)
-        {
-            while (true)
+            else
             {
-                var character = reader.Read();
-                if (character == -1)
-                {
-                    break;
-                }
-
-                yield return (char)character;
+                wordBuffer.Enqueue(character);
             }
         }
 
-        private sealed class Buffer<T> : Queue<T>
+        if (wordBuffer.Count > 0)
         {
-            public IEnumerable<T> Flush()
+            yield return string.Join(string.Empty, wordBuffer.Flush());
+        }
+    }
+
+    public static IEnumerable<char> ReadCharacters(this StreamReader reader)
+    {
+        while (true)
+        {
+            var character = reader.Read();
+            if (character == -1)
             {
-                while (this.TryDequeue(out var character))
-                {
-                    yield return character;
-                }
+                break;
+            }
+
+            yield return (char)character;
+        }
+    }
+
+    private sealed class Buffer<T> : Queue<T>
+    {
+        public IEnumerable<T> Flush()
+        {
+            while (this.TryDequeue(out var character))
+            {
+                yield return character;
             }
         }
     }

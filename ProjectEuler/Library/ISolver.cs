@@ -1,7 +1,6 @@
-﻿namespace ProjectEuler.Library
+﻿namespace ProjectEuler.Library;
+
+public interface ISolver
 {
-    public interface ISolver
-    {
-        Answer Solve();
-    }
+    Answer Solve();
 }

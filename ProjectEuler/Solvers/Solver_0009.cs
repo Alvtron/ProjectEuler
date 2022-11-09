@@ -1,53 +1,52 @@
 ﻿using System;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0009 : ISolver
 {
-    public class Solver_0009 : ISolver
+    public Answer Solve()
     {
-        public Answer Solve()
-        {
-            var (a, b, c) = FindPythagoreanTripletThatEquals(1000);
-            return a * b * c;
-        }
+        var (a, b, c) = FindPythagoreanTripletThatEquals(1000);
+        return a * b * c;
+    }
 
-        private static Tuple<int, int, int> FindPythagoreanTripletThatEquals(int sum)
-        {
-            int a;
-            var b = 1;
-            var c = 1;
+    private static Tuple<int, int, int> FindPythagoreanTripletThatEquals(int sum)
+    {
+        int a;
+        var b = 1;
+        var c = 1;
 
-            for (a = 1; a < int.MaxValue; a++)
+        for (a = 1; a < int.MaxValue; a++)
+        {
+            for (b = a + 1; b < int.MaxValue; b++)
             {
-                for (b = a + 1; b < int.MaxValue; b++)
+                var newC = Math.Sqrt(a * a + b * b);
+
+                if (!IsInteger(newC))
                 {
-                    var newC = Math.Sqrt(a * a + b * b);
-
-                    if (!IsInteger(newC))
-                    {
-                        continue;
-                    }
-
-                    c = (int)newC;
-
-                    if (a + b + c >= sum)
-                    {
-                        break;
-                    }
+                    continue;
                 }
 
-                if (a + b + c == sum)
+                c = (int)newC;
+
+                if (a + b + c >= sum)
                 {
                     break;
                 }
             }
 
-            return Tuple.Create(a, b, c);
+            if (a + b + c == sum)
+            {
+                break;
+            }
         }
 
-        private static bool IsInteger(double number)
-        {
-            return number % 1.0 < double.Epsilon;
-        }
+        return Tuple.Create(a, b, c);
+    }
+
+    private static bool IsInteger(double number)
+    {
+        return number % 1.0 < double.Epsilon;
     }
 }

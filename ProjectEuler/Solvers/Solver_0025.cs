@@ -2,32 +2,31 @@
 using ProjectEuler.Library;
 using ProjectEuler.Numerics;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0025 : ISolver
 {
-    public class Solver_0025 : ISolver
+    public Answer Solve()
     {
-        public Answer Solve()
+        const int NUMBER_OF_DIGITS = 1000;
+        var index = 0;
+
+        foreach (var fibonacciNumber in FibonacciNumbers.Generate())
         {
-            const int NUMBER_OF_DIGITS = 1000;
-            var index = 0;
-
-            foreach (var fibonacciNumber in FibonacciNumbers.Generate())
+            if (NumberOfDigitsOf(fibonacciNumber) == NUMBER_OF_DIGITS)
             {
-                if (NumberOfDigitsOf(fibonacciNumber) == NUMBER_OF_DIGITS)
-                {
-                    return index;
-                }
-
-                index++;
+                return index;
             }
 
-            return Answer.Empty;
+            index++;
         }
 
-        private static int NumberOfDigitsOf(BigInteger number)
-        {
+        return Answer.Empty;
+    }
+
+    private static int NumberOfDigitsOf(BigInteger number)
+    {
             
-            return (int)BigInteger.Log10(number) + 1;
-        }
+        return (int)BigInteger.Log10(number) + 1;
     }
 }

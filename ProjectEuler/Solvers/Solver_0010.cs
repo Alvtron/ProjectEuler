@@ -1,30 +1,29 @@
 ﻿using ProjectEuler.Library;
 using ProjectEuler.Numerics;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0010 : ISolver
 {
-    public class Solver_0010 : ISolver
+    public Answer Solve()
     {
-        public Answer Solve()
-        {
-            return SumOfPrimesBelow(2_000_000);
-        }
+        return SumOfPrimesBelow(2_000_000);
+    }
 
-        private static long SumOfPrimesBelow(long limit)
-        {
-            var sum = 0L;
+    private static long SumOfPrimesBelow(long limit)
+    {
+        var sum = 0L;
 
-            foreach (var prime in PrimeNumbers.Generate())
+        foreach (var prime in PrimeNumbers.Generate())
+        {
+            if (prime >= limit)
             {
-                if (prime >= limit)
-                {
-                    break;
-                }
-
-                sum += prime;
+                break;
             }
 
-            return sum;
+            sum += prime;
         }
+
+        return sum;
     }
 }

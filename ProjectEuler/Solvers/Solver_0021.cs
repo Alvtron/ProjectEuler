@@ -2,65 +2,64 @@
 using System.Linq;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0021 : ISolver
 {
-    public class Solver_0021 : ISolver
+    public Answer Solve()
     {
-        public Answer Solve()
+        return GetSumOfAmicableNumbersInRange(1, 10000);
+    }
+
+    private static Answer GetSumOfAmicableNumbersInRange(int start, int end)
+    {
+        var numbersSums = new Dictionary<int, int>();
+
+        for (var number = start; number < end; number++)
         {
-            return GetSumOfAmicableNumbersInRange(1, 10000);
+            var divisors = GetDivisorsOf(number);
+            var sum = divisors.Sum();
+
+            numbersSums.Add(number, sum);
         }
 
-        private static Answer GetSumOfAmicableNumbersInRange(int start, int end)
+        var total = 0;
+
+        foreach (var (firstNumber, firstSum) in numbersSums)
         {
-            var numbersSums = new Dictionary<int, int>();
+            var secondNumber = firstSum;
 
-            for (var number = start; number < end; number++)
+            // skip already processed numbers
+            if (firstNumber >= secondNumber)
             {
-                var divisors = GetDivisorsOf(number);
-                var sum = divisors.Sum();
-
-                numbersSums.Add(number, sum);
+                continue;
             }
 
-            var total = 0;
-
-            foreach (var (firstNumber, firstSum) in numbersSums)
+            // skip if there are no other number equal to the sum of divisors of the first number
+            if (!numbersSums.TryGetValue(secondNumber, out var secondSum))
             {
-                var secondNumber = firstSum;
-
-                // skip already processed numbers
-                if (firstNumber >= secondNumber)
-                {
-                    continue;
-                }
-
-                // skip if there are no other number equal to the sum of divisors of the first number
-                if (!numbersSums.TryGetValue(secondNumber, out var secondSum))
-                {
-                    continue;
-                }
-
-                // skip if sum of divisors of second number is not equal to first number
-                if (secondSum != firstNumber)
-                {
-                    continue;
-                }
-
-                total += firstSum + secondSum;
+                continue;
             }
 
-            return total;
+            // skip if sum of divisors of second number is not equal to first number
+            if (secondSum != firstNumber)
+            {
+                continue;
+            }
+
+            total += firstSum + secondSum;
         }
 
-        private static IEnumerable<int> GetDivisorsOf(int number)
+        return total;
+    }
+
+    private static IEnumerable<int> GetDivisorsOf(int number)
+    {
+        for (var divisor = 1; divisor < number; divisor++)
         {
-            for (var divisor = 1; divisor < number; divisor++)
+            if (number % divisor == 0)
             {
-                if (number % divisor == 0)
-                {
-                    yield return divisor;
-                }
+                yield return divisor;
             }
         }
     }

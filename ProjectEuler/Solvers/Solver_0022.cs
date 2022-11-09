@@ -5,66 +5,65 @@ using System.Linq;
 using ProjectEuler.Extensions;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0022 : ISolver
 {
-    public class Solver_0022 : ISolver
+    private const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static readonly IReadOnlyDictionary<char, int> AlphabeticalPositions = Enumerable.Range(0, ALPHABET.Length).ToDictionary(i => ALPHABET[i], i => i + 1);
+
+    private static readonly string NamesFilePath = Path.Combine(Environment.CurrentDirectory, @"Resources\problem_0022_names.txt");
+
+    public Answer Solve()
     {
-        private const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static readonly IReadOnlyDictionary<char, int> AlphabeticalPositions = Enumerable.Range(0, ALPHABET.Length).ToDictionary(i => ALPHABET[i], i => i + 1);
+        var wordScores = GetWordScoresInFile(NamesFilePath);
 
-        private static readonly string NamesFilePath = Path.Combine(Environment.CurrentDirectory, @"Resources\problem_0022_names.txt");
+        return wordScores.Sum();
+    }
 
-        public Answer Solve()
+    private static IEnumerable<int> GetWordScoresInFile(string path)
+    {
+        var wordCounts = CountWordsInFile(path);
+
+        var wordPosition = 1;
+        foreach (var (word, count) in wordCounts)
         {
-            var wordScores = GetWordScoresInFile(NamesFilePath);
+            var lastWordPosition = wordPosition + count - 1;
 
-            return wordScores.Sum();
-        }
-
-        private static IEnumerable<int> GetWordScoresInFile(string path)
-        {
-            var wordCounts = CountWordsInFile(path);
-
-            var wordPosition = 1;
-            foreach (var (word, count) in wordCounts)
+            while (wordPosition <= lastWordPosition)
             {
-                var lastWordPosition = wordPosition + count - 1;
+                var wordScore = GetWordScore(word);
 
-                while (wordPosition <= lastWordPosition)
-                {
-                    var wordScore = GetWordScore(word);
+                yield return wordPosition++ * wordScore;
+            }
+        }
+    }
 
-                    yield return wordPosition++ * wordScore;
-                }
+    private static int GetWordScore(string word)
+    {
+        return word.Where(character => AlphabeticalPositions.ContainsKey(character))
+            .Select(character => AlphabeticalPositions[character])
+            .Sum();
+    }
+
+    private static SortedDictionary<string, int> CountWordsInFile(string path)
+    {
+        using var streamReader = new StreamReader(path);
+
+        var wordCounts = new SortedDictionary<string, int>(StringComparer.InvariantCulture);
+
+        foreach (var word in streamReader.ReadWords())
+        {
+            if (wordCounts.ContainsKey(word))
+            {
+                wordCounts[word]++;
+            }
+            else
+            {
+                wordCounts[word] = 1;
             }
         }
 
-        private static int GetWordScore(string word)
-        {
-            return word.Where(character => AlphabeticalPositions.ContainsKey(character))
-                .Select(character => AlphabeticalPositions[character])
-                .Sum();
-        }
-
-        private static SortedDictionary<string, int> CountWordsInFile(string path)
-        {
-            using var streamReader = new StreamReader(path);
-
-            var wordCounts = new SortedDictionary<string, int>(StringComparer.InvariantCulture);
-
-            foreach (var word in streamReader.ReadWords())
-            {
-                if (wordCounts.ContainsKey(word))
-                {
-                    wordCounts[word]++;
-                }
-                else
-                {
-                    wordCounts[word] = 1;
-                }
-            }
-
-            return wordCounts;
-        }
+        return wordCounts;
     }
 }

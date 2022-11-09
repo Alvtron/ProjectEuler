@@ -4,42 +4,41 @@ using System.Linq;
 using System.Reflection;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Services
+namespace ProjectEuler.Services;
+
+public class SolverService
 {
-    public class SolverService
+    private readonly Dictionary<int, Type> Source;
+
+    public SolverService()
     {
-        private readonly Dictionary<int, Type> Source;
+        var assembly = Assembly.GetExecutingAssembly();
+        const string NAMESPACE = "ProjectEuler.Solvers";
 
-        public SolverService()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            const string NAMESPACE = "ProjectEuler.Solvers";
+        var solvers = assembly.GetTypes().Where(type => type.Namespace == NAMESPACE && type.Name.StartsWith("Solver"));
 
-            var solvers = assembly.GetTypes().Where(type => type.Namespace == NAMESPACE && type.Name.StartsWith("Solver"));
+        this.Source = solvers.ToDictionary(GetNumberFromSolverType, type => type);
+    }
 
-            this.Source = solvers.ToDictionary(GetNumberFromSolverType, type => type);
-        }
+    public bool ContainsSolver(int number)
+    {
+        return this.Source.ContainsKey(number);
+    }
 
-        public bool ContainsSolver(int number)
-        {
-            return this.Source.ContainsKey(number);
-        }
+    public ISolver GetSolver(int number)
+    {
+        var solverType = this.Source[number];
+        return CreateInstanceOfSolverType(solverType);
+    }
 
-        public ISolver GetSolver(int number)
-        {
-            var solverType = this.Source[number];
-            return CreateInstanceOfSolverType(solverType);
-        }
+    private static ISolver CreateInstanceOfSolverType(Type type)
+    {
+        return (ISolver)Activator.CreateInstance(type);
+    }
 
-        private static ISolver CreateInstanceOfSolverType(Type type)
-        {
-            return (ISolver)Activator.CreateInstance(type);
-        }
-
-        private static int GetNumberFromSolverType(Type type)
-        {
-            var number = type.Name.Split('_').Last();
-            return int.Parse(number);
-        }
+    private static int GetNumberFromSolverType(Type type)
+    {
+        var number = type.Name.Split('_').Last();
+        return int.Parse(number);
     }
 }

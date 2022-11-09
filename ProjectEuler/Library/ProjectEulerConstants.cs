@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectEuler.Library
+namespace ProjectEuler.Library;
+
+public static class ProjectEulerConstants
 {
-    public static class ProjectEulerConstants
-    {
-        public const int NUMBER_OF_PROBLEMS = 760;
-    }
+    public const int NUMBER_OF_PROBLEMS = 760;
 }

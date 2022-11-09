@@ -2,85 +2,84 @@
 using System.Linq;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0117 : ISolver
 {
-    public class Solver_0117 : ISolver
+    public Answer Solve()
     {
-        public Answer Solve()
+        const int ROW_LENGTH = 50;
+
+        var grayBlock = new Block(Color.Gray, 1);
+        var redBlock = new Block(Color.Red, 2);
+        var greenBlock = new Block(Color.Green, 3);
+        var blueBlock = new Block(Color.Blue, 4);
+        var blockCounter = new BlockCombinationCounter(ROW_LENGTH, grayBlock, redBlock, greenBlock, blueBlock);
+
+        return blockCounter.Count();
+    }
+
+    private enum Color
+    {
+        Gray,
+        Red,
+        Green,
+        Blue,
+    }
+
+    private sealed class Block
+    {
+        public Block(Color color, int length)
         {
-            const int ROW_LENGTH = 50;
-
-            var grayBlock = new Block(Color.Gray, 1);
-            var redBlock = new Block(Color.Red, 2);
-            var greenBlock = new Block(Color.Green, 3);
-            var blueBlock = new Block(Color.Blue, 4);
-            var blockCounter = new BlockCombinationCounter(ROW_LENGTH, grayBlock, redBlock, greenBlock, blueBlock);
-
-            return blockCounter.Count();
+            this.Color = color;
+            this.Length = length;
         }
 
-        private enum Color
+        public Color Color { get; }
+
+        public int Length { get; }
+    }
+
+    private sealed class BlockCombinationCounter
+    {
+        private readonly int rowLength;
+        private readonly Block[] blocks;
+        private readonly Dictionary<Block, long?[]> cache;
+
+        public BlockCombinationCounter(int rowLength, params Block[] blocks)
         {
-            Gray,
-            Red,
-            Green,
-            Blue,
+            this.rowLength = rowLength;
+            this.blocks = blocks;
+
+            this.cache = blocks.ToDictionary(block => block, _ => new long?[rowLength]);
         }
 
-        private sealed class Block
+        public long Count()
         {
-            public Block(Color color, int length)
-            {
-                this.Color = color;
-                this.Length = length;
-            }
-
-            public Color Color { get; }
-
-            public int Length { get; }
+            return this.blocks.Sum(block => this.CountBlockCombinations(block, block.Length - 1, this.rowLength - 1));
         }
 
-        private sealed class BlockCombinationCounter
+        private long CountBlockCombinations(Block block, int index, int end)
         {
-            private readonly int rowLength;
-            private readonly Block[] blocks;
-            private readonly Dictionary<Block, long?[]> cache;
-
-            public BlockCombinationCounter(int rowLength, params Block[] blocks)
+            if (index > end)
             {
-                this.rowLength = rowLength;
-                this.blocks = blocks;
-
-                this.cache = blocks.ToDictionary(block => block, _ => new long?[rowLength]);
+                return 0L;
             }
 
-            public long Count()
+            if (index == end)
             {
-                return this.blocks.Sum(block => this.CountBlockCombinations(block, block.Length - 1, this.rowLength - 1));
+                return 1L;
             }
 
-            private long CountBlockCombinations(Block block, int index, int end)
+            if (this.cache[block][index].HasValue)
             {
-                if (index > end)
-                {
-                    return 0L;
-                }
-
-                if (index == end)
-                {
-                    return 1L;
-                }
-
-                if (this.cache[block][index].HasValue)
-                {
-                    return this.cache[block][index].Value;
-                }
-
-                var count = this.blocks.Sum(nextBlock => this.CountBlockCombinations(nextBlock, index + nextBlock.Length, end));
-
-                this.cache[block][index] = count;
-                return count;
+                return this.cache[block][index].Value;
             }
+
+            var count = this.blocks.Sum(nextBlock => this.CountBlockCombinations(nextBlock, index + nextBlock.Length, end));
+
+            this.cache[block][index] = count;
+            return count;
         }
     }
 }

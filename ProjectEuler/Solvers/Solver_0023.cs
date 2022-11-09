@@ -2,58 +2,57 @@
 using System.Linq;
 using ProjectEuler.Library;
 
-namespace ProjectEuler.Solvers
+namespace ProjectEuler.Solvers;
+
+public class Solver_0023 : ISolver
 {
-    public class Solver_0023 : ISolver
+
+    public Answer Solve()
     {
-
-        public Answer Solve()
-        {
-            const int LIMIT = 28123;
+        const int LIMIT = 28123;
             
-            var sumsOfAbundantNumbers = GetSumsOfAbundantNumbers(LIMIT);
+        var sumsOfAbundantNumbers = GetSumsOfAbundantNumbers(LIMIT);
 
-            var positiveIntegers = Enumerable.Range(1, LIMIT)
-                .Where(number => !sumsOfAbundantNumbers.Contains(number));
+        var positiveIntegers = Enumerable.Range(1, LIMIT)
+            .Where(number => !sumsOfAbundantNumbers.Contains(number));
 
-            return positiveIntegers.Sum();
-        }
+        return positiveIntegers.Sum();
+    }
 
-        private static ISet<int> GetSumsOfAbundantNumbers(int limit)
+    private static ISet<int> GetSumsOfAbundantNumbers(int limit)
+    {
+        var abundantNumbers = new HashSet<int>();
+        var sumsOfAbundantNumbers = new HashSet<int>();
+
+        for (var number = 1; number <= limit; number++)
         {
-            var abundantNumbers = new HashSet<int>();
-            var sumsOfAbundantNumbers = new HashSet<int>();
-
-            for (var number = 1; number <= limit; number++)
+            var divisors = GetProperDivisorsOf(number);
+            if (divisors.Sum() <= number)
             {
-                var divisors = GetProperDivisorsOf(number);
-                if (divisors.Sum() <= number)
-                {
-                    // number is not abundant
-                    continue;
-                }
-
-                abundantNumbers.Add(number);
-
-                foreach (var abundantNumber in abundantNumbers)
-                {
-                    sumsOfAbundantNumbers.Add(abundantNumber + number);
-                }
+                // number is not abundant
+                continue;
             }
 
-            return sumsOfAbundantNumbers;
+            abundantNumbers.Add(number);
+
+            foreach (var abundantNumber in abundantNumbers)
+            {
+                sumsOfAbundantNumbers.Add(abundantNumber + number);
+            }
         }
 
-        private static IEnumerable<int> GetProperDivisorsOf(int number)
-        {
-            var limit = number / 2;
+        return sumsOfAbundantNumbers;
+    }
 
-            for (var divisor = 1; divisor <= limit; divisor++)
+    private static IEnumerable<int> GetProperDivisorsOf(int number)
+    {
+        var limit = number / 2;
+
+        for (var divisor = 1; divisor <= limit; divisor++)
+        {
+            if (number % divisor == 0)
             {
-                if (number % divisor == 0)
-                {
-                    yield return divisor;
-                }
+                yield return divisor;
             }
         }
     }
