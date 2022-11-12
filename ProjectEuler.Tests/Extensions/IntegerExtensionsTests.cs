@@ -1,17 +1,21 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Extensions;
 
 public class IntegerExtensionsTests
 {
-    [Test]
-    public void Length_PositiveNumber_ReturnsCorrectLength()
+    [TestCase(0, 1)]
+    [TestCase(1, 1)]
+    [TestCase(2, 1)]
+    [TestCase(9, 1)]
+    [TestCase(1000, 4)]
+    [TestCase(1234, 4)]
+    [TestCase(123456789, 9)]
+    [TestCase(100000000, 9)]
+    public void Length_PositiveNumber_ReturnsCorrectLength(int number, int actualLength)
     {
-        // ARRANGE
-        const int number = 1234;
-        const int actualLength = 4;
-
         // ACT
         var length = number.Length();
 
@@ -19,18 +23,52 @@ public class IntegerExtensionsTests
         Assert.That(length, Is.EqualTo(actualLength));
     }
 
-    [Test]
-    public void Length_NegativeNumber_ReturnsCorrectLength()
+    [TestCase(-1, 1)]
+    [TestCase(-2, 1)]
+    [TestCase(-9, 1)]
+    [TestCase(-1000, 4)]
+    [TestCase(-1234, 4)]
+    [TestCase(-123456789, 9)]
+    [TestCase(-100000000, 9)]
+    public void Length_NegativeNumber_ReturnsCorrectLength(int number, int actualLength)
     {
-        // ARRANGE
-        const int number = -12345;
-        const int actualLength = 5;
-
         // ACT
         var length = number.Length();
 
         // ASSERT
         Assert.That(length, Is.EqualTo(actualLength));
+    }
+
+    [TestCase(0)]
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(1000)]
+    [TestCase(1234)]
+    [TestCase(123456789)]
+    [TestCase(100000000)]
+    public void Digits_PositiveNumber_ReturnsCorrectDigits(int number)
+    {
+        // ACT
+        var digits = number.Digits();
+
+        // ASSERT
+        Assert.That(string.Concat(digits), Is.EqualTo(number.ToString()));
+    }
+
+    [TestCase(-0)]
+    [TestCase(-1)]
+    [TestCase(-2)]
+    [TestCase(-1000)]
+    [TestCase(-1234)]
+    [TestCase(-123456789)]
+    [TestCase(-100000000)]
+    public void Digits_NegativeNumber_ReturnsCorrectDigits(int number)
+    {
+        // ACT
+        var digits = number.Digits();
+
+        // ASSERT
+        Assert.That(string.Concat(digits), Is.EqualTo(Math.Abs(number).ToString()));
     }
 
     [Test]
