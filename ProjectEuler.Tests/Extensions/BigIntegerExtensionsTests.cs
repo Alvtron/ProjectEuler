@@ -1,10 +1,10 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using NUnit.Framework;
 using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Extensions;
 
+[TestFixture]
 public class BigIntegerExtensionsTests
 {
     [Test]

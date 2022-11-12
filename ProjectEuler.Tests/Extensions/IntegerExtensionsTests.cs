@@ -4,6 +4,7 @@ using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Extensions;
 
+[TestFixture]
 public class IntegerExtensionsTests
 {
     [TestCase(0, 1)]

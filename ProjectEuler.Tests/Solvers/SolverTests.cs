@@ -4,6 +4,7 @@ using ProjectEuler.Services;
 
 namespace ProjectEuler.Tests.Solvers;
 
+[TestFixture]
 public class SolverTests
 {
     private AnswerSource answerSource;
