@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using ProjectEuler.Library;
+using ProjectEuler.Numerics;
 using Singulink.Numerics;
 
 namespace ProjectEuler.Solvers;
@@ -11,19 +13,23 @@ public class Solver_0026 : ISolver
 
     public Answer Solve()
     {
-        return FindLongestRecurringFractionCycle(1000);
+        return FindDenominatorWithLongestRecurringFractionCycle(1, 2, 1000);
     }
 
-    private static Answer FindLongestRecurringFractionCycle(int maxDenominator)
+    private static int FindDenominatorWithLongestRecurringFractionCycle(int numerator, int startDenominator, int endDenominator)
     {
         var denominatorWithLongestCycle = 0;
         var longestCycleLength = 0;
 
-        for (var denominator = 2; denominator <= maxDenominator; denominator++)
-        {
-            var number = BigDecimal.Divide(BigDecimal.One, denominator, MAXIMUM_NUMBER_OF_FRACTALS);
+        // only need to check prime denominators because cycle length would be identical for multiples
+        var primeDenominators = PrimeNumbers.Generate()
+            .TakeWhile(prime => prime >= startDenominator && prime <= endDenominator);
 
-            var fractional = number.ToString(CultureInfo.InvariantCulture).AsSpan()[2..];
+        foreach (var denominator in primeDenominators)
+        {
+            var decimalNumber = BigDecimal.Divide(numerator, denominator, MAXIMUM_NUMBER_OF_FRACTALS);
+
+            var fractional = decimalNumber.ToString(CultureInfo.InvariantCulture).AsSpan()[2..];
             var currentLongestCycleLength = GetShortestCycleFrom(fractional);
 
             if (currentLongestCycleLength <= longestCycleLength)
@@ -58,7 +64,8 @@ public class Solver_0026 : ISolver
     {
         var firstPart = numbers[..cycleLength];
 
-        for (var cycleIndex = cycleLength; cycleIndex <= numbers.Length - cycleLength; cycleIndex += cycleLength)
+        var maxCycleIndex = numbers.Length - cycleLength;
+        for (var cycleIndex = cycleLength; cycleIndex <= maxCycleIndex; cycleIndex += cycleLength)
         {
             var nextPart = numbers.Slice(cycleIndex, cycleLength);
 
