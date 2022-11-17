@@ -18,7 +18,7 @@ public static class PrimeNumbers
         }
     }
 
-    private static bool IsPrime(int number)
+    public static bool IsPrime(int number)
     {
         switch (number)
         {
