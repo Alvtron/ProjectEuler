@@ -1,56 +1,94 @@
-﻿using NUnit.Framework;
-using ProjectEuler.Library;
-using ProjectEuler.Services;
+﻿using System.Collections;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using ProjectEuler.Library.Answers;
+using ProjectEuler.Library.Solvers;
 
 namespace ProjectEuler.Tests.Solvers;
 
 [TestFixture]
 public class SolverTests
 {
-    private AnswerSource answerSource;
+    private AnswerSource answers;
     private SolverService solverService;
 
     [OneTimeSetUp]
     public void SetUp()
     {
-        this.answerSource = new AnswerSource();
+        this.answers = new AnswerSource();
         this.solverService = new SolverService();
     }
 
     [OneTimeTearDown]
     public void TearDown()
     {
-        this.answerSource = null;
+        this.answers = null;
         this.solverService = null;
     }
 
-    [Test]
-    public void Solve_AllProblems_ReturnsCorrectAnswers([Range(1, ProjectEulerConstants.NUMBER_OF_PROBLEMS, 1)] int problemNumber)
+    [TestCaseSource(typeof(ProblemNumberCases))]
+    public async Task Solve_AllProblems_ReturnsCorrectAnswers(int problemNumber)
     {
-        this.RunSolverAndAssertAnswer(problemNumber);
+        await this.RunSolverAndAssertAnswer(problemNumber);
     }
 
     [Test, Explicit]
-    public void Solve_SpecificProblems_ReturnsCorrectAnswer([Values(1,2,3)] int problemNumber)
+    public async Task Solve_SpecificProblems_ReturnsCorrectAnswer([Values(1,2,3)] int problemNumber)
     {
-        this.RunSolverAndAssertAnswer(problemNumber);
+        await this.RunSolverAndAssertAnswer(problemNumber);
     }
 
-    private void RunSolverAndAssertAnswer(int problemNumber)
+    private async Task RunSolverAndAssertAnswer(int problemNumber)
     {
-        if (!this.solverService.ContainsSolver(problemNumber))
+        if (!this.solverService.CanSolve(problemNumber))
         {
             Assert.Ignore($"Ignoring problem {problemNumber}. No solver exists.");
+            return;
+        }
+
+        if (!this.answers.HasAnswer(problemNumber))
+        {
+            Assert.Ignore($"Ignoring problem {problemNumber}. No answer exists.");
+            return;
         }
 
         // ARRANGE
-        var answer = this.answerSource.GetAnswer(problemNumber);
+        var answer = this.answers.GetAnswer(problemNumber);
         var solver = this.solverService.GetSolver(problemNumber);
 
         // ACT
-        var solvedAnswer = solver.Solve();
+        var stopwatch = Stopwatch.StartNew();
+        var solvedAnswer = await solver.SolveAsync();
+        stopwatch.Stop();
 
         // ASSERT
-        Assert.That(solvedAnswer, Is.EqualTo(answer));
+        Assert.That(solvedAnswer, Is.EqualTo(answer), CreateFailureMessage(stopwatch, solvedAnswer, answer));
+        Assert.Pass(CreateSuccessMessage(stopwatch, solvedAnswer));
+    }
+
+    private static string CreateFailureMessage(Stopwatch stopwatch, Answer solvedAnswer, Answer actualAnswer)
+    {
+        return $"{solvedAnswer} in {stopwatch.Elapsed.TotalMilliseconds:#.00} ms. " +
+               $"The correct answer should be {actualAnswer}.";
+    }
+
+    private static string CreateSuccessMessage(Stopwatch stopwatch, Answer solvedAnswer)
+    {
+        return $"{solvedAnswer}, in {stopwatch.Elapsed.TotalMilliseconds:#.00} ms.";
+    }
+
+    private sealed class ProblemNumberCases : IEnumerable
+    {
+        private readonly SolverService solverService;
+
+        public ProblemNumberCases()
+        {
+            this.solverService = new SolverService();
+        }
+        public IEnumerator GetEnumerator()
+        {
+            return this.solverService.SolvableProblems.GetEnumerator();
+        }
     }
 }

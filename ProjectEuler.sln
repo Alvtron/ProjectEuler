@@ -1,16 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler", "ProjectEuler\ProjectEuler.csproj", "{C19ADF4F-A484-4F93-9DA3-43E1F48552E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Console", "ProjectEuler\ProjectEuler.Console.csproj", "{C19ADF4F-A484-4F93-9DA3-43E1F48552E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB88DFEF-8D0E-41F2-A251-7A8A0E77E02F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Tests", "ProjectEuler.Tests\ProjectEuler.Tests.csproj", "{AC726182-51AE-4028-94E7-3117DECDDFE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Tests", "ProjectEuler.Tests\ProjectEuler.Tests.csproj", "{AC726182-51AE-4028-94E7-3117DECDDFE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Library", "ProjectEuler.Library\ProjectEuler.Library.csproj", "{A7CF14B1-9983-4765-A494-AD1199EEEE8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Helpers", "ProjectEuler.Helpers\ProjectEuler.Helpers.csproj", "{1A99B72F-484B-4EFD-8E8E-6AF5DF7C0BE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Extensions", "ProjectEuler.Extensions\ProjectEuler.Extensions.csproj", "{EECD1489-1611-4617-92F9-EC666A51F8D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +32,18 @@ Global
 		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC726182-51AE-4028-94E7-3117DECDDFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7CF14B1-9983-4765-A494-AD1199EEEE8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7CF14B1-9983-4765-A494-AD1199EEEE8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7CF14B1-9983-4765-A494-AD1199EEEE8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7CF14B1-9983-4765-A494-AD1199EEEE8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A99B72F-484B-4EFD-8E8E-6AF5DF7C0BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A99B72F-484B-4EFD-8E8E-6AF5DF7C0BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A99B72F-484B-4EFD-8E8E-6AF5DF7C0BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A99B72F-484B-4EFD-8E8E-6AF5DF7C0BE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECD1489-1611-4617-92F9-EC666A51F8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECD1489-1611-4617-92F9-EC666A51F8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECD1489-1611-4617-92F9-EC666A51F8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECD1489-1611-4617-92F9-EC666A51F8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

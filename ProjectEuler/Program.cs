@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
-using ProjectEuler.Library;
-using ProjectEuler.Services;
+using System.Threading.Tasks;
+using ProjectEuler.Library.Answers;
+using ProjectEuler.Library.Problems;
+using ProjectEuler.Library.Solvers;
 
-namespace ProjectEuler;
+namespace ProjectEuler.Console;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main()
     {
-        Solve(0001, 0002, 0003);
+        await SolveAsync(0001, 0002, 0003);
     }
 
-    private static void Solve(params int[] numbers)
+    private static async Task SolveAsync(params int[] numbers)
     {
         var answerSource = new AnswerSource();
         var problemSource = new ProblemSource();
@@ -20,59 +22,41 @@ public class Program
 
         foreach (var number in numbers)
         {
-            if (!solverService.ContainsSolver(number))
+            if (!solverService.CanSolve(number))
             {
-                Console.WriteLine($"Warning: No solver exists for problem {number}.");
-                continue;
+                throw new ArgumentException($"No solver exists for problem {number}.", nameof(number));
+            }
+
+            if (!answerSource.HasAnswer(number))
+            {
+                throw new ArgumentException($"No answer exists for problem {number}.", nameof(number));
             }
 
             var answer = answerSource.GetAnswer(number);
-            var problem = problemSource.GetProblem(number);
+            var problem = await problemSource.GetProblemAsync(number);
             var solver = solverService.GetSolver(number);
 
-            RunProblem(problem, solver, answer);
+            await RunProblemAsync(problem, solver, answer);
         }
     }
 
-    private static void SolveAll()
+    private static async Task RunProblemAsync(IProblem problem, ISolver solver, Answer answer)
     {
-        var answerSource = new AnswerSource();
-        var problemSource = new ProblemSource();
-        var solverService = new SolverService();
-
-        for (var number = 1; number <= ProjectEulerConstants.NUMBER_OF_PROBLEMS; number++)
-        {
-            if (!solverService.ContainsSolver(number))
-            {
-                Console.WriteLine($"Warning: No solver exists for problem {number}.");
-                continue;
-            }
-
-            var answer = answerSource.GetAnswer(number);
-            var problem = problemSource.GetProblem(number);
-            var solver = solverService.GetSolver(number);
-
-            RunProblem(problem, solver, answer);
-        }
-    }
-
-    private static void RunProblem(IProblem problem, ISolver solver, Answer answer)
-    {
-        Console.WriteLine($"Question {problem.Number}: {problem.Title}");
-        Console.WriteLine($"{problem.Description}");
+        System.Console.WriteLine($"Question {problem.Number}: {problem.Title}");
+        System.Console.WriteLine($"{problem.Description}");
 
         var stopwatch = Stopwatch.StartNew();
-        var solvedAnswer = solver.Solve();
+        var solvedAnswer = await solver.SolveAsync();
         stopwatch.Stop();
 
-        Console.WriteLine("-----------------------------");
-        Console.Write($"The solved answer is {solvedAnswer}");
+        System.Console.WriteLine("-----------------------------");
+        System.Console.Write($"The solved answer is {solvedAnswer}");
 
-        Console.WriteLine(solvedAnswer.Equals(answer)
+        System.Console.WriteLine(solvedAnswer.Equals(answer)
             ? ", which is correct."
             : $", which is incorrect. The correct answer should be '{answer}'.");
 
-        Console.WriteLine($"Elapsed time was {stopwatch.Elapsed.TotalMilliseconds} ms.");
-        Console.WriteLine("-----------------------------");
+        System.Console.WriteLine($"Elapsed time was {stopwatch.Elapsed.TotalMilliseconds} ms.");
+        System.Console.WriteLine("-----------------------------");
     }
 }

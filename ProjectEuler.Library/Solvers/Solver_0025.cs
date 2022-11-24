@@ -1,0 +1,32 @@
+﻿using System.Numerics;
+using ProjectEuler.Helpers.Numerics;
+using ProjectEuler.Library.Answers;
+
+namespace ProjectEuler.Library.Solvers;
+
+public class Solver_0025 : ISolver
+{
+    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    {
+        const int NUMBER_OF_DIGITS = 1000;
+        var index = 0;
+
+        foreach (var fibonacciNumber in FibonacciNumbers.Generate())
+        {
+            if (NumberOfDigitsOf(fibonacciNumber) == NUMBER_OF_DIGITS)
+            {
+                return index;
+            }
+
+            index++;
+        }
+
+        return Answer.Empty;
+    }
+
+    private static int NumberOfDigitsOf(BigInteger number)
+    {
+            
+        return (int)BigInteger.Log10(number) + 1;
+    }
+}

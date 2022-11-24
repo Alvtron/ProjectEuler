@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using ProjectEuler.Extensions;
+using ProjectEuler.Extensions.Extensions;
 
 namespace ProjectEuler.Tests.Extensions;
 
