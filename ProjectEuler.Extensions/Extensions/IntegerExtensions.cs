@@ -37,11 +37,6 @@ public static class IntegerExtensions
     {
         if (count < 1)
         {
-            throw new ArgumentException("The count must at least be 1.", nameof(count));
-        }
-
-        if (number == 0)
-        {
             return number;
         }
 
