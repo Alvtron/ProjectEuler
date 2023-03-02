@@ -62,8 +62,6 @@ public class Solver_0014 : ISolver
             }
         }
 
-        var startingTerm = numberOfTermsByNumber.Aggregate((l, r) => l.Key <= limit && l.Value > r.Value ? l : r).Key;
-
-        return startingTerm;
+        return numberOfTermsByNumber.MaxBy(kv => kv.Value).Key;
     }
 }
