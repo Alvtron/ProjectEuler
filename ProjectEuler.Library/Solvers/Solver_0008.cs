@@ -10,7 +10,8 @@ public class Solver_0008 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var number = await File.ReadAllTextAsync(NumberFilePath, cancellationToken);
-        return GreatestProductOfAdjacentDigits(number, 13);
+        var greatestProductOfAdjacentDigits = GreatestProductOfAdjacentDigits(number, 13);
+        return await Task.FromResult(greatestProductOfAdjacentDigits);
     }
 
     private static long GreatestProductOfAdjacentDigits(string largeNumber, int numberOfDigits)

@@ -10,7 +10,8 @@ public class Solver_0067 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var triangle = await CreateTriangle(cancellationToken);
-        return GetMaximumPathSum(triangle);
+        var maximumPathSum = GetMaximumPathSum(triangle);
+        return await Task.FromResult(maximumPathSum);
     }
 
     private static async Task<int[][]> CreateTriangle(CancellationToken cancellationToken)

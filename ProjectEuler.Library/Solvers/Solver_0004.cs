@@ -6,7 +6,8 @@ public class Solver_0004 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return FindLargestPalindrome(3);
+        var largestPalindromeProduct = FindLargestPalindrome(3);
+        return await Task.FromResult(largestPalindromeProduct);
     }
 
     private static int FindLargestPalindrome(int productSize)

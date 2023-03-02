@@ -6,7 +6,8 @@ public class Solver_0021 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return GetSumOfAmicableNumbersInRange(1, 10000);
+        var sumOfAmicableNumbers = GetSumOfAmicableNumbersInRange(1, 10000);
+        return await Task.FromResult(sumOfAmicableNumbers);
     }
 
     private static Answer GetSumOfAmicableNumbersInRange(int start, int end)

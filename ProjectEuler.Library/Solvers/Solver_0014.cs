@@ -6,7 +6,8 @@ public class Solver_0014 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return GetNumberForLongestChain(1000000);
+        var longestCollatzSequence = GetNumberForLongestChain(1000000);
+        return await Task.FromResult(longestCollatzSequence);
     }
 
     private static long GetNextTerm(long number)

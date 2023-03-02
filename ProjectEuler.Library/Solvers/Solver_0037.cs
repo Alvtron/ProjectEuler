@@ -8,14 +8,16 @@ public class Solver_0037 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return Enumerable
+        var sumOfTrunctablePrimes = Enumerable
             .Range(10, int.MaxValue - 10)
-            .Where(this.IsTrunctable)
+            .Where(IsTrunctable)
             .Take(11)
             .Sum();
+        
+        return await Task.FromResult(sumOfTrunctablePrimes);
     }
 
-    private bool IsTrunctable(int number)
+    private static bool IsTrunctable(int number)
     {
         if (!PrimeNumbers.IsPrime(number))
         {

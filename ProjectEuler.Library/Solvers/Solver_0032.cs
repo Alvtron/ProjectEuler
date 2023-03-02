@@ -35,7 +35,8 @@ public class Solver_0032 : ISolver
             }
         }
 
-        return products.Sum();
+        var sumOfProducts = products.Sum();
+        return await Task.FromResult(sumOfProducts);
     }
 
     private static bool IsPandigital(params int[] numbers)

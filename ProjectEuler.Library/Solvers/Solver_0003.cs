@@ -7,7 +7,8 @@ public partial class Solver_0003 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return FindPrimeFactors(600851475143).Max();
+        var largestPrimeFactor = FindPrimeFactors(600851475143).Max();
+        return await Task.FromResult(largestPrimeFactor);
     }
 
     private static IEnumerable<int> FindPrimeFactors(long number)

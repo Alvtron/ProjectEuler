@@ -110,7 +110,8 @@ internal class Solver_0017 : ISolver
 
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return CountNumberOfWordsForAllNumbers(1, 1000);
+        var numberOfWords = CountNumberOfWordsForAllNumbers(1, 1000);
+        return await Task.FromResult(numberOfWords);
     }
 
     private static string DigitsToString(string digits)

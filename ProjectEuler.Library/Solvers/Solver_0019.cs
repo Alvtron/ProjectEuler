@@ -9,7 +9,8 @@ public class Solver_0019 : ISolver
         var start = new DateTime(1901, 1, 1);
         var end = new DateTime(2000, 12, 31);
 
-        return CountWeekDayEveryDayOfTheMonth(start, end, 1, DayOfWeek.Sunday);
+        var numberOfSundays = CountWeekDayEveryDayOfTheMonth(start, end, 1, DayOfWeek.Sunday);
+        return await Task.FromResult(numberOfSundays);
     }
 
     private static int CountWeekDayEveryDayOfTheMonth(DateTime start, DateTime end, int day, DayOfWeek dayOfWeek)

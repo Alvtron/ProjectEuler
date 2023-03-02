@@ -16,7 +16,7 @@ public class Solver_0114 : ISolver
         var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(MINIMUM_PADDING_LENGTH - 1, ROW_LENGTH - 1);
         var countStartingWithFilled = this.CountBlockCombinationsFromBlock(MINIMUM_BLOCK_LENGTH - 1, ROW_LENGTH - 1);
 
-        return countStartingWithEmpty + countStartingWithFilled;
+        return await Task.FromResult(countStartingWithEmpty + countStartingWithFilled);
     }
 
     private long CountBlockCombinationsFromBlock(int index, int end)

@@ -14,7 +14,8 @@ public class Solver_0013 : ISolver
         var numbers = GetNumbersFromString(numbersString);
         var sum = GetSumOf(numbers);
 
-        return GetFirstDigitsOf(sum, 10);
+        var largestSum = GetFirstDigitsOf(sum, 10);
+        return await Task.FromResult(largestSum);
     }
 
     private static IEnumerable<BigInteger> GetNumbersFromString(string numbers)
@@ -26,17 +27,12 @@ public class Solver_0013 : ISolver
     {
         var sum = new BigInteger();
 
-        foreach (var number in numbers)
-        {
-            sum += number;
-        }
-
-        return sum;
+        return numbers.Aggregate(sum, (current, number) => current + number);
     }
 
     private static long GetFirstDigitsOf(BigInteger number, int count)
     {
-        var firstNumbers = number.ToString().Substring(0, count);
+        var firstNumbers = number.ToString()[..count];
         return long.Parse(firstNumbers);
     }
 }

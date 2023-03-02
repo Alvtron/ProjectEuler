@@ -13,11 +13,11 @@ public class Solver_0012 : ISolver
             var numberOfFactors = GetNumberOfFactorsOf(triangleNumber);
             if (numberOfFactors > NUMBER_OF_FACTORS)
             {
-                return triangleNumber;
+                return await Task.FromResult(triangleNumber);
             }
         }
 
-        return Answer.Empty;
+        return await Task.FromResult(Answer.Empty);
     }
 
     private static IEnumerable<int> GenerateTriangleNumbers()

@@ -7,6 +7,7 @@ public class Solver_0007 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return PrimeNumbers.Generate().ElementAt(10_001 - 1);
+        var prime = PrimeNumbers.Generate().ElementAt(10_001 - 1);
+        return await Task.FromResult(prime);
     }
 }

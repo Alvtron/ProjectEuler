@@ -7,7 +7,8 @@ public class Solver_0006 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var numbers = Enumerable.Range(1, 100).ToArray();
-        return DifferenceBetweenSumOfSquaresAndSquareOfSum(numbers);
+        var sumSquareDifference = DifferenceBetweenSumOfSquaresAndSquareOfSum(numbers);
+        return await Task.FromResult(sumSquareDifference);
     }
 
     private static long SumOfSquares(IEnumerable<int> numbers)

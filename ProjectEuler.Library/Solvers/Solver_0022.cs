@@ -14,8 +14,8 @@ public class Solver_0022 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var wordScores = GetWordScoresInFile(NamesFilePath);
-
-        return wordScores.Sum();
+        var sumOfNamesScores = wordScores.Sum();
+        return await Task.FromResult(sumOfNamesScores);
     }
 
     private static IEnumerable<int> GetWordScoresInFile(string path)

@@ -7,7 +7,8 @@ public class Solver_0010 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return SumOfPrimesBelow(2_000_000);
+        var summationOfPrimes = SumOfPrimesBelow(2_000_000);
+        return await Task.FromResult(summationOfPrimes);
     }
 
     private static long SumOfPrimesBelow(long limit)

@@ -10,7 +10,8 @@ public class Solver_0020 : ISolver
         var number = new BigInteger(100);
         var factorial = CalculateFactorial(number);
 
-        return SumOfDigitsOf(factorial);
+        var factorialDigitSum = SumOfDigitsOf(factorial);
+        return await Task.FromResult(factorialDigitSum);
     }
 
     private static int SumOfDigitsOf(BigInteger number)

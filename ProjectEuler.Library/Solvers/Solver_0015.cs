@@ -6,7 +6,8 @@ public class Solver_0015 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return GetNumberOfPaths(20, 20);
+        var latticePaths = GetNumberOfPaths(20, 20);
+        return await Task.FromResult(latticePaths);
     }
 
     private static bool IsAtTargetLocation(int x, int y, long?[,] grid)

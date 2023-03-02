@@ -7,7 +7,8 @@ public class Solver_0005 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var numbers = Enumerable.Range(1, 20).ToArray();
-        return SmallestNumberDivisibleBy(numbers);
+        var smallestMultiple = SmallestNumberDivisibleBy(numbers);
+        return await Task.FromResult(smallestMultiple);
     }
 
     private static long SmallestNumberDivisibleBy(params int[] numbers)

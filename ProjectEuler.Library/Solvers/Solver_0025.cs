@@ -15,13 +15,13 @@ public class Solver_0025 : ISolver
         {
             if (NumberOfDigitsOf(fibonacciNumber) == NUMBER_OF_DIGITS)
             {
-                return index;
+                return await Task.FromResult(index);
             }
 
             index++;
         }
 
-        return Answer.Empty;
+        return await Task.FromResult(Answer.Empty);
     }
 
     private static int NumberOfDigitsOf(BigInteger number)

@@ -12,7 +12,8 @@ public class Solver_0116 : ISolver
         var greenBlockCounter = new BlockCombinationCounter(ROW_LENGTH, 3);
         var blueBlockCounter = new BlockCombinationCounter(ROW_LENGTH, 4);
 
-        return redBlockCounter.Count() + greenBlockCounter.Count() + blueBlockCounter.Count() - 3;
+        var numberOfBlockCombinations = redBlockCounter.Count() + greenBlockCounter.Count() + blueBlockCounter.Count() - 3;
+        return await Task.FromResult(numberOfBlockCombinations);
     }
 
     private sealed class BlockCombinationCounter

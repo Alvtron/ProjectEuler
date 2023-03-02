@@ -9,7 +9,8 @@ public class Solver_0001 : ISolver
         var numbers = new[] { 3, 5 };
         const int LIMIT = 1000;
 
-        return SumOfMultiples(numbers, LIMIT);
+        var sumOfMultiples = SumOfMultiples(numbers, LIMIT);
+        return await Task.FromResult(sumOfMultiples);
     }
 
     private static int SumOfMultiples(int[] numbers, int limit)

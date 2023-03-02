@@ -13,7 +13,8 @@ public class Solver_0023 : ISolver
         var positiveIntegers = Enumerable.Range(1, LIMIT)
             .Where(number => !sumsOfAbundantNumbers.Contains(number));
 
-        return positiveIntegers.Sum();
+        var sumOfPositiveIntegers = positiveIntegers.Sum();
+        return await Task.FromResult(sumOfPositiveIntegers);
     }
 
     private static ISet<int> GetSumsOfAbundantNumbers(int limit)

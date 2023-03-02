@@ -7,7 +7,8 @@ public class Solver_0030 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return FindSumOfPowers(5).Sum();
+        var sumOfPowers = FindSumOfPowers(5).Sum();
+        return await Task.FromResult(sumOfPowers);
     }
 
     private static IEnumerable<double> FindSumOfPowers(int power)

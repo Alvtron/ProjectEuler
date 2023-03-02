@@ -27,7 +27,7 @@ public class Solver_0028 : ISolver
 
         sum += spiral[MIDDLE, MIDDLE];
 
-        return sum;
+        return await Task.FromResult(sum);
     }
 
     private static int[,] CreateSpiral(int size)

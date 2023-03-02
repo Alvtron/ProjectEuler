@@ -11,7 +11,8 @@ public class Solver_0011 : ISolver
     {
         var matrix = ConvertStringToMatrix(await File.ReadAllTextAsync(MatrixFilePath, cancellationToken), Environment.NewLine, " ", 20);
 
-        return this.GetLargestProductInGrid(matrix, 4);
+        var largestProductInGrid = this.GetLargestProductInGrid(matrix, 4);
+        return await Task.FromResult(largestProductInGrid);
     }
 
     private static int[,] ConvertStringToMatrix(string source, string rowDelimiter, string columnDelimiter, int size)

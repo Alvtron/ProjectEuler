@@ -13,7 +13,8 @@ public class Solver_0024 : ISolver
             Permutate(digits);
         }
 
-        return string.Concat(digits);
+        var lexicographicPermutation = string.Concat(digits);
+        return await Task.FromResult(lexicographicPermutation);
     }
 
     private static void Permutate(int[] digits)

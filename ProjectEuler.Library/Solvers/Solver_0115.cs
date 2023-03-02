@@ -21,7 +21,7 @@ public class Solver_0115 : ISolver
             count = this.CountBlockCombinations(rowLength++);
         }
 
-        return rowLength - 1;
+        return await Task.FromResult(rowLength - 1);
     }
 
     private long CountBlockCombinations(int rowLength)

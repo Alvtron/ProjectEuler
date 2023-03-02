@@ -7,7 +7,7 @@ public class Solver_0009 : ISolver
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var (a, b, c) = FindPythagoreanTripletThatEquals(1000);
-        return a * b * c;
+        return await Task.FromResult(a * b * c);
     }
 
     private static Tuple<int, int, int> FindPythagoreanTripletThatEquals(int sum)

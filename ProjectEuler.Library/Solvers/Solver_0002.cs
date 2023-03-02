@@ -8,7 +8,8 @@ public class Solver_0002 : ISolver
 
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return SumOfEvenFibonacciNumbers(LIMIT);
+        var sumOfEvenFibonacciNumbers = SumOfEvenFibonacciNumbers(LIMIT);
+        return await Task.FromResult(sumOfEvenFibonacciNumbers);
     }
 
     private static long SumOfEvenFibonacciNumbers(int limit)

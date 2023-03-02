@@ -14,7 +14,8 @@ public class Solver_0117 : ISolver
         var blueBlock = new Block(Color.Blue, 4);
         var blockCounter = new BlockCombinationCounter(ROW_LENGTH, grayBlock, redBlock, greenBlock, blueBlock);
 
-        return blockCounter.Count();
+        var numberOfBlockCombinations = blockCounter.Count();
+        return await Task.FromResult(numberOfBlockCombinations);
     }
 
     private enum Color

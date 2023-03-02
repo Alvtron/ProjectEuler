@@ -11,7 +11,8 @@ public class Solver_0026 : ISolver
 
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return FindDenominatorWithLongestRecurringFractionCycle(1, 2, 1000);
+        var denominator = FindDenominatorWithLongestRecurringFractionCycle(1, 2, 1000);
+        return await Task.FromResult(denominator);
     }
 
     private static int FindDenominatorWithLongestRecurringFractionCycle(int numerator, int startDenominator, int endDenominator)
