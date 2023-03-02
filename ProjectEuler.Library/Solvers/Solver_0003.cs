@@ -3,23 +3,23 @@ using ProjectEuler.Library.Answers;
 
 namespace ProjectEuler.Library.Solvers;
 
-public partial class Solver_0003 : ISolver
+public class Solver_0003 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var largestPrimeFactor = FindPrimeFactors(600851475143).Max();
+        var largestPrimeFactor = FindPrimeFactors(600851475143L).Max();
         return await Task.FromResult(largestPrimeFactor);
     }
 
-    private static IEnumerable<int> FindPrimeFactors(long number)
+    private static IEnumerable<long> FindPrimeFactors(long number)
     {
         var remainder = number;
-        var primeFactors = new List<int>();
+        var primeFactors = new List<long>();
 
         using var primeEnumerator = PrimeNumbers.Generate().GetEnumerator();
         primeEnumerator.MoveNext();
 
-        while (remainder != 1)
+        while (remainder != 1L)
         {
             var prime = primeEnumerator.Current;
             if (remainder % prime == 0L)

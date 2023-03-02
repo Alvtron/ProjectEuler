@@ -15,10 +15,10 @@ public class Solver_0026 : ISolver
         return await Task.FromResult(denominator);
     }
 
-    private static int FindDenominatorWithLongestRecurringFractionCycle(int numerator, int startDenominator, int endDenominator)
+    private static long FindDenominatorWithLongestRecurringFractionCycle(long numerator, long startDenominator, long endDenominator)
     {
-        var denominatorWithLongestCycle = 0;
-        var longestCycleLength = 0;
+        var denominatorWithLongestCycle = 0L;
+        var longestCycleLength = 0L;
 
         // only need to check prime denominators because cycle length would be identical for multiples
         var primeDenominators = PrimeNumbers.Generate()
