@@ -12,21 +12,28 @@ public class Solver_0014 : ISolver
 
     private static long GetNextTerm(long number)
     {
-        if (number % 2L == 0L)
-        {
-            return number / 2L;
-        }
+        return long.IsEvenInteger(number)
+            ? ApplyEvenNumberRule(number)
+            : ApplyOddNumberRule(number);
+    }
 
+    private static long ApplyOddNumberRule(long number)
+    {
         return 3L * number + 1L;
+    }
+
+    private static long ApplyEvenNumberRule(long number)
+    {
+        return number / 2L;
     }
 
     private static long GetNumberForLongestChain(long limit)
     {
-        var terms = new Dictionary<long, long>();
+        var numberOfTermsByNumber = new Dictionary<long, long>();
 
-        for (var number = limit; number > 0L; number += 1L)
+        for (var number = 1L; number <= limit; number++)
         {
-            if (terms.ContainsKey(number))
+            if (numberOfTermsByNumber.ContainsKey(number))
             {
                 continue;
             }
@@ -35,26 +42,27 @@ public class Solver_0014 : ISolver
             seenNumbers.Enqueue(number);
 
             var count = 1L;
+            var term = number;
 
-            while (number > 1)
+            while (term > 1)
             {
-                number = GetNextTerm(number);
-                if (terms.ContainsKey(number))
+                term = GetNextTerm(term);
+                if (numberOfTermsByNumber.ContainsKey(term))
                 {
-                    count += terms[number];
+                    count += numberOfTermsByNumber[term];
                     break;
                 }
                 count++;
-                seenNumbers.Enqueue(number);
+                seenNumbers.Enqueue(term);
             }
 
             while (seenNumbers.Count > 0)
             {
-                terms[seenNumbers.Dequeue()] = count--;
+                numberOfTermsByNumber[seenNumbers.Dequeue()] = count--;
             }
         }
 
-        var startingTerm = terms.Aggregate((l, r) => l.Key <= limit && l.Value > r.Value ? l : r).Key;
+        var startingTerm = numberOfTermsByNumber.Aggregate((l, r) => l.Key <= limit && l.Value > r.Value ? l : r).Key;
 
         return startingTerm;
     }
