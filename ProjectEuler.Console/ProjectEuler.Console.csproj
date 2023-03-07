@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectEuler.Library\ProjectEuler.Library.csproj" />
+    <ProjectReference Include="..\ProjectEuler.Solutions\ProjectEuler.Solutions.csproj" />
   </ItemGroup>
 
 </Project>

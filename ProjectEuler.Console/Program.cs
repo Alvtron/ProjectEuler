@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using ProjectEuler.Library.Answers;
-using ProjectEuler.Library.Problems;
-using ProjectEuler.Library.Solvers;
+using ProjectEuler.Solutions.Answers;
+using ProjectEuler.Solutions.Problems;
+using ProjectEuler.Solutions.Solvers;
 
 namespace ProjectEuler.Console;
 
@@ -11,7 +11,7 @@ public class Program
 {
     public static async Task Main()
     {
-        await SolveAsync(0001, 0002, 0003);
+        await SolveAsync(0041);
     }
 
     private static async Task SolveAsync(params int[] numbers)
