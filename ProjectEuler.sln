@@ -12,19 +12,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Extensions", "ProjectEuler.Extensions\ProjectEuler.Extensions.csproj", "{EECD1489-1611-4617-92F9-EC666A51F8D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Mathematics", "ProjectEuler.Mathematics\ProjectEuler.Mathematics.csproj", "{FC468E16-2DC0-4165-BE67-901F27256F6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Mathematics", "ProjectEuler.Mathematics\ProjectEuler.Mathematics.csproj", "{FC468E16-2DC0-4165-BE67-901F27256F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Utilities", "ProjectEuler.Utilities\ProjectEuler.Utilities.csproj", "{606934F7-D5BD-4D70-B9A3-2D97B4C83276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Utilities", "ProjectEuler.Utilities\ProjectEuler.Utilities.csproj", "{606934F7-D5BD-4D70-B9A3-2D97B4C83276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Extensions.Tests", "ProjectEuler.Extensions.Tests\ProjectEuler.Extensions.Tests.csproj", "{55ED941D-D06D-4B14-B301-1E1879BDB058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Extensions.Tests", "ProjectEuler.Extensions.Tests\ProjectEuler.Extensions.Tests.csproj", "{55ED941D-D06D-4B14-B301-1E1879BDB058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Mathematics.Tests", "ProjectEuler.Mathematics.Tests\ProjectEuler.Mathematics.Tests.csproj", "{0F1C651C-7E7D-4981-84BF-C9CD038FB892}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Mathematics.Tests", "ProjectEuler.Mathematics.Tests\ProjectEuler.Mathematics.Tests.csproj", "{0F1C651C-7E7D-4981-84BF-C9CD038FB892}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Solutions", "ProjectEuler.Solutions\ProjectEuler.Solutions.csproj", "{6BFE102C-9DAB-4408-A2CD-1466D7D564CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Solutions", "ProjectEuler.Solutions\ProjectEuler.Solutions.csproj", "{6BFE102C-9DAB-4408-A2CD-1466D7D564CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Solutions.Tests", "ProjectEuler.Solutions.Tests\ProjectEuler.Solutions.Tests.csproj", "{8474BCFD-432F-4191-A0F1-2422BEEF89FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Solutions.Tests", "ProjectEuler.Solutions.Tests\ProjectEuler.Solutions.Tests.csproj", "{8474BCFD-432F-4191-A0F1-2422BEEF89FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectEuler.Utilities.Tests", "ProjectEuler.Utilities.Tests\ProjectEuler.Utilities.Tests.csproj", "{050CFD53-379A-4A10-BAD1-74F01ACE19F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectEuler.Utilities.Tests", "ProjectEuler.Utilities.Tests\ProjectEuler.Utilities.Tests.csproj", "{050CFD53-379A-4A10-BAD1-74F01ACE19F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

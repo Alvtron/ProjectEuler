@@ -11,7 +11,7 @@ public class Program
 {
     public static async Task Main()
     {
-        await SolveAsync(0041);
+        await SolveAsync(001, 002, 003);
     }
 
     private static async Task SolveAsync(params int[] numbers)

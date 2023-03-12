@@ -1,4 +1,5 @@
 ﻿using ProjectEuler.Extensions.Numbers;
+using ProjectEuler.Mathematics.Numbers;
 using ProjectEuler.Solutions.Answers;
 
 namespace ProjectEuler.Solutions.Solvers;
@@ -33,17 +34,10 @@ public class Solver_0038 : ISolver
                     continue;
                 }
 
-                return ConvertDigitsIntoNumber(digits);
+                return (int)CombinedNumbers.Combine(digits);
             }
         }
 
         return -1;
-    }
-
-    private static int ConvertDigitsIntoNumber(IReadOnlyCollection<int> array)
-    {
-        return array
-            .Select((number, index) => number * Convert.ToInt32(Math.Pow(10, array.Count - index - 1)))
-            .Sum();
     }
 }

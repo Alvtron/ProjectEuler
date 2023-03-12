@@ -13,6 +13,7 @@ public class IntegerExtensionsTests
     [TestCase(1234, 4)]
     [TestCase(123456789, 9)]
     [TestCase(100000000, 9)]
+    [TestCase(int.MaxValue, 10)]
     public void Length_PositiveNumber_ReturnsCorrectLength(int number, int actualLength)
     {
         // ACT
@@ -29,6 +30,7 @@ public class IntegerExtensionsTests
     [TestCase(-1234, 4)]
     [TestCase(-123456789, 9)]
     [TestCase(-100000000, 9)]
+    [TestCase(int.MinValue, 10)]
     public void Length_NegativeNumber_ReturnsCorrectLength(int number, int actualLength)
     {
         // ACT

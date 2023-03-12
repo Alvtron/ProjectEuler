@@ -12,44 +12,53 @@ public class PermutationsTests
         var nothing = Enumerable.Empty<int>();
 
         // ACT
-        var permutations = Combinations.Of(nothing);
+        var permutations = Permutations.Of(nothing);
 
         // ASSERT
         Assert.That(permutations, Is.Empty);
     }
 
     [Test]
-    public void Of_Digits_ReturnsCorrectPermutations()
+    public void Of_LettersNoLength_ReturnsCorrectPermutations()
     {
         // ARRANGE
-        var digits = new[] { 1, 2, 3 };
-
-        // ACT
-        var permutations = Permutations.Of(digits);
-
-        // ASSERT
-        var expected = new HashSet<int[]>
+        const string LETTERS = "ABC";
+        var expected = new HashSet<string>
         {
-            new[] { 1, },
-            new[] { 1, 2 },
-            new[] { 1, 3 },
-            new[] { 1, 2, 3 },
-            new[] { 1, 3, 2 },
-            new[] { 2, },
-            new[] { 2, 1 },
-            new[] { 2, 3 },
-            new[] { 2, 1, 3 },
-            new[] { 2, 3, 1 },
-            new[] { 3, },
-            new[] { 3, 1 },
-            new[] { 3, 2 },
-            new[] { 3, 1, 2 },
-            new[] { 3, 2, 1 },
+            "ABC",
+            "ACB",
+            "BAC",
+            "BCA",
+            "CAB",
+            "CBA",
         };
 
-        foreach (var combination in permutations)
+        // ACT
+        var permutations = Permutations.Of(LETTERS).Select(permutation => new string(permutation.ToArray()));
+
+        // ASSERT
+        CollectionAssert.AreEqual(permutations, expected);
+    }
+
+    [Test]
+    public void Of_LettersWithLength_ReturnsCorrectPermutations()
+    {
+        // ARRANGE
+        const string LETTERS = "ABC";
+        var expected = new HashSet<string>
         {
-            Assert.That(expected.Count(e => e.SequenceEqual(combination)), Is.EqualTo(1));
-        }
+            "AB",
+            "AC",
+            "BA",
+            "BC",
+            "CA",
+            "CB",
+        };
+
+        // ACT
+        var permutations = Permutations.Of(LETTERS, 2).Select(permutation => new string(permutation.ToArray()));
+
+        // ASSERT
+        CollectionAssert.AreEquivalent(permutations, expected);
     }
 }

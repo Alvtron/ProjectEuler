@@ -2,19 +2,53 @@
 
 public static class IntegerExtensions
 {
+    /// <summary>
+    /// Returns the length of the number (i.e. the number of digits).
+    /// </summary>
+    /// <param name="number">The number.</param>
     public static int Length(this int number)
     {
-        if (number is 0)
+        static int LengthOfPositiveNumber(int number)
         {
-            return 1;
+            return number switch
+            {
+                < 10 => 1,
+                < 100 => 2,
+                < 1000 => 3,
+                < 10000 => 4,
+                < 100000 => 5,
+                < 1000000 => 6,
+                < 10000000 => 7,
+                < 100000000 => 8,
+                < 1000000000 => 9,
+                _ => 10
+            };
         }
 
-        var positiveNumber = Math.Abs(number);
-        var numberOfDigits = Math.Log10(positiveNumber + 1);
+        static int LengthOfNegativeNumber(int number)
+        {
+            return number switch
+            {
+                > -10 => 1,
+                > -100 => 2,
+                > -1000 => 3,
+                > -10000 => 4,
+                > -100000 => 5,
+                > -1000000 => 6,
+                > -10000000 => 7,
+                > -100000000 => 8,
+                > -1000000000 => 9,
+                _ => 10
+            };
+        }
 
-        return (int)Math.Ceiling(numberOfDigits);
+        return number < 0 ? LengthOfNegativeNumber(number) : LengthOfPositiveNumber(number);
     }
 
+    /// <summary>
+    /// Returns each digit in the number.
+    /// </summary>
+    /// <param name="number">The number that contains digits.</param>
     public static IEnumerable<int> Digits(this int number)
     {
         if (number == 0)
@@ -33,6 +67,11 @@ public static class IntegerExtensions
         }
     }
 
+    /// <summary>
+    /// Returns the first digits in the number.
+    /// </summary>
+    /// <param name="number">The number that contains digits.</param>
+    /// <param name="count">The number of digits to return.</param>
     public static int FirstDigits(this int number, int count)
     {
         if (count < 1)
@@ -50,6 +89,11 @@ public static class IntegerExtensions
             : sign * (int)Math.Truncate(number / Math.Pow(10, numberOfDigits - count));
     }
 
+    /// <summary>
+    /// Returns the last digits in the number.
+    /// </summary>
+    /// <param name="number">The number that contains digits.</param>
+    /// <param name="count">The number of digits to return.</param>
     public static int LastDigits(this int number, int count)
     {
         if (count < 1)
