@@ -23,7 +23,7 @@
         /// <summary>
         /// The largest zero-less pandigital number.
         /// </summary>
-        public const long LargestZeroLess = 9876543210;
+        public const long LargestZeroLess = 987654321;
 
         /// <summary>
         /// Determines whether the number is pandigital in base 10.
