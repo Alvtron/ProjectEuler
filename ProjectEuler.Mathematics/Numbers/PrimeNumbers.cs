@@ -3,22 +3,12 @@
 public static class PrimeNumbers
 {
     /// <summary>
-    /// Generates prime numbers indefinitely, in ascending order.
+    /// Generates all prime numbers between 0 and 9223372036854775807 (<see cref="long.MaxValue"/>), in ascending order.
     /// </summary>
-    /// <remarks>Enumeration must be stopped using linq.</remarks>
+    /// <remarks>Enumeration should be stopped using linq.</remarks>
     public static IEnumerable<long> Generate()
     {
-        yield return 2;
-
-        for (var number = 3;; number += 2)
-        {
-            if (!IsPrime(number))
-            {
-                continue;
-            }
-
-            yield return number;
-        }
+        return Between(2, long.MaxValue);
     }
 
     /// <summary>
