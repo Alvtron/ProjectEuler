@@ -1,4 +1,6 @@
-﻿namespace ProjectEuler.Mathematics.Numbers
+﻿using ProjectEuler.Mathematics.Combinatorics;
+
+namespace ProjectEuler.Mathematics.Numbers
 {
     /// <summary>
     /// Pandigital numbers are numbers containing the digits 0-9 where each digit appears exactly once.
@@ -68,6 +70,36 @@
             }
 
             return flags == 0x3fe;
+        }
+
+        /// <summary>
+        /// Generates all pandigital numbers containing the specified <paramref name="numberOfDigits"/>.
+        /// </summary>
+        /// <param name="numberOfDigits">The number of digits, or length, in the generated pandigital numbers.</param>
+        /// <exception cref="ArgumentException">Thrown if the number of digits is below 1 or higher than 9.</exception>
+        public static IEnumerable<long> Generate(int numberOfDigits)
+        {
+            return numberOfDigits switch
+            {
+                < 1 => throw new ArgumentException("The number of digits was lower than 1.", nameof(numberOfDigits)),
+                > 9 => throw new ArgumentException("The number of digits was greater than 9.", nameof(numberOfDigits)),
+                _ => Permutations.Of(Enumerable.Range(1, numberOfDigits)).Select(CombinedNumbers.Combine)
+            };
+        }
+
+        /// <summary>
+        /// Generates all pandigital numbers containing the specified <paramref name="numberOfDigits"/>, in reverse order.
+        /// </summary>
+        /// <param name="numberOfDigits">The number of digits, or length, in the generated pandigital numbers.</param>
+        /// <exception cref="ArgumentException">Thrown if the number of digits is below 1 or higher than 9.</exception>
+        public static IEnumerable<long> GenerateReverse(int numberOfDigits)
+        {
+            return numberOfDigits switch
+            {
+                < 1 => throw new ArgumentException("The number of digits was lower than 1.", nameof(numberOfDigits)),
+                > 9 => throw new ArgumentException("The number of digits was greater than 9.", nameof(numberOfDigits)),
+                _ => Permutations.Of(Enumerable.Range(1, numberOfDigits).Reverse()).Select(CombinedNumbers.Combine)
+            };
         }
     }
 }

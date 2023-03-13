@@ -19,6 +19,34 @@ public class PandigitalNumbersTests
         }
     }
 
+    [Test]
+    public void Generate_NineDigitsAndFirstMillion_AllArePandigitalNumbers()
+    {
+        // ARRANGE
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\PandigitalNumbersTests_1_9.txt");
+        var actualPandigitalNumbers = File.ReadLines(path).Take(1_000_000);
+        
+        // ACT
+        var pandigitalNumbers = PandigitalNumbers.Generate(9).Take(1_000_000);
+
+        // ASSERT
+        CollectionAssert.AreEqual(actualPandigitalNumbers, pandigitalNumbers.Select(n => n.ToString()));
+    }
+
+    [Test]
+    public void GenerateReverse_NineDigitsAndLastMillion_AllArePandigitalNumbers()
+    {
+        // ARRANGE
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\PandigitalNumbersTests_1_9.txt");
+        var actualPandigitalNumbers = File.ReadLines(path).Reverse().Take(1_000_000);
+
+        // ACT
+        var pandigitalNumbers = PandigitalNumbers.GenerateReverse(9).Take(1_000_000);
+
+        // ASSERT
+        CollectionAssert.AreEqual(actualPandigitalNumbers, pandigitalNumbers.Select(n => n.ToString()));
+    }
+
     [Test, Explicit]
     public async Task IsPandigital_NonPandigitalNumbers_ReturnsFalse()
     {
