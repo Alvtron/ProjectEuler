@@ -1,4 +1,5 @@
 ﻿using ProjectEuler.Extensions.Streams;
+using ProjectEuler.Mathematics.Letters;
 using ProjectEuler.Solutions.Answers;
 using ProjectEuler.Solutions.Resources;
 
@@ -6,9 +7,6 @@ namespace ProjectEuler.Solutions.Solvers;
 
 public class Solver_0022 : ISolver
 {
-    private const string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static readonly IReadOnlyDictionary<char, int> AlphabeticalPositions = Enumerable.Range(0, ALPHABET.Length).ToDictionary(i => ALPHABET[i], i => i + 1);
-
     private static readonly string NamesFilePath = ResourcesHelper.GetResourcePath("problem_0022_names.txt");
 
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
@@ -38,8 +36,9 @@ public class Solver_0022 : ISolver
 
     private static int GetWordScore(string word)
     {
-        return word.Where(character => AlphabeticalPositions.ContainsKey(character))
-            .Select(character => AlphabeticalPositions[character])
+        return word
+            .Where(Alphabet.IsAlphabeticalLetter)
+            .Select(Alphabet.GetPositionOf)
             .Sum();
     }
 
