@@ -22,7 +22,6 @@ public class Solver_0043 : ISolver
         var largestNumber = CombinedNumbers.Combine(digits.Reverse().Take(span));
         var remainingDividends = dividends.Pop(out var largestDividend);
         
-        var tasks = new List<Task>();
         for (var number = largestDividend; number <= largestNumber; number += largestDividend)
         {
             var initialPandigital = number.Length() != span 
