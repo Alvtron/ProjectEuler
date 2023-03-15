@@ -1,6 +1,6 @@
 ﻿using ProjectEuler.Mathematics.Numbers;
 
-namespace ProjectEuler.Mathematics.Tests.Combinatorics;
+namespace ProjectEuler.Mathematics.Tests.Numbers;
 
 [TestFixture]
 public class PandigitalNumbersTests
@@ -25,7 +25,7 @@ public class PandigitalNumbersTests
         // ARRANGE
         var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\PandigitalNumbersTests_1_9.txt");
         var actualPandigitalNumbers = File.ReadLines(path).Take(1_000_000);
-        
+
         // ACT
         var pandigitalNumbers = PandigitalNumbers.Generate(9).Take(1_000_000);
 
