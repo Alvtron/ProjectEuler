@@ -5,7 +5,7 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 [TestFixture]
 public class TriangularNumbersTests
 {
-    private const string TEST_FILE_PATH = @"Assets\TriangularNumbersTests_1000_000.txt";
+    private const string TEST_FILE_PATH = @"Assets\TriangularNumbersTests_1000000.txt";
 
     [Test]
     public async Task Generate_OneMillionNumbers_AllAreTriangularNumbers()

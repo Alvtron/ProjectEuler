@@ -3,43 +3,13 @@
 public static class PrimeNumbers
 {
     /// <summary>
-    /// Generates all prime numbers between 0 and 9223372036854775807 (<see cref="long.MaxValue"/>), in ascending order.
+    /// Generates all prime numbers in ascending order.
     /// </summary>
     /// <remarks>Enumeration should be stopped using linq.</remarks>
     public static IEnumerable<long> Generate()
     {
-        return Between(2, long.MaxValue);
-    }
-
-    /// <summary>
-    /// Find all prime values between a <paramref name="minimum"/> and <paramref name="maximum"/>, in ascending order.
-    /// </summary>
-    /// <param name="minimum">The minimum number that defines the lower bound of the search space.</param>
-    /// <param name="maximum">The maximum number that defines the upper bound of the search space.</param>
-    public static IEnumerable<long> Between(long minimum, long maximum)
-    {
-        if (minimum > maximum)
-        {
-            throw new ArgumentException("The minimum was greater than the maximum.", nameof(minimum));
-        }
-
-        if (minimum == maximum && IsPrime(maximum))
-        {
-            yield return maximum;
-            yield break;
-        }
-
-        if (minimum <= 2)
-        {
-            yield return 2;
-            minimum = 3;
-        }
-        else if (long.IsEvenInteger(minimum))
-        {
-            minimum++;
-        }
-
-        for (var number = minimum; number <= maximum; number += 2L)
+        yield return 2L;
+        for (var number = 3L; true; number += 2L)
         {
             if (!IsPrime(number))
             {
@@ -51,35 +21,40 @@ public static class PrimeNumbers
     }
 
     /// <summary>
-    /// Find all prime values between a <paramref name="maximum"/> and <paramref name="minimum"/>, in descending order.
+    /// Find all composite values between a <paramref name="start"/> and <paramref name="end"/>.
     /// </summary>
-    /// <param name="minimum">The minimum number that defines the lower bound of the search space.</param>
-    /// <param name="maximum">The maximum number that defines the upper bound of the search space.</param>
-    public static IEnumerable<long> BetweenReversed(long maximum, long minimum)
+    /// <remarks>
+    /// If <paramref name="start"/> is greater than <paramref name="end"/>,
+    /// the composite values are generated in descending order.
+    /// </remarks>
+    /// <param name="start">The start number that defines one point in the search space.</param>
+    /// <param name="end">The end number that defines another point in the search space.</param>
+    public static IEnumerable<long> Between(long start, long end)
     {
-        if (maximum < minimum)
+        if (start < 2L && end < 2L)
         {
-            throw new ArgumentException("The maximum was less than the minimum.", nameof(maximum));
-        }
-
-        if (maximum == 2)
-        {
-            yield return 2;
             yield break;
         }
 
-        if (minimum == maximum && IsPrime(maximum))
+        start = Math.Max(start, 1L);
+        end = Math.Max(end, 1L);
+
+        var step = start < end ? 2L : -2L;
+        if (start < 2L)
         {
-            yield return maximum;
-            yield break;
+            yield return 2L;
+
+            if (start < end)
+            {
+                start = 3L;
+            }
+        }
+        else if (long.IsEvenInteger(start))
+        {
+            start += step / 2L;
         }
 
-        if (long.IsEvenInteger(maximum))
-        {
-            maximum--;
-        }
-
-        for (var number = maximum; number >= minimum; number -= 2L)
+        for (var number = start; number <= end; number += step)
         {
             if (!IsPrime(number))
             {
@@ -97,19 +72,19 @@ public static class PrimeNumbers
     /// <returns><see langword="true"/> if the number is a prime number; <see langword="false"/> otherwise.</returns>
     public static bool IsPrime(long number)
     {
-        if (number is 2 or 3)
+        if (number is 2L or 3L)
         {
             return true;
         }
 
-        if (number < 2 || number % 2 == 0 || number % 3 == 0)
+        if (number < 2L || number % 2L == 0L || number % 3L == 0L)
         {
             return false;
         }
 
-        for (var i = 5; i * i <= number; i += 6)
+        for (var i = 5L; i * i <= number; i += 6L)
         {
-            if (number % i == 0 || number % (i + 2) == 0)
+            if (number % i == 0L || number % (i + 2L) == 0L)
             {
                 return false;
             }

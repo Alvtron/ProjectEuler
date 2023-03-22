@@ -18,12 +18,13 @@
 		<None Remove="Assets\CombinationsTests_14n_7k.txt" />
 		<None Remove="Assets\CombinationsTests_14n_8k.txt" />
 		<None Remove="Assets\CombinationsTests_14n_9k.txt" />
-		<None Remove="Assets\HexagonalNumbersTests_1000_000.txt" />
+		<None Remove="Assets\CompositeNumbersTests_1000000.txt" />
+		<None Remove="Assets\HexagonalNumbersTests_1000000.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_0_9.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_1_9.txt" />
 		<None Remove="Assets\PentagonalNumbersTests_500.txt" />
 		<None Remove="Assets\PrimeNumbersTests_200_000_primes.txt" />
-		<None Remove="Assets\TriangularNumbersTests_1000_000.txt" />
+		<None Remove="Assets\TriangularNumbersTests_1000000.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -66,13 +67,16 @@
 		<EmbeddedResource Include="Assets\CombinationsTests_14n_9k.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\CompositeNumbersTests_1000000.txt">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\PandigitalNumbersTests_0_9.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\PandigitalNumbersTests_1_9.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
-		<EmbeddedResource Include="Assets\TriangularNumbersTests_1000_000.txt">
+		<EmbeddedResource Include="Assets\TriangularNumbersTests_1000000.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\PentagonalNumbersTests_500.txt">
@@ -84,7 +88,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Assets\HexagonalNumbersTests_1000_000.txt">
+	  <EmbeddedResource Include="Assets\HexagonalNumbersTests_1000000.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

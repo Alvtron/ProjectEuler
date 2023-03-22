@@ -26,32 +26,45 @@ public class PrimeNumbersTests
     {
         // ARRANGE
         var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-        using var enumerator = PrimeNumbers.Generate().Take(200_000).GetEnumerator();
+        var actualPrimes = await File.ReadAllLinesAsync(path);
+        var generatedPrimes = PrimeNumbers.Generate().Take(200_000);
 
         // ACT & ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        foreach (var (generated, actual) in generatedPrimes.Zip(actualPrimes))
         {
-            Assert.That(enumerator.MoveNext(), Is.True);
-            Assert.That(line, Is.EqualTo(enumerator.Current.ToString()));
+            Assert.That(generated.ToString(), Is.EqualTo(actual));
         }
     }
 
     [Test]
-    public async Task Between_0And1000000_AllArePrimes()
+    public async Task Between_0And200000_AllArePrimes()
     {
         // ARRANGE
         var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-        var primeEnumerator = File.ReadLinesAsync(path).GetAsyncEnumerator();
-        using var enumerator = PrimeNumbers.Between(0, 200_000).GetEnumerator();
+        var actualPrimes = await File.ReadAllLinesAsync(path);
+        var generatedPrimes = PrimeNumbers.Between(0, 200_000);
 
         // ACT & ASSERT
-        while (enumerator.MoveNext())
+        foreach (var (generated, actual) in generatedPrimes.Zip(actualPrimes))
         {
-            await primeEnumerator.MoveNextAsync();
-
-            Assert.That(primeEnumerator.Current, Is.EqualTo(enumerator.Current.ToString()));
+            Assert.That(generated.ToString(), Is.EqualTo(actual));
         }
+    }
 
-        Assert.That(enumerator.MoveNext, Is.False);
+    [Test]
+    public async Task Between_200000And0_AllArePrimes()
+    {
+        // ARRANGE
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
+        var actualPrimes = await File.ReadAllLinesAsync(path);
+        Array.Reverse(actualPrimes);
+
+        var generatedPrimes = PrimeNumbers.Between(200_000, 0);
+
+        // ACT & ASSERT
+        foreach (var (generated, actual) in generatedPrimes.Zip(actualPrimes))
+        {
+            Assert.That(generated.ToString(), Is.EqualTo(actual));
+        }
     }
 }
