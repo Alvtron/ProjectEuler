@@ -24,7 +24,14 @@
 		<None Remove="Assets\PandigitalNumbersTests_1_9.txt" />
 		<None Remove="Assets\PentagonalNumbersTests_500.txt" />
 		<None Remove="Assets\PrimeNumbersTests_200_000_primes.txt" />
+		<None Remove="Assets\SquareNumbersTests_1000000.txt" />
 		<None Remove="Assets\TriangularNumbersTests_1000000.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Assets\SquareNumbersTests_1000000.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
