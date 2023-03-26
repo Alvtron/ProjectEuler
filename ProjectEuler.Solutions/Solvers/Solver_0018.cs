@@ -42,7 +42,7 @@ public class Solver_0018 : ISolver
             {
                 var left = triangle[i + 1][j];
                 var right = triangle[i + 1][j + 1];
-                triangle[i][j] += Math.Max(left, right);
+                triangle[i][j] += int.Max(left, right);
             }
         }
 

@@ -36,8 +36,8 @@ public static class PrimeNumbers
             yield break;
         }
 
-        start = Math.Max(start, 1L);
-        end = Math.Max(end, 1L);
+        start = long.Max(start, 1L);
+        end = long.Max(end, 1L);
 
         var step = start < end ? 2L : -2L;
         if (start < 2L)

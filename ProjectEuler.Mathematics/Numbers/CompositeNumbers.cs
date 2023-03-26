@@ -35,8 +35,8 @@ public static class CompositeNumbers
     /// <param name="end">The end number that defines another point in the search space.</param>
     public static IEnumerable<long> Between(long start, long end)
     {
-        start = Math.Max(start, 3L);
-        end = Math.Max(end, 3L);
+        start = long.Max(start, 3L);
+        end = long.Max(end, 3L);
         var step = start < end ? 1L  : -1L;
 
         for (var number = start; number <= end; number += step)

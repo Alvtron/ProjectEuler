@@ -29,8 +29,8 @@ public static class SquareNumbers
     /// <param name="end">The end number that defines another point in the search space.</param>
     public static IEnumerable<long> Between(long start, long end)
     {
-        start = Math.Max(start, 0L);
-        end = Math.Max(end, 0L);
+        start = long.Max(start, 0L);
+        end = long.Max(end, 0L);
         var step = start < end ? 1L : -1L;
 
         for (var number = start; number <= end; number += step)
