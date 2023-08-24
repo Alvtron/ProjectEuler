@@ -3,7 +3,7 @@ using ProjectEuler.Solutions.Resources;
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0011 : ISolver
+internal sealed class Solver_0011 : ISolver
 {
     private static readonly string MatrixFilePath = ResourcesHelper.GetResourcePath("problem_0011_numbers.txt");
 

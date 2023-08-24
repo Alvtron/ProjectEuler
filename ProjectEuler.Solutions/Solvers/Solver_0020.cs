@@ -3,7 +3,7 @@ using ProjectEuler.Solutions.Answers;
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0020 : ISolver
+internal sealed class Solver_0020 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {

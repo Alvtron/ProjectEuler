@@ -2,7 +2,7 @@
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0019 : ISolver
+internal sealed class Solver_0019 : ISolver
 {
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {

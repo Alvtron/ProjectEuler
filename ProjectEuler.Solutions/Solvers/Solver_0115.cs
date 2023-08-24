@@ -2,7 +2,7 @@
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0115 : ISolver
+internal sealed class Solver_0115 : ISolver
 {
     private const int MAX_COUNT = 1_000_000;
     private const int MINIMUM_BLOCK_LENGTH = 50;

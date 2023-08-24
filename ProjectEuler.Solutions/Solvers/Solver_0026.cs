@@ -5,7 +5,7 @@ using Singulink.Numerics;
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0026 : ISolver
+internal sealed class Solver_0026 : ISolver
 {
     private const int MAXIMUM_NUMBER_OF_FRACTALS = 2000;
 

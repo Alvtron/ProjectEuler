@@ -4,7 +4,7 @@ using ProjectEuler.Solutions.Resources;
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0013 : ISolver
+internal sealed class Solver_0013 : ISolver
 {
     private static readonly string NumbersFilePath = ResourcesHelper.GetResourcePath("problem_0013_numbers.txt");
 

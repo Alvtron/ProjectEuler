@@ -5,7 +5,7 @@ using ProjectEuler.Solutions.Resources;
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0022 : ISolver
+internal sealed class Solver_0022 : ISolver
 {
     private static readonly string NamesFilePath = ResourcesHelper.GetResourcePath("problem_0022_names.txt");
 

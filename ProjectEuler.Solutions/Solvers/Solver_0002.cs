@@ -2,7 +2,7 @@
 
 namespace ProjectEuler.Solutions.Solvers;
 
-public class Solver_0002 : ISolver
+internal sealed class Solver_0002 : ISolver
 {
     private const int LIMIT = 4000000;
 
