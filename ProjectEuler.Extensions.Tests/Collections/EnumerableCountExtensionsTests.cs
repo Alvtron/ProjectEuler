@@ -3,7 +3,7 @@
 namespace ProjectEuler.Extensions.Tests.Collections;
 
 [TestFixture]
-public class EnumerableCountExtensions
+public class EnumerableCountExtensionsTests
 {
     [Test]
     public void CountEquals_CountIsNumberOfElements_ReturnsTrue()
