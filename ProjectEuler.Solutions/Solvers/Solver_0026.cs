@@ -28,7 +28,7 @@ internal sealed class Solver_0026 : ISolver
         {
             var decimalNumber = BigDecimal.Divide(numerator, denominator, MAXIMUM_NUMBER_OF_FRACTALS);
 
-            var fractional = decimalNumber.ToString(CultureInfo.InvariantCulture).AsSpan()[2..];
+            var fractional = decimalNumber.ToString(string.Empty, CultureInfo.InvariantCulture).AsSpan()[2..];
             var currentLongestCycleLength = GetShortestCycleFrom(fractional);
 
             if (currentLongestCycleLength <= longestCycleLength)

@@ -78,15 +78,13 @@ public class SolverTests
 
     private sealed class ProblemNumberCases : IEnumerable
     {
-        private readonly SolverService solverService;
+        private readonly SolverService solverService = new();
 
-        public ProblemNumberCases()
-        {
-            this.solverService = new SolverService();
-        }
         public IEnumerator GetEnumerator()
         {
-            return this.solverService.SolvableProblems.GetEnumerator();
+            return this.solverService.SolvableProblems
+                .Select(problem => new TestCaseData(problem).SetName($"Problem {problem:D4}"))
+                .GetEnumerator();
         }
     }
 }

@@ -37,6 +37,6 @@ public class CombinationsTests
         var combinations = Combinations.Of(symbols, length).Select(combination => new string(combination.ToArray()));
 
         // ASSERT
-        CollectionAssert.AreEqual(combinations, expectedResult);
+        Assert.That(combinations, Is.EqualTo(expectedResult));
     }
 }

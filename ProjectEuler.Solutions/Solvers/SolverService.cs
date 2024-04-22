@@ -4,12 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 public class SolverService
 {
-    private readonly Dictionary<int, Type> cache;
-
-    public SolverService()
-    {
-        this.cache = GetSolverTypes().ToDictionary(GetNumberFromSolverType);
-    }
+    private readonly Dictionary<int, Type> cache = GetSolverTypes().ToDictionary(GetNumberFromSolverType);
 
     public IReadOnlyCollection<int> SolvableProblems => this.cache.Keys;
 

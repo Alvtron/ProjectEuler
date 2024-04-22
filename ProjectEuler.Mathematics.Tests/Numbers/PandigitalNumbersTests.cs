@@ -30,7 +30,7 @@ public class PandigitalNumbersTests
         var pandigitalNumbers = PandigitalNumbers.Generate(9).Take(1_000_000);
 
         // ASSERT
-        CollectionAssert.AreEqual(actualPandigitalNumbers, pandigitalNumbers.Select(n => n.ToString()));
+        Assert.That(actualPandigitalNumbers, Is.EqualTo(pandigitalNumbers.Select(n => n.ToString())));
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class PandigitalNumbersTests
         var pandigitalNumbers = PandigitalNumbers.GenerateReverse(9).Take(1_000_000);
 
         // ASSERT
-        CollectionAssert.AreEqual(actualPandigitalNumbers, pandigitalNumbers.Select(n => n.ToString()));
+        Assert.That(actualPandigitalNumbers, Is.EqualTo(pandigitalNumbers.Select(n => n.ToString())));
     }
 
     [Test, Explicit]

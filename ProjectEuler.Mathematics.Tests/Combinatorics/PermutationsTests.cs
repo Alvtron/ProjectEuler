@@ -37,7 +37,7 @@ public class PermutationsTests
         var permutations = Permutations.Of(LETTERS).Select(permutation => new string(permutation.ToArray()));
 
         // ASSERT
-        CollectionAssert.AreEqual(permutations, expected);
+        Assert.That(permutations, Is.EqualTo(expected));
     }
 
     [Test]
@@ -59,6 +59,6 @@ public class PermutationsTests
         var permutations = Permutations.Of(LETTERS, 2).Select(permutation => new string(permutation.ToArray()));
 
         // ASSERT
-        CollectionAssert.AreEquivalent(permutations, expected);
+        Assert.That(permutations, Is.EquivalentTo(expected));
     }
 }

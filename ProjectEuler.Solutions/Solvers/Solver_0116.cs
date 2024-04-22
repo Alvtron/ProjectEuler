@@ -16,25 +16,15 @@ internal sealed class Solver_0116 : ISolver
         return await Task.FromResult(numberOfBlockCombinations);
     }
 
-    private sealed class BlockCombinationCounter
+    private sealed class BlockCombinationCounter(int rowLength, int blockLength)
     {
-        private readonly int rowLength;
-        private readonly int blockLength;
-        private readonly long?[] countFromBlockCache;
-        private readonly long?[] countFromEmptyCache;
-
-        public BlockCombinationCounter(int rowLength, int blockLength)
-        {
-            this.rowLength = rowLength;
-            this.blockLength = blockLength;
-            this.countFromBlockCache = new long?[rowLength];
-            this.countFromEmptyCache = new long?[rowLength];
-        }
+        private readonly long?[] countFromBlockCache = new long?[rowLength];
+        private readonly long?[] countFromEmptyCache = new long?[rowLength];
 
         public long Count()
         {
-            var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(0, this.rowLength - 1);
-            var countStartingWithFilled = this.CountBlockCombinationsFromBlock(this.blockLength - 1, this.rowLength - 1);
+            var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(0, rowLength - 1);
+            var countStartingWithFilled = this.CountBlockCombinationsFromBlock(blockLength - 1, rowLength - 1);
 
             return countStartingWithEmpty + countStartingWithFilled;
         }
@@ -48,14 +38,14 @@ internal sealed class Solver_0116 : ISolver
 
             if (this.countFromBlockCache[index].HasValue)
             {
-                return this.countFromBlockCache[index].Value;
+                return this.countFromBlockCache[index]!.Value;
             }
 
             var count = this.CountBlockCombinationsFromPadding(index + 1, end);
 
-            if (index + this.blockLength <= end)
+            if (index + blockLength <= end)
             {
-                count += this.CountBlockCombinationsFromBlock(index + this.blockLength, end);
+                count += this.CountBlockCombinationsFromBlock(index + blockLength, end);
             }
 
             this.countFromBlockCache[index] = count;
@@ -71,14 +61,14 @@ internal sealed class Solver_0116 : ISolver
 
             if (this.countFromEmptyCache[index].HasValue)
             {
-                return this.countFromEmptyCache[index].Value;
+                return this.countFromEmptyCache[index]!.Value;
             }
 
             var count = this.CountBlockCombinationsFromPadding(index + 1, end);
 
-            if (index + this.blockLength <= end)
+            if (index + blockLength <= end)
             {
-                count += this.CountBlockCombinationsFromBlock(index + this.blockLength, end);
+                count += this.CountBlockCombinationsFromBlock(index + blockLength, end);
             }
 
             this.countFromEmptyCache[index] = count;

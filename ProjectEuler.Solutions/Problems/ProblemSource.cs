@@ -4,12 +4,7 @@ namespace ProjectEuler.Solutions.Problems;
 
 public class ProblemSource
 {
-    private readonly Dictionary<int, IProblem> cache;
-
-    public ProblemSource()
-    {
-        this.cache = new Dictionary<int, IProblem>();
-    }
+    private readonly Dictionary<int, IProblem> cache = new();
 
     public async Task<IProblem> GetProblemAsync(int number, CancellationToken cancellationToken = default)
     {

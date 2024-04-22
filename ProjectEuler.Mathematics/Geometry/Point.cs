@@ -1,16 +1,10 @@
 ﻿namespace ProjectEuler.Mathematics.Geometry;
 
-internal readonly struct Point
+internal readonly struct Point(double x, double y)
 {
-    public Point(double x, double y)
-    {
-        this.X = x;
-        this.Y = y;
-    }
+    public double X { get; } = x;
 
-    public double X { get; }
-
-    public double Y { get; }
+    public double Y { get; } = y;
 
     public double Magnitude => Math.Sqrt(this.X * this.X + this.Y * this.Y);
 

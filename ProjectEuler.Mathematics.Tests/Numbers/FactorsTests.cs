@@ -18,7 +18,7 @@ public class FactorsTests
         var factors = Factors.Of(-12);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -41,7 +41,7 @@ public class FactorsTests
         var factors = Factors.Of(1);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class FactorsTests
         var factors = Factors.Of(12);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -77,6 +77,6 @@ public class FactorsTests
         var factors = Factors.Of(4294967295);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 }

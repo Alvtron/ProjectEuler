@@ -45,7 +45,7 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.DistinctOf(12);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -58,7 +58,7 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.DistinctOf(4294967295);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -71,7 +71,7 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.DistinctOf(long.MaxValue);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -84,7 +84,7 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.Of(12);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -97,7 +97,7 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.Of(4294967295);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 
     [Test]
@@ -110,6 +110,6 @@ public class PrimeFactorsTests
         var factors = PrimeFactors.Of(long.MaxValue);
 
         // ASSERT
-        CollectionAssert.AreEqual(factors, expected);
+        Assert.That(factors, Is.EqualTo(expected));
     }
 }

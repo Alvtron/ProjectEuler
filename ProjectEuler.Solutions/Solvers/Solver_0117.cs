@@ -26,17 +26,11 @@ internal sealed class Solver_0117 : ISolver
         Blue,
     }
 
-    private sealed class Block
+    private sealed class Block(Color color, int length)
     {
-        public Block(Color color, int length)
-        {
-            this.Color = color;
-            this.Length = length;
-        }
+        public Color Color { get; } = color;
 
-        public Color Color { get; }
-
-        public int Length { get; }
+        public int Length { get; } = length;
     }
 
     private sealed class BlockCombinationCounter
@@ -72,7 +66,7 @@ internal sealed class Solver_0117 : ISolver
 
             if (this.cache[block][index].HasValue)
             {
-                return this.cache[block][index].Value;
+                return this.cache[block][index]!.Value;
             }
 
             var count = this.blocks.Sum(nextBlock => this.CountBlockCombinations(nextBlock, index + nextBlock.Length, end));

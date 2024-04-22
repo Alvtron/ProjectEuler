@@ -1,15 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace ProjectEuler.Solutions.Answers;
 
-namespace ProjectEuler.Solutions.Answers;
-
-public readonly struct Answer : IEquatable<Answer>
+public readonly struct Answer(object value) : IEquatable<Answer>
 {
-    public Answer([NotNull] object value)
-    {
-        this.Value = value.ToString();
-    }
-
-    public string Value { get; }
+    public string Value { get; } = value.ToString() ?? string.Empty;
 
     public static implicit operator Answer(bool value) => new(value);
     public static implicit operator Answer(short value) => new(value);
@@ -24,11 +17,16 @@ public readonly struct Answer : IEquatable<Answer>
     public static implicit operator Answer(char value) => new(value);
     public static implicit operator Answer(string value) => new(value);
 
-    public static Answer Empty => new(null);
+    public static Answer Empty => new(string.Empty);
 
     public override string ToString()
     {
         return this.Value;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Answer answer && Equals(answer);
     }
 
     public bool Equals(Answer other)

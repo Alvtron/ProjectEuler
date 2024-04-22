@@ -4,12 +4,7 @@ namespace ProjectEuler.Solutions.Answers;
 
 public class AnswerSource
 {
-    private readonly Dictionary<int, Answer> answers;
-
-    public AnswerSource()
-    {
-        this.answers = LoadAnswers();
-    }
+    private readonly Dictionary<int, Answer> answers = LoadAnswers();
 
     /// <summary>
     /// Whether this source has an answer.

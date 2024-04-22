@@ -1,16 +1,10 @@
 ﻿namespace ProjectEuler.Mathematics.Geometry;
 
-public readonly struct Position
+public readonly struct Position(int x, int y)
 {
-    public Position(int x, int y)
-    {
-        this.X = x;
-        this.Y = y;
-    }
+    public int X { get; } = x;
 
-    public int X { get; }
-
-    public int Y { get; }
+    public int Y { get; } = y;
 
     public Position Right(int steps = 1)
         => new(this.X + steps, this.Y);
