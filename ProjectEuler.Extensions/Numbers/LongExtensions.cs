@@ -8,6 +8,8 @@ public static class LongExtensions
     /// <param name="number">The number.</param>
     public static int Length(this long number)
     {
+        return number < 0L ? LengthOfNegativeNumber(number) : LengthOfPositiveNumber(number);
+
         static int LengthOfPositiveNumber(long number)
         {
             return number switch
@@ -59,7 +61,33 @@ public static class LongExtensions
                 _ => 19
             };
         }
+    }
 
-        return number < 0L ? LengthOfNegativeNumber(number) : LengthOfPositiveNumber(number);
+    /// <summary>
+    /// Returns each digit in the number.
+    /// </summary>
+    /// <param name="number">The number that contains digits.</param>
+    public static IEnumerable<int> Digits(this long number)
+    {
+        if (number == 0)
+        {
+            yield return 0;
+            yield break;
+        }
+
+        number = Math.Abs(number);
+
+        var divisor = 1L;
+        while (number / divisor >= 10)
+        {
+            divisor *= 10;
+        }
+
+        while (divisor > 0)
+        {
+            yield return (int)(number / divisor);
+            number %= divisor;
+            divisor /= 10;
+        }
     }
 }

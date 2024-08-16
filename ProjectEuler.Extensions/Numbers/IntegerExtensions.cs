@@ -59,11 +59,17 @@ public static class IntegerExtensions
 
         number = Math.Abs(number);
 
-        var numberLength = number.Length();
-
-        for (var index = numberLength; index > 0; index--)
+        var divisor = 1;
+        while (number / divisor >= 10)
         {
-            yield return number / (int)Math.Pow(10, index - 1) % 10;
+            divisor *= 10;
+        }
+
+        while (divisor > 0)
+        {
+            yield return number / divisor;
+            number %= divisor;
+            divisor /= 10;
         }
     }
 

@@ -39,4 +39,76 @@ public class LongExtensionsTests
         // ASSERT
         Assert.That(length, Is.EqualTo(actualLength));
     }
+
+    [TestCase(0)]
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(1000)]
+    [TestCase(1234)]
+    [TestCase(123456789)]
+    [TestCase(100000000)]
+    [TestCase(999999999)]
+    [TestCase(1000000000)]
+    [TestCase(9999999999)]
+    [TestCase(10000000000)]
+    [TestCase(99999999999)]
+    [TestCase(100000000000)]
+    [TestCase(999999999999)]
+    [TestCase(1000000000000)]
+    [TestCase(9999999999999)]
+    [TestCase(10000000000000)]
+    [TestCase(99999999999999)]
+    [TestCase(100000000000000)]
+    [TestCase(999999999999999)]
+    [TestCase(1000000000000000)]
+    [TestCase(9999999999999999)]
+    [TestCase(10000000000000000)]
+    [TestCase(99999999999999999)]
+    [TestCase(100000000000000000)]
+    [TestCase(999999999999999999)]
+    [TestCase(1000000000000000000)]
+    public void Digits_PositiveNumber_ReturnsCorrectDigits(long number)
+    {
+        // ACT
+        var digits = number.Digits();
+
+        // ASSERT
+        Assert.That(string.Concat(digits), Is.EqualTo(number.ToString()));
+    }
+
+    [TestCase(-0)]
+    [TestCase(-1)]
+    [TestCase(-2)]
+    [TestCase(-1000)]
+    [TestCase(-1234)]
+    [TestCase(-123456789)]
+    [TestCase(-100000000)]
+    [TestCase(-999999999)]
+    [TestCase(-1000000000)]
+    [TestCase(-9999999999)]
+    [TestCase(-10000000000)]
+    [TestCase(-99999999999)]
+    [TestCase(-100000000000)]
+    [TestCase(-999999999999)]
+    [TestCase(-1000000000000)]
+    [TestCase(-9999999999999)]
+    [TestCase(-10000000000000)]
+    [TestCase(-99999999999999)]
+    [TestCase(-100000000000000)]
+    [TestCase(-999999999999999)]
+    [TestCase(-1000000000000000)]
+    [TestCase(-9999999999999999)]
+    [TestCase(-10000000000000000)]
+    [TestCase(-99999999999999999)]
+    [TestCase(-100000000000000000)]
+    [TestCase(-999999999999999999)]
+    [TestCase(-1000000000000000000)]
+    public void Digits_NegativeNumber_ReturnsCorrectDigits(long number)
+    {
+        // ACT
+        var digits = number.Digits();
+
+        // ASSERT
+        Assert.That(string.Concat(digits), Is.EqualTo(Math.Abs(number).ToString()));
+    }
 }
