@@ -39,6 +39,9 @@
     <None Update="Resources\problem_0042_words.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\problem_0054_pokerhands.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\problem_0067_triangle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
