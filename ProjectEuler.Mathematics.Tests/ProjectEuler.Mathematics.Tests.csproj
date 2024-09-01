@@ -20,6 +20,7 @@
 		<None Remove="Assets\CombinationsTests_14n_9k.txt" />
 		<None Remove="Assets\CompositeNumbersTests_1000000.txt" />
 		<None Remove="Assets\HexagonalNumbersTests_1000000.txt" />
+		<None Remove="Assets\LychrelNumbersTests_10000.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_0_9.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_1_9.txt" />
 		<None Remove="Assets\PentagonalNumbersTests_500.txt" />
@@ -29,6 +30,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Assets\LychrelNumbersTests_10000.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	  <EmbeddedResource Include="Assets\SquareNumbersTests_1000000.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
