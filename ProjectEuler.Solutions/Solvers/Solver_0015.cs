@@ -34,7 +34,7 @@ internal sealed class Solver_0015 : ISolver
 
         if (grid[x, y].HasValue)
         {
-            return grid[x, y].Value;
+            return grid[x, y]!.Value;
         }
 
         var ways = 0L;

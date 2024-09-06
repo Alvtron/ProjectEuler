@@ -8,8 +8,8 @@ internal sealed class Solver_0115 : ISolver
     private const int MINIMUM_BLOCK_LENGTH = 50;
     private const int MINIMUM_PADDING_LENGTH = 1;
 
-    private Dictionary<int, long> countFromBlockCache;
-    private Dictionary<int, long> countFromEmptyCache;
+    private Dictionary<int, long> countFromBlockCache = new();
+    private Dictionary<int, long> countFromEmptyCache = new();
 
     public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {

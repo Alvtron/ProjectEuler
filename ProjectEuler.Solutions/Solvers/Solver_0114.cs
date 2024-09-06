@@ -28,7 +28,7 @@ internal sealed class Solver_0114 : ISolver
 
         if (this.countFromBlockCache[index].HasValue)
         {
-            return this.countFromBlockCache[index].Value;
+            return this.countFromBlockCache[index]!.Value;
         }
 
         var count = this.CountBlockCombinationsFromBlock(index + 1, end);
@@ -51,7 +51,7 @@ internal sealed class Solver_0114 : ISolver
 
         if (this.countFromEmptyCache[index].HasValue)
         {
-            return this.countFromEmptyCache[index].Value;
+            return this.countFromEmptyCache[index]!.Value;
         }
 
         var count = this.CountBlockCombinationsFromPadding(index + 1, end);
