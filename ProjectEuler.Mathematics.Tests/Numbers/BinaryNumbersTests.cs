@@ -8,7 +8,7 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 public class BinaryNumbersTests
 {
     [Test]
-    public void Range_OfFourLength_ReturnsCorrect()
+    public void OfLength_OfFourLength_ReturnsCorrect()
     {
         // ARRANGE
         var expectedResult = new[]
@@ -32,7 +32,7 @@ public class BinaryNumbersTests
         };
 
         // ACT
-        var combination = BinaryNumbers.Range(4);
+        var combination = BinaryNumbers.OfLength(4);
 
         // ASSERT
         Assert.That(combination.Select(BitArrayToString), Is.EquivalentTo(expectedResult));

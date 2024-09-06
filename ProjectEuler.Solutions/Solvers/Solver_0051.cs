@@ -17,7 +17,7 @@ internal sealed class Solver_0051 : ISolver
         foreach (var prime in PrimeNumbers.Generate())
         {
             var digits = prime.Digits().ToList();
-            var patterns = BinaryNumbers.Range(digits.Count);
+            var patterns = BinaryNumbers.OfLength(digits.Count);
 
             foreach (var pattern in patterns)
             {

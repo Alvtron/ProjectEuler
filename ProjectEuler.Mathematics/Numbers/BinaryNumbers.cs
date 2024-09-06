@@ -4,23 +4,29 @@ namespace ProjectEuler.Mathematics.Numbers
 {
     public static class BinaryNumbers
     {
-        public static IEnumerable<BitArray> Range(int length)
+        /// <summary>
+        /// Generates all possible binary numbers of a given length.
+        /// </summary>
+        /// <param name="length">The length of the binary numbers.</param>
+        /// <returns>A collection of binary numbers.</returns>
+        public static IEnumerable<BitArray> OfLength(int length)
         {
-            var maxPattern = 1 << length;
-            for (var i = 1; i < maxPattern; i++)
+            for (var @decimal = 0; @decimal <= Math.Pow(2, length) - 1; @decimal++)
             {
-                var pattern = new BitArray(length);
-                for (var j = 0; j < length; j++)
+                yield return new BitArray(BitConverter.GetBytes(@decimal))
                 {
-                    if ((i & (1 << j)) != 0)
-                    {
-                        pattern[j] = true;
-                    }
-                }
-                yield return pattern;
+                    Length = length,
+                };
             }
         }
 
+        /// <summary>
+        /// Generates all possible binary numbers within a given range and length.
+        /// </summary>
+        /// <param name="start">The start of the range.</param>
+        /// <param name="end">The end of the range.</param>
+        /// <param name="length">The length of the binary numbers.</param>
+        /// <returns>A collection of binary numbers.</returns>
         public static IEnumerable<BitArray> Range(long start, long end, int length)
         {
             for (var @decimal = start; @decimal <= end; @decimal++)
