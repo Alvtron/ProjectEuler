@@ -15,14 +15,14 @@ internal sealed class Solver_0044 : ISolver
     {
         for (var index = 1; index < int.MaxValue; index++)
         {
-            var firstPentagonal = PentagonalNumbers.GetNumber(index);
+            var firstPentagonal = PentagonalNumbers.Get(index);
 
             for (var secondIndex = 1; secondIndex < index; secondIndex++)
             {
-                var secondPentagonal = PentagonalNumbers.GetNumber(secondIndex);
+                var secondPentagonal = PentagonalNumbers.Get(secondIndex);
 
                 var difference = firstPentagonal - secondPentagonal;
-                if (PentagonalNumbers.IsPentagonalNumber(difference) && PentagonalNumbers.IsPentagonalNumber(firstPentagonal + secondPentagonal))
+                if (PentagonalNumbers.IsPentagonal(difference) && PentagonalNumbers.IsPentagonal(firstPentagonal + secondPentagonal))
                 {
                     return difference;
                 }

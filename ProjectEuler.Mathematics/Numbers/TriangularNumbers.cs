@@ -1,25 +1,75 @@
 ﻿namespace ProjectEuler.Mathematics.Numbers;
 
 /// <summary>
-/// A triangular number or triangle number counts objects arranged in an equilateral triangle.
-/// Triangular numbers are a type of figurative number, other examples being square numbers and cube numbers.
+/// The triangular number sequence is the representation of the numbers in the form of equilateral triangle arranged in a series or sequence.
+/// These numbers are in a sequence of 1, 3, 6, 10, 15, 21, 28, 36, 45, and so on.
+/// The numbers in the triangular pattern are represented by dots.
 /// </summary>
 public static class TriangularNumbers
 {
     /// <summary>
-    /// Generates triangular numbers until a specified <paramref name="count"/> is met.
+    /// Determines whether the specified <paramref name="number"/> is considered a triangular number.
     /// </summary>
-    /// <param name="count">The number of triangular numbers to generate.</param>
-    public static IEnumerable<long> Generate(long count)
+    /// <param name="number">The number to check.</param>
+    /// <returns><see langword="true"/> if the number is a triangular number; <see langword="false"/> otherwise.</returns>
+    public static bool IsTriangular(int number)
     {
-        for (var n = 1L; n <= count; n++)
+        switch (number)
         {
-            yield return GetNumber(n);
+            case < 0:
+                return false;
+            case 0:
+                return true;
+            default:
+                var n = (-1 + Math.Sqrt(1 + 8 * number)) / 2;
+                return double.IsInteger(n);
+        }
+    }
+
+    /// <inheritdoc cref="IsTriangular(int)"/>
+    public static bool IsTriangular(long number)
+    {
+        switch (number)
+        {
+            case < 0:
+                return false;
+            case 0:
+                return true;
+            default:
+                var n = (-1 + Math.Sqrt(1 + 8 * number)) / 2;
+                return double.IsInteger(n);
         }
     }
 
     /// <summary>
-    /// Generates Triangular numbers between the <paramref name="start"/> position and <paramref name="end"/> position place (inclusive).
+    /// Gets the <paramref name="n"/>th triangular number.
+    /// </summary>
+    /// <param name="n">The position of the triangular number.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="n"/> is negative.</exception>
+    public static long Get(long n)
+    {
+        if (n < 0L)
+        {
+            throw new ArgumentOutOfRangeException(nameof(n), n, "The argument was negative.");
+        }
+
+        return n * (n + 1L) / 2L;
+    }
+
+    /// <summary>
+    /// Generates all triangular numbers in ascending order.
+    /// </summary>
+    /// <remarks>Enumeration should be stopped using linq.</remarks>
+    public static IEnumerable<long> Generate()
+    {
+        for (var n = 0L; n < long.MaxValue; n++)
+        {
+            yield return Get(n);
+        }
+    }
+
+    /// <summary>
+    /// Generates triangular numbers between the <paramref name="start"/> position and <paramref name="end"/> position place (inclusive).
     /// </summary>
     /// <param name="start">The starting position.</param>
     /// <param name="end">The ending position.</param>
@@ -32,33 +82,7 @@ public static class TriangularNumbers
 
         while (start <= end)
         {
-            yield return GetNumber(start++);
+            yield return Get(start++);
         }
-    }
-
-    /// <summary>
-    /// Gets the <paramref name="n"/>th triangular number.
-    /// </summary>
-    /// <param name="n">The position of the triangular number.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="n"/> is lower than 1.</exception>
-    public static long GetNumber(long n)
-    {
-        if (n <= 0L)
-        {
-            throw new ArgumentOutOfRangeException(nameof(n));
-        }
-
-        return n * (n + 1L) / 2L;
-    }
-
-    /// <summary>
-    /// Determines whether the specified <paramref name="number"/> is a triangular number.
-    /// </summary>
-    /// <param name="number">The number to check.</param>
-    /// <returns><see langword="true"/> if the number is a triangular number; <see langword="false"/> otherwise.</returns>
-    public static bool IsTriangularNumber(long number)
-    {
-        var n = (Math.Sqrt(8.0 * number + 1.0) - 1.0) / 2.0;
-        return double.IsPositive(n) && double.IsInteger(n);
     }
 }

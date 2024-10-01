@@ -5,71 +5,82 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 [TestFixture]
 public class TriangularNumbersTests
 {
-    private const string TEST_FILE_PATH = @"Assets\TriangularNumbersTests_1000000.txt";
+    private IEnumerable<long> triangularNumbers;
+
+    [OneTimeSetUp]
+    public async Task LoadPentagonalNumbersNumbersAsync()
+    {
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\TriangularNumbersTests_1000000.txt");
+        var lines = await File.ReadAllLinesAsync(path);
+        this.triangularNumbers = lines.Select(long.Parse);
+    }
 
     [Test]
-    public async Task Generate_OneMillionNumbers_AllAreTriangularNumbers()
+    public void IsTriangular_ValidTriangularNumbers_ReturnsTrue()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT
-        using var triangularEnumerator = TriangularNumbers.Generate(1_000_000).GetEnumerator();
-
-        // ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Arrange
+        foreach (var triangular in this.triangularNumbers)
         {
-            Assert.That(long.TryParse(line, out var expectedTriangular), Is.True);
-            Assert.That(triangularEnumerator.MoveNext(), Is.True);
-            Assert.That(triangularEnumerator.Current, Is.EqualTo(expectedTriangular));
+            // Act
+            var isTriangular = TriangularNumbers.IsTriangular(triangular);
+
+            // Assert
+            Assert.That(isTriangular, Is.True, $"{triangular} is a triangular number.");
         }
     }
 
     [Test]
-    public async Task Between_OneToFiveHundred_AllAreTriangularNumbers()
+    public void IsTriangular_InvalidTriangularNumbers_ReturnsFalse()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-        var triangularEnumerator = File.ReadLinesAsync(path).GetAsyncEnumerator();
-        using var enumerator = TriangularNumbers.Between(1, 500).GetEnumerator();
+        // Arrange
+        var numbers = Enumerable.Range(0, 1_000_000).Select(n => (long)n).Except(this.triangularNumbers);
 
-        // ACT & ASSERT
-        while (enumerator.MoveNext())
+        foreach (var notTriangular in numbers)
         {
-            await triangularEnumerator.MoveNextAsync();
+            // Act
+            var isTriangular = TriangularNumbers.IsTriangular(notTriangular);
 
-            Assert.That(triangularEnumerator.Current, Is.EqualTo(enumerator.Current.ToString()));
-        }
-
-        Assert.That(enumerator.MoveNext, Is.False);
-    }
-
-    [Test]
-    public async Task GetNumber_FirstOneMillion_ReturnsFirstFiveHundredTriangularNumbers()
-    {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT & ASSERT
-        var n = 1;
-        await foreach (var line in File.ReadLinesAsync(path))
-        {
-            Assert.That(long.TryParse(line, out var expectedTriangular), Is.True);
-            Assert.That(TriangularNumbers.GetNumber(n++), Is.EqualTo(expectedTriangular));
+            // Assert
+            Assert.That(isTriangular, Is.False, $"{notTriangular} is not a triangular number.");
         }
     }
 
     [Test]
-    public async Task IsTriangularNumber_TriangularNumbers_ReturnsTrue()
+    public void Get_0To1000000_ReturnsFirstFiveHundredPentagonalNumbers()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
+        // Act
+        var generatedTriangularNumbers = Enumerable.Range(0, 1_000_000).Select(n => TriangularNumbers.Get(n));
 
-        // ACT & ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Assert
+        foreach (var (generated, actual) in generatedTriangularNumbers.Zip(this.triangularNumbers))
         {
-            Assert.That(long.TryParse(line, out var triangular), Is.True);
-            Assert.That(TriangularNumbers.IsTriangularNumber(triangular), Is.True);
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Generate_10000000_AllAreTriangularNumbers()
+    {
+        // Act
+        var generatedTriangularNumbers = TriangularNumbers.Generate().Take(1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedTriangularNumbers.Zip(this.triangularNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Between_0To1000000_AllAreTriangularNumbers()
+    {
+        // Act
+        var generatedTriangularNumbers = TriangularNumbers.Between(0, 1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedTriangularNumbers.Zip(this.triangularNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
         }
     }
 }

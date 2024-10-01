@@ -14,7 +14,7 @@ internal sealed class Solver_0045 : ISolver
     {
         foreach (var triangular in TriangularNumbers.Between(position, long.MaxValue))
         {
-            if (PentagonalNumbers.IsPentagonalNumber(triangular) && HexagonalNumbers.IsHexagonalNumber(triangular))
+            if (PentagonalNumbers.IsPentagonal(triangular) && HexagonalNumbers.IsHexagonal(triangular))
             {
                 return triangular;
             }

@@ -5,68 +5,82 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 [TestFixture]
 public class SquareNumbersTests
 {
-    private string[]? actualSquares;
+    private IEnumerable<long> squareNumbers;
 
     [OneTimeSetUp]
-    public async Task OneTimeSetUpAsync()
+    public async Task LoadPentagonalNumbersNumbersAsync()
     {
         var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\SquareNumbersTests_1000000.txt");
-        this.actualSquares = await File.ReadAllLinesAsync(path);
+        var lines = await File.ReadAllLinesAsync(path);
+        this.squareNumbers = lines.Select(long.Parse);
     }
 
     [Test]
-    public void IsSquare_1000000Squares_ReturnsTrue()
+    public void IsSquare_ValidSquareNumbers_ReturnsTrue()
     {
-        foreach (var line in this.actualSquares!)
+        // Arrange
+        foreach (var square in this.squareNumbers)
         {
-            // ARRANGE
-            Assert.That(long.TryParse(line, out var squareNumber), Is.True);
+            // Act
+            var isSquare = SquareNumbers.IsSquare(square);
 
-            // ACT
-            var isSquare = SquareNumbers.IsSquare(squareNumber);
-
-            // ASSERT
-            Assert.That(isSquare, Is.True,
-                $"{squareNumber} is not a perfect square.");
+            // Assert
+            Assert.That(isSquare, Is.True, $"{square} is a square number.");
         }
     }
 
     [Test]
-    public void Generate_1000000_AllAreSquares()
+    public void IsSquare_InvalidSquareNumbers_ReturnsFalse()
     {
-        // ACT
-        var generatedSquares = SquareNumbers.Generate().Take(1_000_000);
+        // Arrange
+        var numbers = Enumerable.Range(0, 1_000_000).Select(n => (long)n).Except(this.squareNumbers);
 
-        // ASSERT
-        foreach (var (generated, actual) in generatedSquares.Zip(this.actualSquares!))
+        foreach (var notSquare in numbers)
         {
-            Assert.That(generated.ToString(), Is.EqualTo(actual));
+            // Act
+            var isSquare = SquareNumbers.IsSquare(notSquare);
+
+            // Assert
+            Assert.That(isSquare, Is.False, $"{notSquare} is not a square number.");
         }
     }
 
     [Test]
-    public void Between_0And1000000_AllAreSquares()
+    public void Get_0To1000000_ReturnsFirstFiveHundredPentagonalNumbers()
     {
-        // ACT
-        var generatedSquares = SquareNumbers.Between(0, 1_000_000);
+        // Act
+        var generatedSquareNumbers = Enumerable.Range(0, 1_000_000).Select(n => SquareNumbers.Get(n));
 
-        // ASSERT
-        foreach (var (generated, actual) in generatedSquares.Zip(this.actualSquares!))
+        // Assert
+        foreach (var (generated, actual) in generatedSquareNumbers.Zip(this.squareNumbers))
         {
-            Assert.That(generated.ToString(), Is.EqualTo(actual));
+            Assert.That(generated, Is.EqualTo(actual));
         }
     }
 
     [Test]
-    public void Between_1000000And0_AllAreSquares()
+    public void Generate_10000000_AllAreSquareNumbers()
     {
-        // ACT
-        var generatedSquares = SquareNumbers.Between(1_000_000, 0);
+        // Act
+        var generatedSquareNumbers = SquareNumbers.Generate().Take(1_000_000);
 
-        // ASSERT
-        foreach (var (generated, actual) in generatedSquares.Zip(this.actualSquares!.Reverse()))
+        // Assert
+        foreach (var (generated, actual) in generatedSquareNumbers.Zip(this.squareNumbers))
         {
-            Assert.That(generated.ToString(), Is.EqualTo(actual));
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Between_0To1000000_AllAreSquareNumbers()
+    {
+        // Act
+        var generatedSquareNumbers = SquareNumbers.Between(0, 1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedSquareNumbers.Zip(this.squareNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
         }
     }
 }

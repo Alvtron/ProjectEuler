@@ -5,71 +5,82 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 [TestFixture]
 public class PentagonalNumbersTests
 {
-    private const string TEST_FILE_PATH = @"Assets\PentagonalNumbersTests_500.txt";
+    private IEnumerable<long> pentagonalNumbers;
+
+    [OneTimeSetUp]
+    public async Task LoadPentagonalNumbersNumbersAsync()
+    {
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\PentagonalNumbersTests_1000000.txt");
+        var lines = await File.ReadAllLinesAsync(path);
+        this.pentagonalNumbers = lines.Select(long.Parse);
+    }
 
     [Test]
-    public async Task Generate_FiveHundredNumbers_AllArePentagonalNumbers()
+    public void IsPentagonal_ValidPentagonalNumbers_ReturnsTrue()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT
-        using var pentagonalEnumerator = PentagonalNumbers.Generate(500).GetEnumerator();
-
-        // ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Arrange
+        foreach (var pentagonal in this.pentagonalNumbers)
         {
-            Assert.That(long.TryParse(line, out var expectedPentagonal), Is.True);
-            Assert.That(pentagonalEnumerator.MoveNext(), Is.True);
-            Assert.That(pentagonalEnumerator.Current, Is.EqualTo(expectedPentagonal));
+            // Act
+            var isPentagonal = PentagonalNumbers.IsPentagonal(pentagonal);
+
+            // Assert
+            Assert.That(isPentagonal, Is.True, $"{pentagonal} is a pentagonal number.");
         }
     }
 
     [Test]
-    public async Task Between_OneToFiveHundred_AllArePentagonalNumbers()
+    public void IsPentagonal_InvalidPentagonalNumbers_ReturnsFalse()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-        var pentagonalEnumerator = File.ReadLinesAsync(path).GetAsyncEnumerator();
-        using var enumerator = PentagonalNumbers.Between(1, 500).GetEnumerator();
+        // Arrange
+        var numbers = Enumerable.Range(0, 1_000_000).Select(n => (long)n).Except(this.pentagonalNumbers);
 
-        // ACT & ASSERT
-        while (enumerator.MoveNext())
+        foreach (var notPentagonal in numbers)
         {
-            await pentagonalEnumerator.MoveNextAsync();
+            // Act
+            var isPentagonal = PentagonalNumbers.IsPentagonal(notPentagonal);
 
-            Assert.That(pentagonalEnumerator.Current, Is.EqualTo(enumerator.Current.ToString()));
-        }
-
-        Assert.That(enumerator.MoveNext, Is.False);
-    }
-
-    [Test]
-    public async Task GetNumber_FirstFiveHundred_ReturnsFirstFiveHundredPentagonalNumbers()
-    {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT & ASSERT
-        var n = 1;
-        await foreach (var line in File.ReadLinesAsync(path))
-        {
-            Assert.That(long.TryParse(line, out var expectedPentagonal), Is.True);
-            Assert.That(PentagonalNumbers.GetNumber(n++), Is.EqualTo(expectedPentagonal));
+            // Assert
+            Assert.That(isPentagonal, Is.False, $"{notPentagonal} is not a pentagonal number.");
         }
     }
 
     [Test]
-    public async Task IsPentagonalNumber_PentagonalNumbers_ReturnsTrue()
+    public void Get_0To1000000_ReturnsFirstFiveHundredPentagonalNumbers()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
+        // Act
+        var generatedPentagonalNumbers = Enumerable.Range(0, 1_000_000).Select(n => PentagonalNumbers.Get(n));
 
-        // ACT & ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Assert
+        foreach (var (generated, actual) in generatedPentagonalNumbers.Zip(this.pentagonalNumbers))
         {
-            Assert.That(long.TryParse(line, out var pentagonal), Is.True);
-            Assert.That(PentagonalNumbers.IsPentagonalNumber(pentagonal), Is.True);
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Generate_1000000_AllArePentagonalNumbers()
+    {
+        // Act
+        var generatedPentagonalNumbers = PentagonalNumbers.Generate().Take(1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedPentagonalNumbers.Zip(this.pentagonalNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Between_0To1000000_AllArePentagonalNumbers()
+    {
+        // Act
+        var generatedPentagonalNumbers = PentagonalNumbers.Between(0, 1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedPentagonalNumbers.Zip(this.pentagonalNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
         }
     }
 }

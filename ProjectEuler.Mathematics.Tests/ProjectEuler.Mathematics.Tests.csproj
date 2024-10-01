@@ -19,11 +19,13 @@
 		<None Remove="Assets\CombinationsTests_14n_8k.txt" />
 		<None Remove="Assets\CombinationsTests_14n_9k.txt" />
 		<None Remove="Assets\CompositeNumbersTests_1000000.txt" />
+		<None Remove="Assets\HeptagonalNumbersTests_1000000.txt" />
 		<None Remove="Assets\HexagonalNumbersTests_1000000.txt" />
 		<None Remove="Assets\LychrelNumbersTests_10000.txt" />
+		<None Remove="Assets\OctagonalNumbersTests_1000000.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_0_9.txt" />
 		<None Remove="Assets\PandigitalNumbersTests_1_9.txt" />
-		<None Remove="Assets\PentagonalNumbersTests_500.txt" />
+		<None Remove="Assets\PentagonalNumbersTests_1000000.txt" />
 		<None Remove="Assets\PrimeNumbersTests_200_000_primes.txt" />
 		<None Remove="Assets\SquareNumbersTests_1000000.txt" />
 		<None Remove="Assets\TriangularNumbersTests_1000000.txt" />
@@ -31,6 +33,12 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Assets\LychrelNumbersTests_10000.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Assets\OctagonalNumbersTests_1000000.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Assets\HeptagonalNumbersTests_1000000.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Assets\SquareNumbersTests_1000000.txt">
@@ -96,7 +104,7 @@
 		<EmbeddedResource Include="Assets\TriangularNumbersTests_1000000.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
-		<EmbeddedResource Include="Assets\PentagonalNumbersTests_500.txt">
+		<EmbeddedResource Include="Assets\PentagonalNumbersTests_1000000.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\PrimeNumbersTests_200_000_primes.txt">

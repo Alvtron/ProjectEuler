@@ -5,71 +5,82 @@ namespace ProjectEuler.Mathematics.Tests.Numbers;
 [TestFixture]
 public class HexagonalNumbersTests
 {
-    private const string TEST_FILE_PATH = @"Assets\HexagonalNumbersTests_1000000.txt";
+    private IEnumerable<long> hexagonalNumbers;
+
+    [OneTimeSetUp]
+    public async Task LoadHexagonalNumbersAsync()
+    {
+        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Assets\HexagonalNumbersTests_1000000.txt");
+        var lines = await File.ReadAllLinesAsync(path);
+        this.hexagonalNumbers = lines.Select(long.Parse);
+    }
 
     [Test]
-    public async Task Generate_OneMillionNumbers_AllAreHexagonalNumbers()
+    public void IsHexagonal_ValidHexagonalNumbers_ReturnsTrue()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT
-        using var hexagonalEnumerator = HexagonalNumbers.Generate(1_000_000).GetEnumerator();
-
-        // ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Arrange
+        foreach (var hexagonal in this.hexagonalNumbers)
         {
-            Assert.That(long.TryParse(line, out var expectedHexagonal), Is.True);
-            Assert.That(hexagonalEnumerator.MoveNext(), Is.True);
-            Assert.That(hexagonalEnumerator.Current, Is.EqualTo(expectedHexagonal));
+            // Act
+            var isHexagonal = HexagonalNumbers.IsHexagonal(hexagonal);
+
+            // Assert
+            Assert.That(isHexagonal, Is.True, $"{hexagonal} is a hexagonal number.");
         }
     }
 
     [Test]
-    public async Task Between_OneToFiveHundred_AllAreHexagonalNumbers()
+    public void IsHexagonal_InvalidHexagonalNumbers_ReturnsFalse()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-        var hexagonalEnumerator = File.ReadLinesAsync(path).GetAsyncEnumerator();
-        using var enumerator = HexagonalNumbers.Between(1, 500).GetEnumerator();
+        // Arrange
+        var numbers = Enumerable.Range(0, 1_000_000).Select(n => (long)n).Except(this.hexagonalNumbers);
 
-        // ACT & ASSERT
-        while (enumerator.MoveNext())
+        foreach (var notHexagonal in numbers)
         {
-            await hexagonalEnumerator.MoveNextAsync();
+            // Act
+            var isHexagonal = HexagonalNumbers.IsHexagonal(notHexagonal);
 
-            Assert.That(hexagonalEnumerator.Current, Is.EqualTo(enumerator.Current.ToString()));
-        }
-
-        Assert.That(enumerator.MoveNext, Is.False);
-    }
-
-    [Test]
-    public async Task GetNumber_FirstOneMillion_ReturnsFirstFiveHundredHexagonalNumbers()
-    {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
-
-        // ACT & ASSERT
-        var n = 1;
-        await foreach (var line in File.ReadLinesAsync(path))
-        {
-            Assert.That(long.TryParse(line, out var expectedHexagonal), Is.True);
-            Assert.That(HexagonalNumbers.GetNumber(n++), Is.EqualTo(expectedHexagonal));
+            // Assert
+            Assert.That(isHexagonal, Is.False, $"{notHexagonal} is not a hexagonal number.");
         }
     }
 
     [Test]
-    public async Task IsHexagonalNumber_HexagonalNumbers_ReturnsTrue()
+    public void Get_0To100000_ReturnsFirstFiveHundredHexagonalNumbers()
     {
-        // ARRANGE
-        var path = Path.Combine(TestContext.CurrentContext.TestDirectory, TEST_FILE_PATH);
+        // Act
+        var generatedHexagonalNumbers = Enumerable.Range(0, 1_000_000).Select(n => HexagonalNumbers.Get(n));
 
-        // ACT & ASSERT
-        await foreach (var line in File.ReadLinesAsync(path))
+        // Assert
+        foreach (var (generated, actual) in generatedHexagonalNumbers.Zip(this.hexagonalNumbers))
         {
-            Assert.That(long.TryParse(line, out var hexagonal), Is.True);
-            Assert.That(HexagonalNumbers.IsHexagonalNumber(hexagonal), Is.True);
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Generate_1000000_AllAreHexagonalNumbers()
+    {
+        // Act
+        var generatedHexagonalNumbers = HexagonalNumbers.Generate().Take(1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedHexagonalNumbers.Zip(this.hexagonalNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
+        }
+    }
+
+    [Test]
+    public void Between_0To1000000_AllAreHexagonalNumbers()
+    {
+        // Act
+        var generatedHexagonalNumbers = HexagonalNumbers.Between(0, 1_000_000);
+
+        // Assert
+        foreach (var (generated, actual) in generatedHexagonalNumbers.Zip(this.hexagonalNumbers))
+        {
+            Assert.That(generated, Is.EqualTo(actual));
         }
     }
 }

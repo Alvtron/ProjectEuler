@@ -9,14 +9,67 @@
 public static class HexagonalNumbers
 {
     /// <summary>
-    /// Generates hexagonal numbers until a specified <paramref name="count"/> is met.
+    /// Determines whether the specified <paramref name="number"/> is a hexagonal number.
     /// </summary>
-    /// <param name="count">The number of hexagonal numbers to generate.</param>
-    public static IEnumerable<long> Generate(long count)
+    /// <param name="number">The number to check.</param>
+    /// <returns><see langword="true"/> if the number is a hexagonal number; <see langword="false"/> otherwise.</returns>
+    public static bool IsHexagonal(int number)
     {
-        for (var n = 1L; n <= count; n++)
+        switch (number)
         {
-            yield return GetNumber(n);
+            case < 0:
+                return false;
+            case 0:
+                return true;
+            default:
+            {
+                var n = (1 + Math.Sqrt(1 + 8 * number)) / 4;
+                return double.IsInteger(n);
+            }
+        }
+    }
+
+    /// <inheritdoc cref="IsHexagonal(int)"/>
+    public static bool IsHexagonal(long number)
+    {
+        switch (number)
+        {
+            case < 0:
+                return false;
+            case 0:
+                return true;
+            default:
+            {
+                var n = (1 + Math.Sqrt(1 + 8 * number)) / 4;
+                return double.IsInteger(n);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="n"/>th hexagonal number.
+    /// </summary>
+    /// <param name="n">The position of the hexagonal number.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="n"/> is negative.</exception>
+    public static long Get(long n)
+    {
+        if (n < 0L)
+        {
+            throw new ArgumentOutOfRangeException(nameof(n), n, "The argument was negative.");
+        }
+
+        return n * (2L * n - 1L);
+    }
+
+    /// <summary>
+    /// Generates all hexagonal numbers in ascending order.
+    /// </summary>
+    /// <remarks>Enumeration should be stopped using linq.</remarks>
+    public static IEnumerable<long> Generate()
+    {
+        for (var n = 0L; n < long.MaxValue; n++)
+        {
+            yield return Get(n);
         }
     }
 
@@ -34,33 +87,7 @@ public static class HexagonalNumbers
 
         while (start <= end)
         {
-            yield return GetNumber(start++);
+            yield return Get(start++);
         }
-    }
-
-    /// <summary>
-    /// Gets the <paramref name="n"/>th hexagonal number.
-    /// </summary>
-    /// <param name="n">The position of the hexagonal number.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="n"/> is lower than 1.</exception>
-    public static long GetNumber(long n)
-    {
-        if (n <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(n));
-        }
-
-        return n * (2L * n - 1L);
-    }
-
-    /// <summary>
-    /// Determines whether the specified <paramref name="number"/> is a hexagonal number.
-    /// </summary>
-    /// <param name="number">The number to check.</param>
-    /// <returns><see langword="true"/> if the number is a hexagonal number; <see langword="false"/> otherwise.</returns>
-    public static bool IsHexagonalNumber(long number)
-    {
-        var n = (1 + Math.Sqrt(1.0 + 8.0 * number)) / 4.0;
-        return double.IsPositive(n) && double.IsInteger(n);
     }
 }

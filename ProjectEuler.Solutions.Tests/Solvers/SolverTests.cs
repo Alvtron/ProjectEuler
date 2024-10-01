@@ -18,13 +18,6 @@ public class SolverTests
         this.solverService = new SolverService();
     }
 
-    [OneTimeTearDown]
-    public void TearDown()
-    {
-        this.answers = null;
-        this.solverService = null;
-    }
-
     [TestCaseSource(typeof(ProblemNumberCases))]
     public async Task Solve_AllProblems_ReturnsCorrectAnswers(int problemNumber)
     {
