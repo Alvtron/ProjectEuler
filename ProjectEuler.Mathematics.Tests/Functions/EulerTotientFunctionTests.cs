@@ -78,14 +78,14 @@ public class EulerTotientFunctionTests
     }
 
     [Test]
-    public void Test_EulerTotient_ZeroInput_ThrowsException()
+    public void Calculate_ZeroInput_ThrowsException()
     {
         // Zero input should throw an exception
         Assert.That(() => EulerTotientFunction.Calculate(0), Throws.InstanceOf<ArgumentOutOfRangeException>());
     }
 
     [Test]
-    public void Test_EulerTotient_NegativeInput_ThrowsException()
+    public void Calculate_NegativeInput_ThrowsException()
     {
         // Negative input should throw an exception
         Assert.That(() => EulerTotientFunction.Calculate(-5), Throws.InstanceOf<ArgumentOutOfRangeException>());

@@ -9,38 +9,45 @@ public static class EulerTotientFunction
     /// <summary>
     /// Calculates the Euler totient function of the specified number.
     /// </summary>
-    /// <param name="number">The number to calculate the Euler totient function for.</param>
+    /// <param name="n">The number to calculate the Euler totient function for.</param>
     /// <returns>The Euler totient function of the specified number.</returns>
-    public static int Calculate(int number)
+    public static long Calculate(long n)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(number);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(n);
 
-        var result = number;
-        var p = 2;
-
-        // Loop over potential factors
-        while (p * p <= number)
+        if (n == 1)
         {
-            // Check if p is a factor of n
-            if (number % p == 0)
-            {
-                // Divide n by p as long as it's divisible
-                while (number % p == 0)
-                {
-                    number /= p;
-                }
-
-                // Update the result by removing the factor p
-                result -= result / p;
-            }
-
-            p++;
+            return 1;
         }
 
-        // If n is still greater than 1, it must be prime
-        if (number > 1)
+        var result = n;
+        // Check for the factor 2
+        if (n % 2 == 0)
         {
-            result -= result / number;
+            result -= result / 2;
+            while (n % 2 == 0)
+            {
+                n /= 2;
+            }
+        }
+
+        // Check for odd factors starting from 3
+        for (long p = 3; p * p <= n; p += 2)
+        {
+            if (n % p == 0)
+            {
+                result -= result / p;
+                while (n % p == 0)
+                {
+                    n /= p;
+                }
+            }
+        }
+
+        // If n is still greater than 1, it is prime
+        if (n > 1)
+        {
+            result -= result / n;
         }
 
         return result;

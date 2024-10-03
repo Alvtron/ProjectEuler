@@ -1,7 +1,53 @@
-﻿namespace ProjectEuler.Mathematics.Combinatorics;
+﻿using ProjectEuler.Extensions.Numbers;
+
+namespace ProjectEuler.Mathematics.Combinatorics;
 
 public static class Permutations
 {
+    /// <summary>
+    /// Determines whether two numbers are permutations of each other.
+    /// </summary>
+    /// <param name="a">The first number.</param>
+    /// <param name="b">The second number.</param>
+    /// <returns><see langword="true"/> if the numbers are permutations, or if both numbers are equal; <see langword="false"/> otherwise.</returns>
+    public static bool ArePermutations(long a, long b)
+    {
+        if (a == b)
+        {
+            return true;
+        }
+        
+        if (long.Sign(a) != long.Sign(b) || a.Length() != b.Length())
+        {
+            return false;
+        }
+
+        var digitCount = new int[10];
+
+        // Count digits in a
+        while (a > 0)
+        {
+            digitCount[a % 10]++;
+            a /= 10;
+        }
+
+        // Deduct digits in b
+        while (b > 0)
+        {
+            var digit = b % 10;
+            digitCount[digit]--;
+            // If a digit count goes negative, b has more of that digit than a
+            if (digitCount[digit] < 0)
+            {
+                return false;
+            }
+
+            b /= 10;
+        }
+
+        return true;
+    }
+
     /// <summary>
     /// Finds all possible permutations of the <paramref name="elements"/> in lexicographic order.
     /// </summary>
