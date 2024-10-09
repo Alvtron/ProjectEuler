@@ -1,4 +1,5 @@
 ﻿using ProjectEuler.Extensions.Numbers;
+using ProjectEuler.Mathematics.Functions;
 using ProjectEuler.Solutions.Answers;
 
 namespace ProjectEuler.Solutions.Solvers;
@@ -13,7 +14,7 @@ internal sealed class Solver_0033: ISolver
             (1, 1),
             (current, fraction) => (current.Item1 * fraction.numerator, current.Item2 * fraction.denominator));
 
-        var commonDivisor = FinGreatestCommonDivisor(product.Item1, product.Item2);
+        var commonDivisor = GreatestCommonDivisor.Of(product.Item1, product.Item2);
 
         return await Task.FromResult(product.Item2 / commonDivisor);
     }
@@ -54,32 +55,5 @@ internal sealed class Solver_0033: ISolver
                 yield return (numerator, denominator);
             }
         }
-    }
-
-    private static int FinGreatestCommonDivisor(int first, int second)
-    {
-        if (int.IsNegative(first))
-        {
-            throw new ArgumentException("The first number was negative.", nameof(first));
-        }
-
-        if (int.IsNegative(second))
-        {
-            throw new ArgumentException("The second number was negative.", nameof(second));
-        }
-
-        while (first != 0 && second != 0)
-        {
-            if (first > second)
-            {
-                first %= second;
-            }
-            else
-            {
-                second %= first;
-            }
-        }
-
-        return first | second;
     }
 }
