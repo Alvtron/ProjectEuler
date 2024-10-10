@@ -2,6 +2,8 @@
 
 namespace ProjectEuler.Mathematics.Tests.Combinatorics;
 
+using NUnit.Framework;
+
 [TestFixture]
 public class CombinationsTests
 {

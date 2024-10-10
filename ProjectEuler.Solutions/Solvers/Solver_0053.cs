@@ -1,6 +1,6 @@
-﻿using ProjectEuler.Mathematics.Combinatorics;
-using ProjectEuler.Solutions.Answers;
+﻿using ProjectEuler.Solutions.Answers;
 using System.Numerics;
+using ProjectEuler.Mathematics.Functions;
 
 namespace ProjectEuler.Solutions.Solvers;
 
