@@ -1,5 +1,4 @@
-﻿using ProjectEuler.Mathematics.Geometry;
-using ProjectEuler.Solutions.Answers;
+﻿using ProjectEuler.Solutions.Answers;
 using ProjectEuler.Utilities.Collections;
 
 namespace ProjectEuler.Solutions.Solvers;
@@ -50,10 +49,10 @@ internal sealed class Solver_0028 : ISolver
 
         var moves = new Cycle<Func<Position, Position>>
         {
-            p => p.Right(),
-            p => p.Down(),
-            p => p.Left(),
-            p => p.Up(),
+            p => p.Move(Position.Right),
+            p => p.Move(Position.Down),
+            p => p.Move(Position.Left),
+            p => p.Move(Position.Up),
         };
 
         var currentMove = moves.Next();
@@ -73,5 +72,16 @@ internal sealed class Solver_0028 : ISolver
         }
 
         return spiral;
+    }
+
+    public readonly record struct Position(int X, int Y)
+    {
+        public static Position Right => new(1, 0);
+        public static Position Left => new(-1, 0);
+        public static Position Up => new(0, 1);
+        public static Position Down => new(0, -1);
+
+        public Position Move(Position direction)
+            => new(this.X + direction.X, this.Y + direction.Y);
     }
 }
