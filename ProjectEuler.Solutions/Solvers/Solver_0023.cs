@@ -4,7 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0023 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         const int LIMIT = 28123;
             
@@ -14,10 +14,10 @@ internal sealed class Solver_0023 : ISolver
             .Where(number => !sumsOfAbundantNumbers.Contains(number));
 
         var sumOfPositiveIntegers = positiveIntegers.Sum();
-        return await Task.FromResult(sumOfPositiveIntegers);
+        return Task.FromResult<Answer>(sumOfPositiveIntegers);
     }
 
-    private static ISet<int> GetSumsOfAbundantNumbers(int limit)
+    private static HashSet<int> GetSumsOfAbundantNumbers(int limit)
     {
         var abundantNumbers = new HashSet<int>();
         var sumsOfAbundantNumbers = new HashSet<int>();

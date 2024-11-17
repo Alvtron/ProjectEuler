@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0034: ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sum = FindCuriousNumbersBetween(3, 1_500_000).Sum();
-        return await Task.FromResult(sum);
+        return Task.FromResult<Answer>(sum);
     }
 
     private static IEnumerable<int> FindCuriousNumbersBetween(int start, int end)

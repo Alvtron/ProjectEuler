@@ -4,7 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0116 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         const int ROW_LENGTH = 50;
 
@@ -13,7 +13,7 @@ internal sealed class Solver_0116 : ISolver
         var blueBlockCounter = new BlockCombinationCounter(ROW_LENGTH, 4);
 
         var numberOfBlockCombinations = redBlockCounter.Count() + greenBlockCounter.Count() + blueBlockCounter.Count() - 3;
-        return await Task.FromResult(numberOfBlockCombinations);
+        return Task.FromResult<Answer>(numberOfBlockCombinations);
     }
 
     private sealed class BlockCombinationCounter(int rowLength, int blockLength)

@@ -6,10 +6,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0038 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var largestPandigital = FindLargestPandigital();
-        return await Task.FromResult(largestPandigital);
+        return Task.FromResult<Answer>(largestPandigital);
     }
 
     private static int FindLargestPandigital()

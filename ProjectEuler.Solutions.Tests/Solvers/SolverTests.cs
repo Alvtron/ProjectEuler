@@ -8,15 +8,8 @@ namespace ProjectEuler.Solutions.Tests.Solvers;
 [TestFixture]
 public class SolverTests
 {
-    private AnswerSource answers;
-    private SolverService solverService;
-
-    [OneTimeSetUp]
-    public void SetUp()
-    {
-        this.answers = new AnswerSource();
-        this.solverService = new SolverService();
-    }
+    private readonly AnswerSource answers = new();
+    private readonly SolverService solverService = new();
 
     [TestCaseSource(typeof(ProblemNumberCases))]
     public async Task Solve_AllProblems_ReturnsCorrectAnswers(int problemNumber)

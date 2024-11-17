@@ -5,13 +5,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0046 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var smallestComposite = FindSmallestCompositeRefutingGoldbach();
-        return await Task.FromResult(smallestComposite);
+        return Task.FromResult<Answer>(smallestComposite);
     }
 
-    private static Answer FindSmallestCompositeRefutingGoldbach()
+    private static long FindSmallestCompositeRefutingGoldbach()
     {
         foreach (var composite in CompositeNumbers.Generate().Where(long.IsOddInteger))
         {

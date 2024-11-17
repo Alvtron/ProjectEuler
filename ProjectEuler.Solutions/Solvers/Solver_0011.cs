@@ -1,18 +1,15 @@
 ﻿using ProjectEuler.Solutions.Answers;
-using ProjectEuler.Solutions.Resources;
 
 namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0011 : ISolver
 {
-    private static readonly string MatrixFilePath = ResourcesHelper.GetResourcePath("problem_0011_numbers.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var matrix = ConvertStringToMatrix(await File.ReadAllTextAsync(MatrixFilePath, cancellationToken), Environment.NewLine, " ", 20);
+        var matrix = ConvertStringToMatrix(Resources.Resource_0011.Numbers, Environment.NewLine, " ", 20);
 
-        var largestProductInGrid = this.GetLargestProductInGrid(matrix, 4);
-        return await Task.FromResult(largestProductInGrid);
+        var largestProductInGrid = GetLargestProductInGrid(matrix, 4);
+        return Task.FromResult<Answer>(largestProductInGrid);
     }
 
     private static int[,] ConvertStringToMatrix(string source, string rowDelimiter, string columnDelimiter, int size)
@@ -33,7 +30,7 @@ internal sealed class Solver_0011 : ISolver
         return matrix;
     }
 
-    private long GetLargestProductInGrid(int[,] matrix, int steps)
+    private static long GetLargestProductInGrid(int[,] matrix, int steps)
     {
         var numberOfRows = matrix.GetLength(0);
         var numberOfColumns = matrix.GetLength(1);

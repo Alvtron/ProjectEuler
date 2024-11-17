@@ -4,7 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal class Solver_0017 : ISolver
 {
-    private static readonly Dictionary<string, string> NumberDictionary = new Dictionary<string, string>()
+    private static readonly Dictionary<string, string> NumberDictionary = new()
     {
         ["0"] = "zero",
         ["1"] = "one",
@@ -108,36 +108,23 @@ internal class Solver_0017 : ISolver
         ["99"] = "ninety-nine"
     };
 
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var numberOfWords = CountNumberOfWordsForAllNumbers(1, 1000);
-        return await Task.FromResult(numberOfWords);
+        return Task.FromResult<Answer>(numberOfWords);
     }
 
-    private static string DigitsToString(string digits)
+    private static int CountNumberOfWordsForAllNumbers(int start, int limit)
     {
-        digits = digits.TrimStart('0');
+        var count = 0;
 
-        return digits.Length switch
+        for (var number = start; number <= limit; number++)
         {
-            0 => string.Empty,
-            1 => $"{NumberDictionary[digits]}",
-            2 => $"{NumberDictionary[digits]}",
-            3 => $"{NumberDictionary[digits.Substring(0, 1)]} hundred {DigitsToString(digits[1..])}",
-            4 => $"{NumberDictionary[digits.Substring(0, 1)]} thousand {DigitsToString(digits[1..])}",
-            5 => $"{DigitsToString(digits.Substring(0, 2))} thousand {DigitsToString(digits[2..])}",
-            6 => $"{DigitsToString(digits.Substring(0, 3))} thousand {DigitsToString(digits[3..])}",
-            7 => $"{DigitsToString(digits.Substring(0, 1))} million {DigitsToString(digits[1..])}",
-            8 => $"{DigitsToString(digits.Substring(0, 2))} million {DigitsToString(digits[2..])}",
-            9 => $"{DigitsToString(digits.Substring(0, 3))} million {DigitsToString(digits[3..])}",
-            10 => $"{DigitsToString(digits.Substring(0, 1))} billion {DigitsToString(digits[1..])}",
-            11 => $"{DigitsToString(digits.Substring(0, 2))} billion {DigitsToString(digits[2..])}",
-            12 => $"{DigitsToString(digits.Substring(0, 3))} billion {DigitsToString(digits[3..])}",
-            13 => $"{DigitsToString(digits.Substring(0, 1))} trillion {DigitsToString(digits[1..])}",
-            14 => $"{DigitsToString(digits.Substring(0, 2))} trillion {DigitsToString(digits[2..])}",
-            15 => $"{DigitsToString(digits.Substring(0, 3))} trillion {DigitsToString(digits[3..])}",
-            _ => throw new NotImplementedException(),
-        };
+            var numberString = ConstructBritishDigitString(number.ToString());
+            count += numberString.Count(char.IsLetter);
+        }
+
+        return count;
     }
 
     private static string ConstructBritishDigitString(string digits)
@@ -150,22 +137,33 @@ internal class Solver_0017 : ISolver
         {
             return digitString.Insert(digitString.Length - lastDigitWord.Length, "and ");
         }
-        else
-        {
-            return digitString;
-        }
+
+        return digitString;
     }
 
-    private static int CountNumberOfWordsForAllNumbers(int start, int limit)
+    private static string DigitsToString(string digits)
     {
-        var count = 0;
+        digits = digits.TrimStart('0');
 
-        for (var number = start; number <= limit; number++)
+        return digits.Length switch
         {
-            var numberString = ConstructBritishDigitString(number.ToString());
-            count += numberString.Count(c => char.IsLetter(c));
-        }
-
-        return count;
+            0 => string.Empty,
+            1 => $"{NumberDictionary[digits]}",
+            2 => $"{NumberDictionary[digits]}",
+            3 => $"{NumberDictionary[digits[..1]]} hundred {DigitsToString(digits[1..])}",
+            4 => $"{NumberDictionary[digits[..1]]} thousand {DigitsToString(digits[1..])}",
+            5 => $"{DigitsToString(digits[..2])} thousand {DigitsToString(digits[2..])}",
+            6 => $"{DigitsToString(digits[..3])} thousand {DigitsToString(digits[3..])}",
+            7 => $"{DigitsToString(digits[..1])} million {DigitsToString(digits[1..])}",
+            8 => $"{DigitsToString(digits[..2])} million {DigitsToString(digits[2..])}",
+            9 => $"{DigitsToString(digits[..3])} million {DigitsToString(digits[3..])}",
+            10 => $"{DigitsToString(digits[..1])} billion {DigitsToString(digits[1..])}",
+            11 => $"{DigitsToString(digits[..2])} billion {DigitsToString(digits[2..])}",
+            12 => $"{DigitsToString(digits[..3])} billion {DigitsToString(digits[3..])}",
+            13 => $"{DigitsToString(digits[..1])} trillion {DigitsToString(digits[1..])}",
+            14 => $"{DigitsToString(digits[..2])} trillion {DigitsToString(digits[2..])}",
+            15 => $"{DigitsToString(digits[..3])} trillion {DigitsToString(digits[3..])}",
+            _ => throw new NotImplementedException(),
+        };
     }
 }

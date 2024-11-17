@@ -4,20 +4,20 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0024 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var digits = Enumerable.Range(0, 10).ToArray();
 
         for (var index = 1; index < 1_000_000; index++)
         {
-            Permutate(digits);
+            Permute(digits);
         }
 
         var lexicographicPermutation = string.Concat(digits);
-        return await Task.FromResult(lexicographicPermutation);
+        return Task.FromResult<Answer>(lexicographicPermutation);
     }
 
-    private static void Permutate(int[] digits)
+    private static void Permute(int[] digits)
     {
         // find non-increasing suffix
         var i = digits.Length - 1;

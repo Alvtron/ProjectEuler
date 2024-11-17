@@ -5,11 +5,11 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0016 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var number = BigInteger.Pow(2, 1000);
         var powerDigitSum = SumOfDigits(number);
-        return await Task.FromResult(powerDigitSum);
+        return Task.FromResult<Answer>(powerDigitSum);
     }
 
     private static int SumOfDigits(BigInteger number)

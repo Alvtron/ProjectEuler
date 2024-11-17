@@ -4,10 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0015 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var latticePaths = GetNumberOfPaths(20, 20);
-        return await Task.FromResult(latticePaths);
+        return Task.FromResult<Answer>(latticePaths);
     }
 
     private static bool IsAtTargetLocation(int x, int y, long?[,] grid)

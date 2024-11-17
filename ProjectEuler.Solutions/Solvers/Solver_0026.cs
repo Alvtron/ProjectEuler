@@ -9,10 +9,10 @@ internal sealed class Solver_0026 : ISolver
 {
     private const int MAXIMUM_NUMBER_OF_FRACTALS = 2000;
 
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var denominator = FindDenominatorWithLongestRecurringFractionCycle(1, 2, 1000);
-        return await Task.FromResult(denominator);
+        return Task.FromResult<Answer>(denominator);
     }
 
     private static long FindDenominatorWithLongestRecurringFractionCycle(long numerator, long startDenominator, long endDenominator)

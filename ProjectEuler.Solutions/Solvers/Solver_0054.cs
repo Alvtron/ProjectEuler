@@ -5,11 +5,9 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0054 : ISolver
 {
-    private static readonly string PokerHandsFilePath = ResourcesHelper.GetResourcePath("problem_0054_pokerhands.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var lines = await File.ReadAllLinesAsync(PokerHandsFilePath, cancellationToken);
+        var lines = Resource_0054.PokerHands.Split(Environment.NewLine);
 
         var pokerHandComparer = new PokerHandComparer();
         var count = 0;
@@ -24,7 +22,7 @@ internal sealed class Solver_0054 : ISolver
             }
         }
 
-        return count;
+        return Task.FromResult<Answer>(count);
     }
 
     private static Hand ParseFirstHand(string hand)
@@ -77,7 +75,7 @@ internal sealed class Solver_0054 : ISolver
 
     private readonly record struct Card(CardValue CardValue, CardSuit CardSuit);
 
-    private readonly record struct Hand(Card[] cards);
+    private readonly record struct Hand(Card[] Cards);
 
     private enum CardValue : byte
     {
@@ -132,7 +130,7 @@ internal sealed class Solver_0054 : ISolver
 
         private static (HandRank RankType, IEnumerable<Card> HighCards) GetHandRank(Hand hand)
         {
-            var cards = hand.cards.OrderByDescending(c => c.CardValue).ToArray();
+            var cards = hand.Cards.OrderByDescending(c => c.CardValue).ToArray();
 
             if (IsRoyalFlush(cards))
                 return (HandRank.RoyalFlush, cards);

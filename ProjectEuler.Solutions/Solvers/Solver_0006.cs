@@ -4,11 +4,11 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0006 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var numbers = Enumerable.Range(1, 100).ToArray();
         var sumSquareDifference = DifferenceBetweenSumOfSquaresAndSquareOfSum(numbers);
-        return await Task.FromResult(sumSquareDifference);
+        return Task.FromResult<Answer>(sumSquareDifference);
     }
 
     private static long SumOfSquares(IEnumerable<int> numbers)

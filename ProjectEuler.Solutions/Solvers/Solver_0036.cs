@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0036 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var palindromes = FindDoubleBasePalindromesBetween(0, 1_000_000);
-        return await Task.FromResult(palindromes.Sum());
+        return Task.FromResult<Answer>(palindromes.Sum());
     }
 
     private static IEnumerable<int> FindDoubleBasePalindromesBetween(int start, int end)

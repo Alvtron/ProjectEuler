@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0044 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var smallestPentagonalDifference = FindSmallestPentagonalDifference();
-        return await Task.FromResult(smallestPentagonalDifference);
+        return Task.FromResult<Answer>(smallestPentagonalDifference);
     }
 
     private static long FindSmallestPentagonalDifference()

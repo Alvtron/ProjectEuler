@@ -51,7 +51,7 @@ internal sealed class Solver_0051 : ISolver
         throw new InvalidOperationException("No solution found.");
     }
 
-    private static long ApplyPattern(IReadOnlyList<int> digits, BitArray pattern, int digit)
+    private static long ApplyPattern(List<int> digits, BitArray pattern, int digit)
     {
         var result = 0L;
         for (var i = 0; i < digits.Count; i++)
@@ -59,6 +59,7 @@ internal sealed class Solver_0051 : ISolver
             var d = pattern[i] ? digit : digits[i];
             result = result * 10 + d;
         }
+
         return result;
     }
 }

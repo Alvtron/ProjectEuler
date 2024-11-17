@@ -6,7 +6,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0033: ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var curiousFractions = FindCuriousFractions(10, 99);
 
@@ -16,7 +16,7 @@ internal sealed class Solver_0033: ISolver
 
         var commonDivisor = GreatestCommonDivisor.Of(product.Item1, product.Item2);
 
-        return await Task.FromResult(product.Item2 / commonDivisor);
+        return Task.FromResult<Answer>(product.Item2 / commonDivisor);
     }
 
     private static IEnumerable<(int numerator, int denominator)> FindCuriousFractions(int start, int end)

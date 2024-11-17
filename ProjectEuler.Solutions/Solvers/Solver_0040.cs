@@ -5,11 +5,11 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0040 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var digits = FindFractionalDigits(1, 10, 100, 1000, 10_000, 100_000, 1_000_000);
         var product = digits.Aggregate(1, (product, digit) => product * digit);
-        return await Task.FromResult(product);
+        return Task.FromResult<Answer>(product);
     }
 
     private static IEnumerable<int> FindFractionalDigits(params int[] digitIndices)

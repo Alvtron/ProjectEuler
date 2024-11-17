@@ -6,11 +6,11 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0035 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var count = FindCircularPrimesBetween(0, 1_000_000);
 
-        return await Task.FromResult(count);
+        return Task.FromResult<Answer>(count);
     }
 
     private static int FindCircularPrimesBetween(int start, int end)

@@ -4,13 +4,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0021 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sumOfAmicableNumbers = GetSumOfAmicableNumbersInRange(1, 10000);
-        return await Task.FromResult(sumOfAmicableNumbers);
+        return Task.FromResult<Answer>(sumOfAmicableNumbers);
     }
 
-    private static Answer GetSumOfAmicableNumbersInRange(int start, int end)
+    private static int GetSumOfAmicableNumbersInRange(int start, int end)
     {
         var numbersSums = new Dictionary<int, int>();
 
@@ -26,16 +26,14 @@ internal sealed class Solver_0021 : ISolver
 
         foreach (var (firstNumber, firstSum) in numbersSums)
         {
-            var secondNumber = firstSum;
-
             // skip already processed numbers
-            if (firstNumber >= secondNumber)
+            if (firstNumber >= firstSum)
             {
                 continue;
             }
 
             // skip if there are no other number equal to the sum of divisors of the first number
-            if (!numbersSums.TryGetValue(secondNumber, out var secondSum))
+            if (!numbersSums.TryGetValue(firstSum, out var secondSum))
             {
                 continue;
             }

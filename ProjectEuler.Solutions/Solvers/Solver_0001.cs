@@ -4,13 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0001 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var numbers = new[] { 3, 5 };
-        const int LIMIT = 1000;
-
-        var sumOfMultiples = SumOfMultiples(numbers, LIMIT);
-        return await Task.FromResult(sumOfMultiples);
+        var sumOfMultiples = SumOfMultiples(numbers: [3, 5], limit: 1000);
+        return Task.FromResult<Answer>(sumOfMultiples);
     }
 
     private static int SumOfMultiples(int[] numbers, int limit)

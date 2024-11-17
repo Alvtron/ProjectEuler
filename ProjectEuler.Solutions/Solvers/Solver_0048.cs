@@ -5,7 +5,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0048 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sum = BigInteger.Zero;
 
@@ -16,6 +16,6 @@ internal sealed class Solver_0048 : ISolver
 
         var lastDigits = string.Concat(sum.ToString().TakeLast(10));
 
-        return await Task.FromResult(lastDigits);
+        return Task.FromResult<Answer>(lastDigits);
     }
 }

@@ -6,7 +6,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0025 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         const int NUMBER_OF_DIGITS = 1000;
         var index = 0;
@@ -15,13 +15,13 @@ internal sealed class Solver_0025 : ISolver
         {
             if (NumberOfDigitsOf(fibonacciNumber) == NUMBER_OF_DIGITS)
             {
-                return await Task.FromResult(index);
+                return Task.FromResult<Answer>(index);
             }
 
             index++;
         }
 
-        return await Task.FromResult(Answer.Empty);
+        return Task.FromResult(Answer.Empty);
     }
 
     private static int NumberOfDigitsOf(BigInteger number)

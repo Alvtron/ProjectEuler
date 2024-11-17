@@ -4,10 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0009 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var (a, b, c) = FindPythagoreanTripletThatEquals(1000);
-        return await Task.FromResult(a * b * c);
+        return Task.FromResult<Answer>(a * b * c);
     }
 
     private static Tuple<int, int, int> FindPythagoreanTripletThatEquals(int sum)

@@ -8,10 +8,10 @@ internal sealed class Solver_0115 : ISolver
     private const int MINIMUM_BLOCK_LENGTH = 50;
     private const int MINIMUM_PADDING_LENGTH = 1;
 
-    private Dictionary<int, long> countFromBlockCache = new();
-    private Dictionary<int, long> countFromEmptyCache = new();
+    private Dictionary<int, long> countFromBlockCache = [];
+    private Dictionary<int, long> countFromEmptyCache = [];
 
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var count = 0L;
         var rowLength = MINIMUM_BLOCK_LENGTH;
@@ -21,13 +21,13 @@ internal sealed class Solver_0115 : ISolver
             count = this.CountBlockCombinations(rowLength++);
         }
 
-        return await Task.FromResult(rowLength - 1);
+        return Task.FromResult<Answer>(rowLength - 1);
     }
 
     private long CountBlockCombinations(int rowLength)
     {
-        this.countFromBlockCache = new Dictionary<int, long>();
-        this.countFromEmptyCache = new Dictionary<int, long>();
+        this.countFromBlockCache = [];
+        this.countFromEmptyCache = [];
 
         var countStartingWithEmpty =
             this.CountBlockCombinationsFromPadding(MINIMUM_PADDING_LENGTH - 1, rowLength - 1);

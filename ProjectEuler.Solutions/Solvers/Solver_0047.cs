@@ -6,10 +6,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0047 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var firstConsecutiveNumber = FindConsecutiveNumbersWithDistinctPrimeFactors(4, 4).First();
-        return await Task.FromResult(firstConsecutiveNumber);
+        return Task.FromResult<Answer>(firstConsecutiveNumber);
     }
 
     private static IEnumerable<int> FindConsecutiveNumbersWithDistinctPrimeFactors(int numberOfConsecutiveNumbers, int numberOfDistinctPrimes)
@@ -32,6 +32,6 @@ internal sealed class Solver_0047 : ISolver
             return Enumerable.Range(startNumber, numberOfConsecutiveNumbers);
         }
 
-        return Enumerable.Empty<int>();
+        return [];
     }
 }

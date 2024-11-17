@@ -5,13 +5,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0003 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var largestPrimeFactor = FindPrimeFactors(600851475143L).Max();
-        return await Task.FromResult(largestPrimeFactor);
+        return Task.FromResult<Answer>(largestPrimeFactor);
     }
 
-    private static IEnumerable<long> FindPrimeFactors(long number)
+    private static List<long> FindPrimeFactors(long number)
     {
         var remainder = number;
         var primeFactors = new List<long>();

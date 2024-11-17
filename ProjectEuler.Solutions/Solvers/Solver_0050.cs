@@ -39,6 +39,6 @@ internal sealed class Solver_0050 : ISolver
             }
         }
 
-        return ReadOnlySpan<long>.Empty;
+        return [];
     }
 }

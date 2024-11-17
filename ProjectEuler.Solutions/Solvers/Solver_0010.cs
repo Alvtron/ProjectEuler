@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0010 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var summationOfPrimes = SumOfPrimesBelow(2_000_000);
-        return await Task.FromResult(summationOfPrimes);
+        return Task.FromResult<Answer>(summationOfPrimes);
     }
 
     private static long SumOfPrimesBelow(long limit)

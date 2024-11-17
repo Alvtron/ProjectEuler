@@ -6,7 +6,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0037 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sumOfTrunctablePrimes = Enumerable
             .Range(10, int.MaxValue - 10)
@@ -14,7 +14,7 @@ internal sealed class Solver_0037 : ISolver
             .Take(11)
             .Sum();
         
-        return await Task.FromResult(sumOfTrunctablePrimes);
+        return Task.FromResult<Answer>(sumOfTrunctablePrimes);
     }
 
     private static bool IsTrunctable(int number)

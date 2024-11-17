@@ -4,7 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0012 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         const int NUMBER_OF_FACTORS = 500;
 
@@ -13,11 +13,11 @@ internal sealed class Solver_0012 : ISolver
             var numberOfFactors = GetNumberOfFactorsOf(triangleNumber);
             if (numberOfFactors > NUMBER_OF_FACTORS)
             {
-                return await Task.FromResult(triangleNumber);
+                return Task.FromResult<Answer>(triangleNumber);
             }
         }
 
-        return await Task.FromResult(Answer.Empty);
+        return Task.FromResult(Answer.Empty);
     }
 
     private static IEnumerable<int> GenerateTriangleNumbers()
@@ -42,7 +42,7 @@ internal sealed class Solver_0012 : ISolver
         {
             if (number % divisor == 0)
             {
-                // found pair of factors
+                // found a pair of factors
                 factorCount += 2;
             }
         }

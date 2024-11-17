@@ -11,12 +11,12 @@ internal sealed class Solver_0114 : ISolver
     private readonly long?[] countFromBlockCache = new long?[ROW_LENGTH];
     private readonly long?[] countFromEmptyCache = new long?[ROW_LENGTH];
 
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var countStartingWithEmpty = this.CountBlockCombinationsFromPadding(MINIMUM_PADDING_LENGTH - 1, ROW_LENGTH - 1);
         var countStartingWithFilled = this.CountBlockCombinationsFromBlock(MINIMUM_BLOCK_LENGTH - 1, ROW_LENGTH - 1);
 
-        return await Task.FromResult(countStartingWithEmpty + countStartingWithFilled);
+        return Task.FromResult<Answer>(countStartingWithEmpty + countStartingWithFilled);
     }
 
     private long CountBlockCombinationsFromBlock(int index, int end)

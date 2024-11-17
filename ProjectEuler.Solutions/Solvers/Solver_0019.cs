@@ -4,13 +4,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0019 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var start = new DateTime(1901, 1, 1);
         var end = new DateTime(2000, 12, 31);
 
         var numberOfSundays = CountWeekDayEveryDayOfTheMonth(start, end, 1, DayOfWeek.Sunday);
-        return await Task.FromResult(numberOfSundays);
+        return Task.FromResult<Answer>(numberOfSundays);
     }
 
     private static int CountWeekDayEveryDayOfTheMonth(DateTime start, DateTime end, int day, DayOfWeek dayOfWeek)

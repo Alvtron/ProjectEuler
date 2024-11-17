@@ -6,23 +6,20 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0059 : ISolver
 {
-    private static readonly string CipherFilePath = ResourcesHelper.GetResourcePath("problem_0059_cipher.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var encryptedMessage = await ReadEncryptedMessageAsync(cancellationToken);
+        var encryptedMessage = ReadEncryptedMessage();
 
         var key = FindKey(encryptedMessage);
         var decryptedMessage = Decrypt(encryptedMessage, key);
         var sum = decryptedMessage.Sum(c => c);
 
-        return sum;
+        return Task.FromResult<Answer>(sum);
     }
 
-    private static async Task<int[]> ReadEncryptedMessageAsync(CancellationToken cancellationToken)
+    private static int[] ReadEncryptedMessage()
     {
-        var encryptedMessage = await File.ReadAllTextAsync(CipherFilePath, cancellationToken);
-        return encryptedMessage.Split(',').Select(int.Parse).ToArray();
+        return Resource_0059.Cipher.Split(',').Select(int.Parse).ToArray();
     }
 
     private static int[] FindKey(Span<int> encryptedMessage)

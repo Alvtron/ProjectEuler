@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0041 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var largestPandigitalPrime = FindLargestPandigitalPrimeBetween();
-        return await Task.FromResult(largestPandigitalPrime);
+        return Task.FromResult<Answer>(largestPandigitalPrime);
     }
 
     private static long FindLargestPandigitalPrimeBetween()

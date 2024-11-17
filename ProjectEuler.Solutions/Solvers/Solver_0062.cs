@@ -21,14 +21,16 @@ internal sealed class Solver_0062 : ISolver
             var cube = n * n * n;
             var key = string.Concat(cube.Digits().OrderBy(d => d));
 
-            if (!cubeMap.ContainsKey(key))
+            if (cubeMap.TryGetValue(key, out var mappedCubes))
             {
-                cubeMap[key] = [];
+                mappedCubes.Add(cube);
+            }
+            else
+            {
+                mappedCubes = cubeMap[key] = [cube];
             }
 
-            cubeMap[key].Add(cube);
-
-            if (cubeMap[key].Count == 5)
+            if (mappedCubes.Count == 5)
             {
                 cubePermutation = cubeMap[key].First();
             }

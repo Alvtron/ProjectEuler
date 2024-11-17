@@ -5,13 +5,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0020 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var number = new BigInteger(100);
         var factorial = CalculateFactorial(number);
 
         var factorialDigitSum = SumOfDigitsOf(factorial);
-        return await Task.FromResult(factorialDigitSum);
+        return Task.FromResult<Answer>(factorialDigitSum);
     }
 
     private static int SumOfDigitsOf(BigInteger number)

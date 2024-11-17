@@ -6,7 +6,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0032 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var products = new HashSet<int>();
 
@@ -35,6 +35,6 @@ internal sealed class Solver_0032 : ISolver
         }
 
         var sumOfProducts = products.Sum();
-        return await Task.FromResult(sumOfProducts);
+        return Task.FromResult<Answer>(sumOfProducts);
     }
 }

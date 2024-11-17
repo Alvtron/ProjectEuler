@@ -5,10 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0030 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sumOfPowers = FindSumOfPowers(5).Sum();
-        return await Task.FromResult(sumOfPowers);
+        return Task.FromResult<Answer>(sumOfPowers);
     }
 
     private static IEnumerable<double> FindSumOfPowers(int power)

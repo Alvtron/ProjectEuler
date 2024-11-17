@@ -5,12 +5,12 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0045 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        return await Task.FromResult(FindNextTriangleNumber(286));
+        return Task.FromResult<Answer>(FindNextTriangleNumber(286));
     }
 
-    private static Answer FindNextTriangleNumber(long position)
+    private static long FindNextTriangleNumber(long position)
     {
         foreach (var triangular in TriangularNumbers.Between(position, long.MaxValue))
         {

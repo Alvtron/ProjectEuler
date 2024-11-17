@@ -6,16 +6,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0013 : ISolver
 {
-    private static readonly string NumbersFilePath = ResourcesHelper.GetResourcePath("problem_0013_numbers.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var numbersString = await File.ReadAllTextAsync(NumbersFilePath, cancellationToken);
-        var numbers = GetNumbersFromString(numbersString);
+        var numbers = GetNumbersFromString(Resource_0013.Numbers);
         var sum = GetSumOf(numbers);
 
         var largestSum = GetFirstDigitsOf(sum, 10);
-        return await Task.FromResult(largestSum);
+        return Task.FromResult<Answer>(largestSum);
     }
 
     private static IEnumerable<BigInteger> GetNumbersFromString(string numbers)

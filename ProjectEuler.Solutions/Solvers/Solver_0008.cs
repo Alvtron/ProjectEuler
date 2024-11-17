@@ -5,13 +5,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0008 : ISolver
 {
-    private static readonly string NumberFilePath = ResourcesHelper.GetResourcePath("problem_0008_number.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var number = await File.ReadAllTextAsync(NumberFilePath, cancellationToken);
-        var greatestProductOfAdjacentDigits = GreatestProductOfAdjacentDigits(number, 13);
-        return await Task.FromResult(greatestProductOfAdjacentDigits);
+        var greatestProductOfAdjacentDigits = GreatestProductOfAdjacentDigits(Resource_0008.LargeNumber, 13);
+        return Task.FromResult<Answer>(greatestProductOfAdjacentDigits);
     }
 
     private static long GreatestProductOfAdjacentDigits(string largeNumber, int numberOfDigits)

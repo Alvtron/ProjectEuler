@@ -6,13 +6,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0042 : ISolver
 {
-    private static readonly string NumbersFilePath = ResourcesHelper.GetResourcePath("problem_0042_words.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var words = await File.ReadAllTextAsync(NumbersFilePath, cancellationToken);
-        var numberOfTriangleWords = CountTriangleWords(words.Replace("\"", string.Empty).Split(','));
-        return await Task.FromResult(numberOfTriangleWords);
+        var numberOfTriangleWords = CountTriangleWords(Resource_0042.Words.Replace("\"", string.Empty).Split(','));
+        return Task.FromResult<Answer>(numberOfTriangleWords);
     }
 
     private static int CountTriangleWords(IEnumerable<string> words)

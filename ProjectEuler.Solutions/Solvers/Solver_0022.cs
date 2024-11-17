@@ -1,5 +1,4 @@
-﻿using ProjectEuler.Extensions.Streams;
-using ProjectEuler.Mathematics.Letters;
+﻿using ProjectEuler.Mathematics.Letters;
 using ProjectEuler.Solutions.Answers;
 using ProjectEuler.Solutions.Resources;
 
@@ -7,28 +6,25 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0022 : ISolver
 {
-    private static readonly string NamesFilePath = ResourcesHelper.GetResourcePath("problem_0022_names.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var wordScores = GetWordScoresInFile(NamesFilePath);
+        var wordScores = GetWordScoresInFile();
         var sumOfNamesScores = wordScores.Sum();
-        return await Task.FromResult(sumOfNamesScores);
+        return Task.FromResult<Answer>(sumOfNamesScores);
     }
 
-    private static IEnumerable<int> GetWordScoresInFile(string path)
+    private static IEnumerable<int> GetWordScoresInFile()
     {
-        var wordCounts = CountWordsInFile(path);
+        var wordCounts = GetWords(Resource_0022.Names);
 
         var wordPosition = 1;
-        foreach (var (word, count) in wordCounts)
+        foreach (var word in wordCounts.Order(StringComparer.OrdinalIgnoreCase))
         {
-            var lastWordPosition = wordPosition + count - 1;
+            var lastWordPosition = wordPosition;
+            var wordScore = GetWordScore(word);
 
             while (wordPosition <= lastWordPosition)
             {
-                var wordScore = GetWordScore(word);
-
                 yield return wordPosition++ * wordScore;
             }
         }
@@ -42,22 +38,19 @@ internal sealed class Solver_0022 : ISolver
             .Sum();
     }
 
-    private static SortedDictionary<string, int> CountWordsInFile(string path)
+    private static HashSet<string> GetWords(ReadOnlySpan<char> text)
     {
-        using var streamReader = new StreamReader(path);
-
-        var wordCounts = new SortedDictionary<string, int>(StringComparer.InvariantCulture);
-
-        foreach (var word in streamReader.ReadWords())
+        var wordCounts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var lookUp = wordCounts.GetAlternateLookup<ReadOnlySpan<char>>();
+        foreach (var wordRange in text.SplitAny("\","))
         {
-            if (wordCounts.ContainsKey(word))
+            var word = text[wordRange];
+            if (word.IsEmpty)
             {
-                wordCounts[word]++;
+                continue;
             }
-            else
-            {
-                wordCounts[word] = 1;
-            }
+
+            lookUp.Add(word);
         }
 
         return wordCounts;

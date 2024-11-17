@@ -4,10 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0039 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var perimeter = FindPerimeterWithMaximumRightAngleTriangles(3, 1000);
-        return await Task.FromResult(perimeter);
+        return Task.FromResult<Answer>(perimeter);
     }
 
     private static int FindPerimeterWithMaximumRightAngleTriangles(int minimumPerimeter, int maximumPerimeter)

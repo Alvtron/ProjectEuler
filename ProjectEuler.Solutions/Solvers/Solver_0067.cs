@@ -5,18 +5,16 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0067 : ISolver
 {
-    private static readonly string NumbersFilePath = ResourcesHelper.GetResourcePath("problem_0067_triangle.txt");
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var triangle = await CreateTriangle(cancellationToken);
+        var triangle = CreateTriangle();
         var maximumPathSum = GetMaximumPathSum(triangle);
-        return await Task.FromResult(maximumPathSum);
+        return Task.FromResult<Answer>(maximumPathSum);
     }
 
-    private static async Task<int[][]> CreateTriangle(CancellationToken cancellationToken)
+    private static int[][] CreateTriangle()
     {
-        var lines = await File.ReadAllLinesAsync(NumbersFilePath, cancellationToken);
+        var lines = Resource_0067.Triangle.Split(Environment.NewLine);
 
         var triangle = new int[lines.Length][];
 

@@ -4,7 +4,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0031 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var coins = new Coin[]
         {
@@ -20,7 +20,7 @@ internal sealed class Solver_0031 : ISolver
 
         var numberOfCombinations = FindCombinationsOfCoinsMatchingSum(coins, 200);
 
-        return await Task.FromResult(numberOfCombinations);
+        return Task.FromResult<Answer>(numberOfCombinations);
     }
 
     private static int FindCombinationsOfCoinsMatchingSum(IEnumerable<Coin> coins, int targetSum)

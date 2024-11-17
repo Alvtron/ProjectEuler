@@ -4,13 +4,13 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0029 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var numberOfDistinctPowers = GeneratePowerCombinations(2, 100, 2, 100)
             .Distinct()
             .Count();
 
-        return await Task.FromResult(numberOfDistinctPowers);
+        return Task.FromResult<Answer>(numberOfDistinctPowers);
     }
 
     private static IEnumerable<double> GeneratePowerCombinations(int baseMin, int baseMax, int exponentMin, int exponentMax)

@@ -7,25 +7,23 @@ internal sealed class Solver_0074 : ISolver
 {
     public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        const int length = 60;
-        const int limit = 1_000_000;
-        var result = FindDigitFactorialChainsOfLength(length, limit);
+        var result = FindDigitFactorialChainsOfLength(length: 60, limit: 1_000_000);
         return Task.FromResult<Answer>(result);
     }
 
-    static int FindDigitFactorialChainsOfLength(int length, int limit)
+    private static int FindDigitFactorialChainsOfLength(int length, int limit)
     {
         var count = 0;
         var nodes = new Dictionary<int, Node>();
 
         for (var number = 1; number < limit; number++)
         {
-            if (!nodes.ContainsKey(number))
+            if (!nodes.TryGetValue(number, out var node))
             {
-                nodes[number] = new Node {Value = number };
+                node = nodes[number] = new Node {Value = number };
             }
 
-            var chainLength = FindChainLength(nodes[number], nodes);
+            var chainLength = FindChainLength(node, nodes);
             if (chainLength == length)
             {
                 count++;
@@ -35,7 +33,7 @@ internal sealed class Solver_0074 : ISolver
         return count;
     }
 
-    static int FindChainLength(Node current, Dictionary<int, Node> nodes)
+    private static int FindChainLength(Node current, Dictionary<int, Node> nodes)
     {
         var seen = new HashSet<int>();
         var chain = new List<Node>();
@@ -56,12 +54,12 @@ internal sealed class Solver_0074 : ISolver
             seen.Add(current.Value);
 
             var nextValue = Factorial.Sum(current.Value);
-            if (!nodes.ContainsKey(nextValue))
+            if (!nodes.TryGetValue(nextValue, out var nextNode))
             {
-                nodes[nextValue] = new Node { Value = nextValue };
+                nextNode = nodes[nextValue] = new Node { Value = nextValue };
             }
 
-            current = nodes[nextValue];
+            current = nextNode;
         }
 
         // If a loop is detected, assign loop lengths
@@ -70,20 +68,15 @@ internal sealed class Solver_0074 : ISolver
 
         for (var i = 0; i < chain.Count; i++)
         {
-            if (i < loopStart)
-            {
-                chain[i].ChainLength = chain.Count - i;
-            }
-            else
-            {
-                chain[i].ChainLength = loopLength;
-            }
+            chain[i].ChainLength = i < loopStart 
+                ? chain.Count - i 
+                : loopLength;
         }
 
         return chain.Count;
     }
 
-    public record Node
+    private sealed record Node
     {
         public int Value { get; init; }
 

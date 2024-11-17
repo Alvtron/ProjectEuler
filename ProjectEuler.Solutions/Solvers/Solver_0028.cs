@@ -6,7 +6,7 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0028 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         const int SIZE = 1001;
         var spiral = CreateSpiral(SIZE);
@@ -26,7 +26,7 @@ internal sealed class Solver_0028 : ISolver
 
         sum += spiral[MIDDLE, MIDDLE];
 
-        return await Task.FromResult(sum);
+        return Task.FromResult<Answer>(sum);
     }
 
     private static int[,] CreateSpiral(int size)

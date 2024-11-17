@@ -7,10 +7,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0043 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var sum = FindDivisiblePandigitalNumbers().Sum();
-        return await Task.FromResult(sum);
+        return Task.FromResult<Answer>(sum);
     }
      
     private static IEnumerable<long> FindDivisiblePandigitalNumbers()

@@ -4,10 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0014 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var longestCollatzSequence = GetNumberForLongestChain(1000000);
-        return await Task.FromResult(longestCollatzSequence);
+        return Task.FromResult<Answer>(longestCollatzSequence);
     }
 
     private static long GetNextTerm(long number)
@@ -47,9 +47,9 @@ internal sealed class Solver_0014 : ISolver
             while (term > 1)
             {
                 term = GetNextTerm(term);
-                if (numberOfTermsByNumber.ContainsKey(term))
+                if (numberOfTermsByNumber.TryGetValue(term, out var numberOfTerms))
                 {
-                    count += numberOfTermsByNumber[term];
+                    count += numberOfTerms;
                     break;
                 }
                 count++;

@@ -4,12 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0002 : ISolver
 {
-    private const int LIMIT = 4000000;
-
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
-        var sumOfEvenFibonacciNumbers = SumOfEvenFibonacciNumbers(LIMIT);
-        return await Task.FromResult(sumOfEvenFibonacciNumbers);
+        var sumOfEvenFibonacciNumbers = SumOfEvenFibonacciNumbers(limit: 4_000_000);
+        return Task.FromResult<Answer>(sumOfEvenFibonacciNumbers);
     }
 
     private static long SumOfEvenFibonacciNumbers(int limit)

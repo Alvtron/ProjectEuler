@@ -4,10 +4,10 @@ namespace ProjectEuler.Solutions.Solvers;
 
 internal sealed class Solver_0004 : ISolver
 {
-    public async Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
+    public Task<Answer> SolveAsync(CancellationToken cancellationToken = default)
     {
         var largestPalindromeProduct = FindLargestPalindrome(3);
-        return await Task.FromResult(largestPalindromeProduct);
+        return Task.FromResult<Answer>(largestPalindromeProduct);
     }
 
     private static int FindLargestPalindrome(int productSize)
