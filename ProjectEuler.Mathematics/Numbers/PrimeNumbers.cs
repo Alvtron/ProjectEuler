@@ -21,11 +21,11 @@ public static class PrimeNumbers
     }
 
     /// <summary>
-    /// Find all composite values between a <paramref name="start"/> and <paramref name="end"/>.
+    /// Find all prime numbers between a <paramref name="start"/> and <paramref name="end"/>.
     /// </summary>
     /// <remarks>
     /// If <paramref name="start"/> is greater than <paramref name="end"/>,
-    /// the composite values are generated in descending order.
+    /// the prime numbers are generated in descending order.
     /// </remarks>
     /// <param name="start">The start number that defines one point in the search space.</param>
     /// <param name="end">The end number that defines another point in the search space.</param>
@@ -40,7 +40,7 @@ public static class PrimeNumbers
         end = long.Max(end, 1L);
 
         var step = start < end ? 2L : -2L;
-        if (start < 2L)
+        if (start <= 2L)
         {
             yield return 2L;
 
