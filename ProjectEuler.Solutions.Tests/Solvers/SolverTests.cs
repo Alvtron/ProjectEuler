@@ -14,17 +14,6 @@ public class SolverTests
     [TestCaseSource(typeof(ProblemNumberCases))]
     public async Task Solve_AllProblems_ReturnsCorrectAnswers(int problemNumber)
     {
-        await this.RunSolverAndAssertAnswer(problemNumber);
-    }
-
-    [Test, Explicit]
-    public async Task Solve_SpecificProblems_ReturnsCorrectAnswer([Values(1,2,3)] int problemNumber)
-    {
-        await this.RunSolverAndAssertAnswer(problemNumber);
-    }
-
-    private async Task RunSolverAndAssertAnswer(int problemNumber)
-    {
         if (!this.solverService.CanSolve(problemNumber))
         {
             Assert.Ignore($"Ignoring problem {problemNumber}. No solver exists.");
@@ -47,19 +36,23 @@ public class SolverTests
         stopwatch.Stop();
 
         // ASSERT
-        Assert.That(solvedAnswer, Is.EqualTo(answer), CreateFailureMessage(stopwatch, solvedAnswer, answer));
-        Assert.Pass(CreateSuccessMessage(stopwatch, solvedAnswer));
+        Assert.That(solvedAnswer, Is.EqualTo(answer), CreateFailureMessage(stopwatch.Elapsed, solvedAnswer, answer));
+        Assert.Pass(CreateSuccessMessage(stopwatch.Elapsed, solvedAnswer));
     }
 
-    private static string CreateFailureMessage(Stopwatch stopwatch, Answer solvedAnswer, Answer actualAnswer)
+    private static string CreateFailureMessage(TimeSpan duration, Answer solvedAnswer, Answer actualAnswer)
     {
-        return $"{solvedAnswer} in {stopwatch.Elapsed.TotalMilliseconds:#.00} ms. " +
-               $"The correct answer should be {actualAnswer}.";
+        return $"{solvedAnswer} in {PrettyDuration(duration)}. The correct answer should be {actualAnswer}.";
     }
 
-    private static string CreateSuccessMessage(Stopwatch stopwatch, Answer solvedAnswer)
+    private static string CreateSuccessMessage(TimeSpan duration, Answer solvedAnswer)
     {
-        return $"{solvedAnswer}, in {stopwatch.Elapsed.TotalMilliseconds:#.00} ms.";
+        return $"{solvedAnswer} in {PrettyDuration(duration)}.";
+    }
+
+    private static string PrettyDuration(TimeSpan duration)
+    {
+        return duration.TotalMilliseconds < 1000 ? $"{duration.TotalMilliseconds:F2} ms" : $"{duration.TotalSeconds:F2} s";
     }
 
     private sealed class ProblemNumberCases : IEnumerable
