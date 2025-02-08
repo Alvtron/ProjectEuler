@@ -1,10 +1,9 @@
-﻿namespace ProjectEuler.Solutions.Resources
+﻿namespace ProjectEuler.Solutions.Resources;
+
+internal static class ResourcesHelper
 {
-    internal static class ResourcesHelper
+    public static string GetResourcePath(string filePath)
     {
-        public static string GetResourcePath(string filePath)
-        {
-            return Path.Combine(Environment.CurrentDirectory, "Resources", filePath);
-        }
+        return Path.Combine(Environment.CurrentDirectory, "Resources", filePath);
     }
 }
