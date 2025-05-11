@@ -18,8 +18,16 @@ public class ProblemSource
         var htmlDoc = await web.LoadFromWebAsync(url.ToString(), cancellationToken);
 
         var titleNode = htmlDoc.DocumentNode.SelectSingleNode("//h2");
+        if (titleNode is null)
+        {
+            throw new InvalidOperationException($"Could not find the title node for problem {number}.");
+        }
 
         var descriptionNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='problem_content']");
+        if (descriptionNode is null)
+        {
+            throw new InvalidOperationException($"Could not find the description node for problem {number}.");
+        }
 
         return this.cache[number] = new Problem(number, titleNode.InnerText, descriptionNode.InnerText);
     }
